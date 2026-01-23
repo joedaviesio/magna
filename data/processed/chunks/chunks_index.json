@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-01-24T10:52:57.675635",
+  "total_chunks": 27645,
+  "chunk_config": {
+    "max_tokens": 512,
+    "overlap_tokens": 50,
+    "min_tokens": 50
+  },
+  "acts": {
+    "building-2004": 3820,
+    "companies-1993": 4093,
+    "contract-commercial-law-2017": 1592,
+    "employment-relations-2000": 3206,
+    "fair-trading-1986": 903,
+    "privacy-1993": 935,
+    "privacy-2020": 1169,
+    "property-law-2007": 2296,
+    "residential-tenancies-1986": 2197,
+    "resource-management-1991": 7434
+  }
+}

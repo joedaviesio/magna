@@ -1,0 +1,50 @@
+Phase,Task ID,Task Name,Description,Duration (Days),Dependencies,Owner Role,Priority,Status,Deliverable,Notes
+1 - Planning,1.1,Define 10 Key Acts,Select most impactful legislation for demo,2,,Project Lead,Critical,Not Started,List of 10 Acts,"Residential Tenancies, Employment Relations, Property Law, Companies Act, Contract Law, Building Act, Privacy Act, Consumer Guarantees, Resource Management, Fair Trading"
+1 - Planning,1.2,Stakeholder Research,Identify target law firms and their practice areas,3,1.1,Project Lead,High,Not Started,Law firm prospect list,Focus on property/employment/commercial firms
+1 - Planning,1.3,Technical Stack Decision,Finalise RAG framework and LLM choice,2,,Tech Lead,Critical,Not Started,Architecture document,Recommend: LangChain + Claude API + Vercel
+1 - Planning,1.4,Budget Estimation,Calculate prototype and pitch costs,1,1.3,Project Lead,High,Not Started,Budget spreadsheet,Target under $5000 for prototype
+1 - Planning,1.5,Success Metrics Definition,Define what success looks like for demo,1,1.1,Project Lead,Medium,Not Started,Metrics document,Response accuracy and citation rate
+2 - Data Acquisition,2.1,Download Legislation XML,Bulk download 10 Acts from data.govt.nz,1,1.1,Developer,Critical,Not Started,XML files for 10 Acts,Use PCO's public dataset
+2 - Data Acquisition,2.2,Parse XML Structure,Extract sections/definitions/schedules,3,2.1,Developer,Critical,Not Started,Parsed JSON/documents,Preserve section numbering and hierarchy
+2 - Data Acquisition,2.3,Create Chunking Strategy,Design section-aware text splitting,2,2.2,Tech Lead,Critical,Not Started,Chunking code,512-1024 token chunks with overlap
+2 - Data Acquisition,2.4,Generate Embeddings,Create vector embeddings for all chunks,1,2.3,Developer,Critical,Not Started,Vector database populated,Use OpenAI embeddings or open source
+2 - Data Acquisition,2.5,Build Metadata Schema,Design metadata for citations/linking,2,2.2,Tech Lead,High,Not Started,Schema document,"Include: act_name, section_number, url, date_updated"
+2 - Data Acquisition,2.6,Test Retrieval Quality,Validate search returns relevant chunks,2,2.4,Tech Lead,Critical,Not Started,Test results report,Target 85%+ relevance on test queries
+3 - Backend Development,3.1,Set Up Development Environment,Configure local dev with Docker/Python,1,,Developer,Critical,Not Started,Working dev environment,Python 3.11+ recommended
+3 - Backend Development,3.2,Implement RAG Pipeline,Build retrieval + generation chain,5,2.6,Developer,Critical,Not Started,Working RAG backend,LangChain or LlamaIndex
+3 - Backend Development,3.3,Design System Prompt,Create guardrails and response format,2,3.2,Tech Lead,Critical,Not Started,System prompt document,Include disclaimer requirement
+3 - Backend Development,3.4,Build Citation Extractor,Extract and format source citations,2,3.2,Developer,High,Not Started,Citation component,Links back to legislation.govt.nz
+3 - Backend Development,3.5,Implement Query Routing,Route different query types appropriately,2,3.2,Developer,Medium,Not Started,Router logic,Detect advice-seeking vs info-seeking
+3 - Backend Development,3.6,Add Error Handling,Handle edge cases gracefully,2,3.2,Developer,High,Not Started,Error handling code,Graceful fallbacks for no results
+3 - Backend Development,3.7,Create API Endpoints,Build REST API for frontend,2,3.2,Developer,Critical,Not Started,API documentation,/chat and /health endpoints minimum
+3 - Backend Development,3.8,Add Rate Limiting,Prevent abuse for demo,1,3.7,Developer,Medium,Not Started,Rate limiter config,10 requests/minute for demo
+4 - Frontend Development,4.1,Design UI/UX Mockups,Create elegant chat interface design,3,,Designer/Dev,Critical,Not Started,Figma/design mockups,Premium law firm aesthetic
+4 - Frontend Development,4.2,Set Up Frontend Project,Initialise Next.js/React project,1,4.1,Developer,Critical,Not Started,Project scaffold,Next.js 14 with App Router
+4 - Frontend Development,4.3,Build Chat Interface,Implement main conversation UI,4,4.2,Developer,Critical,Not Started,Chat component,Streaming responses preferred
+4 - Frontend Development,4.4,Style with Design System,Apply elegant typography and colours,3,4.3,Developer,Critical,Not Started,Styled components,Dark/light mode premium feel
+4 - Frontend Development,4.5,Add Citation Display,Show sources with clickable links,2,4.3,Developer,High,Not Started,Citation component,Collapsible source panel
+4 - Frontend Development,4.6,Implement Disclaimer Banner,Add prominent legal disclaimer,1,4.3,Developer,Critical,Not Started,Disclaimer component,Cannot be dismissed easily
+4 - Frontend Development,4.7,Add Loading States,Smooth loading animations,1,4.3,Developer,Medium,Not Started,Loading components,Skeleton loaders and spinners
+4 - Frontend Development,4.8,Mobile Responsiveness,Ensure works on tablets/phones,2,4.4,Developer,High,Not Started,Responsive CSS,Test on iPad for law firm demos
+4 - Frontend Development,4.9,Add Example Questions,Pre-populated sample queries,1,4.3,Developer,Medium,Not Started,Example prompts,3-5 compelling demo questions
+5 - Integration & Testing,5.1,Connect Frontend to Backend,Wire up API calls,2,3.7 + 4.3,Developer,Critical,Not Started,Working integration,Handle streaming responses
+5 - Integration & Testing,5.2,End-to-End Testing,Test full user flows,3,5.1,Developer,Critical,Not Started,Test report,Cover 10 key scenarios
+5 - Integration & Testing,5.3,Accuracy Testing,Verify legal accuracy of responses,3,5.1,Tech Lead,Critical,Not Started,Accuracy report,Get legal review if possible
+5 - Integration & Testing,5.4,Performance Testing,Ensure <5 second responses,1,5.1,Developer,High,Not Started,Performance metrics,Optimise if needed
+5 - Integration & Testing,5.5,Security Review,Check for basic vulnerabilities,1,5.1,Developer,High,Not Started,Security checklist,No sensitive data exposure
+6 - Deployment,6.1,Set Up Production Environment,Configure Vercel/hosting,1,5.2,Developer,Critical,Not Started,Production URL,vercel.app or custom domain
+6 - Deployment,6.2,Configure Domain,Set up nzlegal.ai or similar,1,6.1,Project Lead,Medium,Not Started,Custom domain,.co.nz domain preferred
+6 - Deployment,6.3,Set Up Analytics,Add basic usage tracking,1,6.1,Developer,Medium,Not Started,Analytics dashboard,Privacy-respecting analytics
+6 - Deployment,6.4,Create Demo Account,Set up credentials for pitches,1,6.1,Project Lead,High,Not Started,Demo login,Password protect if needed
+6 - Deployment,6.5,Final QA on Production,Test live environment,1,6.1,Developer,Critical,Not Started,QA sign-off,Full regression test
+7 - Pitch Preparation,7.1,Create Pitch Deck,Design compelling presentation,5,6.5,Project Lead,Critical,Not Started,PowerPoint/PDF deck,10-15 slides max
+7 - Pitch Preparation,7.2,Prepare Demo Script,Write walkthrough for live demo,2,6.5,Project Lead,Critical,Not Started,Demo script,3-5 minute live demo
+7 - Pitch Preparation,7.3,Calculate Funding Ask,Define investment needed and ROI,2,7.1,Project Lead,Critical,Not Started,Funding proposal,$50-100k for full build
+7 - Pitch Preparation,7.4,Identify Target Firms,Research NZ law firms for outreach,3,7.1,Project Lead,High,Not Started,Target list,"Top 20 firms: Bell Gully, Chapman Tripp, Russell McVeagh, etc."
+7 - Pitch Preparation,7.5,Draft Outreach Emails,Write personalised pitch emails,2,7.4,Project Lead,High,Not Started,Email templates,Customise per firm
+7 - Pitch Preparation,7.6,Schedule Meetings,Book demo presentations,5,7.5,Project Lead,Critical,Not Started,Meeting calendar,Target 5-10 meetings
+7 - Pitch Preparation,7.7,Rehearse Pitch,Practice presentation and Q&A,2,7.2,Project Lead,High,Not Started,Rehearsal notes,Anticipate objections
+8 - Post-Pitch,8.1,Gather Feedback,Document feedback from each meeting,Ongoing,7.6,Project Lead,High,Not Started,Feedback log,Track common questions/concerns
+8 - Post-Pitch,8.2,Iterate Prototype,Make improvements based on feedback,Ongoing,8.1,Developer,Medium,Not Started,Updated prototype,Quick wins first
+8 - Post-Pitch,8.3,Negotiate Terms,Discuss funding arrangements,Ongoing,8.1,Project Lead,Critical,Not Started,Term sheet,Equity vs sponsorship vs grant
+8 - Post-Pitch,8.4,Sign Agreement,Formalise funding commitment,Ongoing,8.3,Project Lead,Critical,Not Started,Signed agreement,Legal review recommended

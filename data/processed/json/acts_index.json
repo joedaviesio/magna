@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-01-24T10:50:45.606376",
+  "total_acts": 10,
+  "total_sections": 26125,
+  "acts": [
+    {
+      "title": "Building Act 2004",
+      "short_name": "BA",
+      "year": 2004,
+      "sections_count": 3695,
+      "file": "building-2004.json"
+    },
+    {
+      "title": "Companies Act 1993",
+      "short_name": "CA",
+      "year": 1993,
+      "sections_count": 3831,
+      "file": "companies-1993.json"
+    },
+    {
+      "title": "Contract and Commercial Law Act 2017",
+      "short_name": "CCLA",
+      "year": 2017,
+      "sections_count": 1567,
+      "file": "contract-commercial-law-2017.json"
+    },
+    {
+      "title": "Employment Relations Act 2000",
+      "short_name": "ERA",
+      "year": 2000,
+      "sections_count": 3104,
+      "file": "employment-relations-2000.json"
+    },
+    {
+      "title": "Fair Trading Act 1986",
+      "short_name": "FTA",
+      "year": 1986,
+      "sections_count": 840,
+      "file": "fair-trading-1986.json"
+    },
+    {
+      "title": "Privacy Act 1993",
+      "short_name": "PA1993",
+      "year": 1993,
+      "sections_count": 863,
+      "file": "privacy-1993.json"
+    },
+    {
+      "title": "Privacy Act 2020",
+      "short_name": "PA",
+      "year": 2020,
+      "sections_count": 1117,
+      "file": "privacy-2020.json"
+    },
+    {
+      "title": "Property Law Act 2007",
+      "short_name": "PLA",
+      "year": 2007,
+      "sections_count": 2233,
+      "file": "property-law-2007.json"
+    },
+    {
+      "title": "Residential Tenancies Act 1986",
+      "short_name": "RTA",
+      "year": 1986,
+      "sections_count": 2030,
+      "file": "residential-tenancies-1986.json"
+    },
+    {
+      "title": "Resource Management Act 1991",
+      "short_name": "RMA",
+      "year": 1991,
+      "sections_count": 6845,
+      "file": "resource-management-1991.json"
+    }
+  ]
+}
