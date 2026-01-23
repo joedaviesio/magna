@@ -52,7 +52,7 @@ Build a Next.js frontend for "Magna" - a free, public NZ legal information assis
 
 #### 5. Disclaimer Footer
 - Always visible at bottom of chat
-- Text: "⚠️ This is AI-generated information, NOT legal advice. Consult a qualified NZ lawyer for legal decisions."
+- Text: "⚠️ Magna is an AI Chat bot,, NOT legal advice. Consult a qualified NZ lawyer for legal decisions."
 - Subtle styling, not intrusive
 
 #### 6. Example Questions

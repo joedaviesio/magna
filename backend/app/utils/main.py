@@ -71,81 +71,25 @@ embedding_model = None
 anthropic_client = None
 
 # System prompt
-SYSTEM_PROMPT = """You are Magna, an AI legal information assistant for New Zealand legislation.
+SYSTEM_PROMPT = """You are Magna, an AI legal information assistant for New Zealand legislation. 
 
-## YOUR KNOWLEDGE
-You have general knowledge about NZ law from your training, including:
-- The purpose and scope of major NZ Acts
-- How NZ legal system works
-- Common legal concepts and terminology
-
-## YOUR ROLE
-1. Use your general knowledge to EXPLAIN and provide context about NZ legislation
-2. Use the PROVIDED EXCERPTS to cite SPECIFIC sections and current wording
-3. Combine both to give comprehensive, accurate answers
-
-## CRITICAL RULES
+CRITICAL RULES:
 1. You provide INFORMATION only, NOT legal advice
-2. When citing specific provisions, use the exact wording from the excerpts
-3. If excerpts don't contain relevant detail, use your general knowledge but note "Based on my general knowledge..." vs "According to Section X..."
-4. Always distinguish between:
-   - What you know generally about the law
-   - What is specifically cited from the excerpts provided
-5. For "What is [Act]?" questions, explain the Act's purpose and scope from general knowledge, then cite any relevant sections from excerpts
+2. ALWAYS cite specific sections (e.g., "Section 12 of the Residential Tenancies Act 1986")
+3. If information isn't in the context, say so clearly
+4. Use plain language to explain legal concepts
+5. For "Can I do X?" questions, explain what the legislation SAYS, don't give advice
 
-## RESPONSE APPROACH
-For general questions ("What is the RMA?"):
-- Lead with a general explanation from your knowledge
-- Then cite specific sections if the excerpts contain relevant provisions
-- Mention key sections even if not in excerpts (e.g., "Section 5 sets out the purpose...")
+RESPONSE FORMAT:
+- Start with a direct answer based on the legislation
+- Cite specific sections
+- Explain in plain language
+- Note any exceptions or conditions
+- Keep responses concise but complete
 
-For specific questions ("What is the bond limit?"):
-- Answer directly using the excerpts
-- Cite the exact section and wording
-- Add context from general knowledge if helpful
-
-## AVAILABLE ACTS
-You have excerpts from these NZ Acts (as at late 2025):
-- Residential Tenancies Act 1986 (RTA) - tenancy, bonds, landlord/tenant rights
-- Employment Relations Act 2000 (ERA) - employment, dismissal, leave, unions
-- Companies Act 1993 (CA) - company formation, directors, shareholders
-- Fair Trading Act 1986 (FTA) - consumer protection, misleading conduct
-- Property Law Act 2007 (PLA) - property transactions, mortgages, leases
-- Privacy Act 2020 (PA) - personal information, privacy principles
-- Building Act 2004 (BA) - building consents, code compliance
-- Contract and Commercial Law Act 2017 (CCLA) - contracts, sale of goods
-- Resource Management Act 1991 (RMA) - environmental management, resource consents
-
-## CITATION FORMAT
-When citing from excerpts: "Under Section X of the [Act Name]..."
-When using general knowledge: "The [Act] generally provides for..." or "Based on my understanding of NZ law..."
-
-Always end responses by encouraging users to verify current legislation at legislation.govt.nz and consult a lawyer for specific situations."""
+You have access to: Residential Tenancies Act 1986, Employment Relations Act 2000, Companies Act 1993, Fair Trading Act 1986, Property Law Act 2007, Privacy Act 2020, Building Act 2004, Contract and Commercial Law Act 2017, Resource Management Act 1991."""
 
 DISCLAIMER = """⚠️ Magna is an AI Chat bot, NOT legal advice. It may be incomplete or outdated. For legal decisions, consult a qualified NZ lawyer or Community Law Centre."""
-
-
-def detect_act_from_query(query: str) -> Optional[str]:
-    """Detect if user is asking about a specific Act."""
-    query_lower = query.lower()
-
-    act_keywords = {
-        'Resource Management': ['rma', 'resource management', 'resource consent', 'environmental'],
-        'Residential Tenancies': ['rta', 'residential tenancies', 'tenancy', 'tenant', 'landlord', 'bond', 'rental'],
-        'Employment Relations': ['era', 'employment relations', 'employment', 'employer', 'employee', 'dismissal', 'redundancy'],
-        'Companies': ['companies act', 'company', 'director', 'shareholder', 'incorporation'],
-        'Fair Trading': ['fta', 'fair trading', 'misleading', 'deceptive', 'consumer protection'],
-        'Privacy': ['privacy act', 'privacy', 'personal information', 'data protection'],
-        'Building': ['building act', 'building consent', 'building code', 'construction'],
-        'Property Law': ['pla', 'property law', 'mortgage', 'lease', 'easement'],
-        'Contract and Commercial': ['ccla', 'contract', 'commercial law', 'sale of goods'],
-    }
-
-    for act_name, keywords in act_keywords.items():
-        if any(kw in query_lower for kw in keywords):
-            return act_name
-
-    return None
 
 
 @app.on_event("startup")
@@ -198,52 +142,20 @@ async def startup():
     print("=" * 50 + "\n")
 
 
-def search_similar(query: str, top_k: int = TOP_K, act_filter: str = None) -> List[dict]:
-    """Search for similar chunks with optional act filtering and keyword boosting."""
+def search_similar(query: str, top_k: int = TOP_K) -> List[dict]:
+    """Search for similar chunks using cosine similarity."""
     if embeddings is None or embedding_model is None:
         return []
-
+    
     # Encode query
     query_embedding = embedding_model.encode(query, convert_to_numpy=True)
-
+    
     # Calculate cosine similarities
-    similarities = np.dot(embeddings, query_embedding).copy()
-
-    # Keyword boosting for important sections
-    boost_terms = ['purpose', 'interpretation', 'application', 'object', 'principle', 'definition']
-    query_lower = query.lower()
-
-    # Boost scores for chunks containing key terms when asking "what is" questions
-    if any(q in query_lower for q in ['what is', 'what are', 'explain', 'overview', 'purpose of']):
-        for i, meta in enumerate(metadata):
-            text_lower = meta.get('text', '').lower()
-            heading_lower = meta.get('section_heading', '').lower()
-
-            # Boost purpose/interpretation sections
-            for term in boost_terms:
-                if term in heading_lower or term in text_lower[:200]:
-                    similarities[i] *= 1.3  # 30% boost
-
-            # Boost section 1-10 (usually purpose/interpretation)
-            section_num = meta.get('section_number', '')
-            if section_num.isdigit() and int(section_num) <= 10:
-                similarities[i] *= 1.2  # 20% boost
-
-    # Apply act filter if specified
-    if act_filter:
-        act_filter_lower = act_filter.lower()
-        for i, meta in enumerate(metadata):
-            act_title = meta.get('act_title', '').lower()
-            act_short = meta.get('act_short_name', '').lower()
-            if act_filter_lower not in act_title and act_filter_lower not in act_short:
-                similarities[i] = -1  # Exclude non-matching acts
-
+    similarities = np.dot(embeddings, query_embedding)
+    
     # Get top-k indices
     top_indices = np.argsort(similarities)[-top_k:][::-1]
-
-    # Filter out negative scores (excluded by act filter)
-    top_indices = [i for i in top_indices if similarities[i] > 0]
-
+    
     results = []
     for idx in top_indices:
         meta = metadata[idx]
@@ -257,65 +169,48 @@ def search_similar(query: str, top_k: int = TOP_K, act_filter: str = None) -> Li
             "act_url": meta.get("act_url", ""),
             "score": float(similarities[idx])
         })
-
+    
     return results
 
 
 def build_context(results: List[dict]) -> str:
-    """Build context string with better organization."""
+    """Build context string from search results."""
     if not results:
-        return "No specific legislation excerpts found for this query. Please use your general knowledge about NZ law."
-
-    # Group by Act
-    by_act = {}
-    for r in results:
-        act = r['act_title']
-        if act not in by_act:
-            by_act[act] = []
-        by_act[act].append(r)
-
+        return "No relevant legislation found."
+    
     parts = []
-    for act_title, act_results in by_act.items():
-        act_section = f"## {act_title}\n\n"
-        for r in act_results:
-            if r['section_number']:
-                act_section += f"**Section {r['section_number']}"
-                if r['section_heading']:
-                    act_section += f" - {r['section_heading']}"
-                act_section += f"**\n{r['text']}\n\n"
-            else:
-                act_section += f"{r['text']}\n\n"
-        parts.append(act_section)
-
-    return "\n---\n\n".join(parts)
+    for i, r in enumerate(results, 1):
+        header = f"[Source {i}: {r['act_title']}"
+        if r['section_number']:
+            header += f", Section {r['section_number']}"
+        if r['section_heading']:
+            header += f" - {r['section_heading']}"
+        header += "]"
+        parts.append(f"{header}\n{r['text']}")
+    
+    return "\n\n---\n\n".join(parts)
 
 
 async def generate_response(query: str, context: str) -> str:
-    """Generate response using Claude with hybrid knowledge approach."""
+    """Generate response using Claude."""
     if not anthropic_client:
         return "I'm sorry, but the AI service is not available. Please check the API key configuration."
-
+    
     try:
         message = anthropic_client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=1500,  # Increased for fuller responses
+            max_tokens=1024,
             system=SYSTEM_PROMPT,
             messages=[{
                 "role": "user",
-                "content": f"""Question: {query}
+                "content": f"""Based on these excerpts from New Zealand legislation, answer the question.
 
-LEGISLATION EXCERPTS FROM DATABASE:
+LEGISLATION EXCERPTS:
 {context}
 
----
+QUESTION: {query}
 
-Please answer the question using:
-1. Your general knowledge about NZ law to provide context and explanation
-2. The specific excerpts above to cite exact provisions and wording
-
-If the excerpts don't contain the specific information needed, use your general knowledge but make clear what comes from the excerpts vs your training.
-
-Remember: Provide information, not legal advice. Cite specific sections where possible."""
+Provide a helpful response based on the legislation above. Cite specific sections."""
             }]
         )
         return message.content[0].text
@@ -347,34 +242,27 @@ async def health():
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
-    """Main chat endpoint with improved retrieval."""
+    """Main chat endpoint."""
     query = request.message.strip()
-
+    
     if not query:
         raise HTTPException(status_code=400, detail="Message cannot be empty")
-
-    # Detect if asking about specific Act
-    detected_act = detect_act_from_query(query)
-
-    # Search with optional act filter and increased results
-    results = search_similar(
-        query,
-        top_k=10,  # Increased from 5
-        act_filter=detected_act
-    )
-
+    
+    # Search for relevant chunks
+    results = search_similar(query, top_k=TOP_K)
+    
     # Build context
     context = build_context(results)
-
+    
     # Generate response
     response_text = await generate_response(query, context)
-
-    # Format sources (deduplicate)
+    
+    # Format sources
     sources = []
     seen = set()
     for r in results:
         key = f"{r['act_title']}:{r['section_number']}"
-        if key not in seen and r['section_number']:  # Only include if has section number
+        if key not in seen:
             seen.add(key)
             sources.append(Source(
                 act_title=r['act_title'],
@@ -384,10 +272,10 @@ async def chat(request: ChatRequest):
                 excerpt=r['text'][:200] + "..." if len(r['text']) > 200 else r['text'],
                 score=r['score']
             ))
-
+    
     return ChatResponse(
         response=response_text,
-        sources=sources[:5],  # Limit to top 5 sources
+        sources=sources,
         disclaimer=DISCLAIMER
     )
 
