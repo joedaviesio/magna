@@ -59,11 +59,10 @@ export function useChat() {
   // Get or create session ID (persisted in localStorage)
   const sessionId = useMemo(() => getOrCreateSessionId(), []);
 
-  // Load stored messages on mount
+  // Clear stored messages on mount (fresh start on page reload, but keep session ID)
   useEffect(() => {
-    const stored = loadStoredMessages();
-    if (stored.length > 0) {
-      setMessages(stored);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(MESSAGES_STORAGE_KEY);
     }
     setIsInitialized(true);
   }, []);
