@@ -18,3 +18,15 @@ export interface Message {
   content: string;
   sources?: Source[];
 }
+
+export interface Act {
+  short_name: string;
+  title: string;
+  year: number;
+  topics: string[];
+  url: string;
+}
+
+export interface ActsResponse {
+  acts: Act[];
+}

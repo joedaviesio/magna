@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap');
 
 :root {
   --navy: #1a1a2e;
@@ -78,7 +78,7 @@ body {
 }
 
 .prose code {
-  background-color: #f1f5f9;
+  background-color: #FAF9F6;
   padding: 0.125em 0.25em;
   border-radius: 0.25em;
   font-size: 0.875em;
@@ -102,13 +102,18 @@ input:focus-visible, textarea:focus-visible, button:focus-visible {
   outline-offset: 2px;
 }
 
+/* Input styling */
+textarea {
+  font-family: 'Open Sans', sans-serif;
+}
+
 /* Checkbox styling */
 input[type="checkbox"] {
   accent-color: var(--navy);
 }
 
-/* Magna brand text styling */
-.magna-brand {
+/* Bowen brand text styling */
+.bowen-brand {
   font-family: 'clother', sans-serif;
   font-weight: 700;
   font-style: italic;

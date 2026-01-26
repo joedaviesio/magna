@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { AlertTriangle } from 'lucide-react';
 import { ManatIcon } from './ManatIcon';
 
-const DISCLAIMER_KEY = 'magna-disclaimer-accepted';
+const DISCLAIMER_KEY = 'bowen-disclaimer-accepted';
 
 interface DisclaimerModalProps {
   onAccept: () => void;
@@ -39,11 +39,11 @@ export function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
         </div>
 
         <h2 className="text-2xl text-navy mb-4">
-          Welcome to <span className="magna-brand">Magna</span>
+          Welcome to <span className="bowen-brand">Bowen</span>
         </h2>
 
         <p className="text-slate-600 mb-4 leading-relaxed">
-          <span className="magna-brand text-navy">Magna</span> is an AI-powered legal information tool that searches New Zealand legislation to answer your questions.
+          <span className="bowen-brand text-navy">Bowen</span> is an AI-powered legal information tool that searches New Zealand legislation to answer your questions.
         </p>
 
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
@@ -66,7 +66,7 @@ export function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
             className="mt-1 w-4 h-4 rounded border-slate-300 text-navy focus:ring-navy"
           />
           <span className="text-sm text-slate-600">
-            I understand <span className="magna-brand">Magna</span> is an AI Chat bot, not legal advice, and I will verify important information with official sources.
+            I understand <span className="bowen-brand">Bowen</span> is an AI Chat bot, not legal advice, and I will verify important information with official sources.
           </span>
         </label>
 

@@ -2,7 +2,7 @@
 """
 main.py
 
-FastAPI backend for Magna - NZ Legal Assistant
+FastAPI backend for Bowen - NZ Legal Assistant
 Uses numpy-based vector search and Claude API.
 
 Run from magna root:
@@ -12,21 +12,34 @@ Run from magna root:
 
 import os
 import json
+import uuid
+import time
 import numpy as np
 from pathlib import Path
 from typing import List, Optional
 from datetime import datetime
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
+
+# Optional Supabase support
+try:
+    from supabase import create_client, Client
+    SUPABASE_AVAILABLE = True
+except ImportError as e:
+    print(f"⚠ Supabase not available: {e}")
+    SUPABASE_AVAILABLE = False
+    Client = None
 
 # Load environment variables
 load_dotenv()
 
 # Configuration
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
 EMBEDDINGS_DIR = Path("data/embeddings")
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 TOP_K = 5
@@ -34,6 +47,7 @@ TOP_K = 5
 # Pydantic models
 class ChatRequest(BaseModel):
     message: str
+    session_id: Optional[str] = None
 
 class Source(BaseModel):
     act_title: str
@@ -48,12 +62,18 @@ class ChatResponse(BaseModel):
     sources: List[Source]
     disclaimer: str
 
+# API Version
+API_VERSION = "1.0.0"
+
 # Initialize FastAPI
 app = FastAPI(
-    title="Magna - NZ Legal Assistant",
+    title="Bowen - NZ Legal Assistant",
     description="AI-powered legal information retrieval for New Zealand legislation",
-    version="0.1.0"
+    version=API_VERSION
 )
+
+# API v1 Router
+api_v1 = APIRouter(prefix="/api/v1", tags=["v1"])
 
 # CORS
 app.add_middleware(
@@ -69,9 +89,10 @@ embeddings = None
 metadata = None
 embedding_model = None
 anthropic_client = None
+supabase_client = None
 
 # System prompt
-SYSTEM_PROMPT = """You are Magna, an AI legal information assistant for New Zealand legislation.
+SYSTEM_PROMPT = """You are Bowen, an AI legal information assistant for New Zealand legislation.
 
 ## YOUR KNOWLEDGE
 You have general knowledge about NZ law from your training, including:
@@ -122,39 +143,31 @@ When using general knowledge: "The [Act] generally provides for..." or "Based on
 
 Always end responses by encouraging users to verify current legislation at legislation.govt.nz and consult a lawyer for specific situations."""
 
-DISCLAIMER = """⚠️ Magna is an AI Chat bot, NOT legal advice. It may be incomplete or outdated. For legal decisions, consult a qualified NZ lawyer or Community Law Centre."""
+DISCLAIMER = """⚠️ Bowen is an AI Chat bot, NOT legal advice. It may be incomplete or outdated. For legal decisions, consult a qualified NZ lawyer or Community Law Centre."""
 
 
-def detect_act_from_query(query: str) -> Optional[str]:
-    """Detect if user is asking about a specific Act."""
-    query_lower = query.lower()
-
-    act_keywords = {
-        'Resource Management': ['rma', 'resource management', 'resource consent', 'environmental'],
-        'Residential Tenancies': ['rta', 'residential tenancies', 'tenancy', 'tenant', 'landlord', 'bond', 'rental'],
-        'Employment Relations': ['era', 'employment relations', 'employment', 'employer', 'employee', 'dismissal', 'redundancy'],
-        'Companies': ['companies act', 'company', 'director', 'shareholder', 'incorporation'],
-        'Fair Trading': ['fta', 'fair trading', 'misleading', 'deceptive', 'consumer protection'],
-        'Privacy': ['privacy act', 'privacy', 'personal information', 'data protection'],
-        'Building': ['building act', 'building consent', 'building code', 'construction'],
-        'Property Law': ['pla', 'property law', 'mortgage', 'lease', 'easement'],
-        'Contract and Commercial': ['ccla', 'contract', 'commercial law', 'sale of goods'],
-    }
-
-    for act_name, keywords in act_keywords.items():
-        if any(kw in query_lower for kw in keywords):
-            return act_name
-
-    return None
+# Import act detection from registry (single source of truth)
+from .acts_registry import detect_act_from_query, get_all_acts, ACTS_REGISTRY
+from .logger import logger, LogEvent
+from .errors import (
+    raise_empty_message,
+    raise_invalid_query,
+    raise_embeddings_not_loaded,
+    raise_model_not_loaded,
+    raise_anthropic_unavailable,
+    raise_generation_failed,
+    ErrorCode,
+    InternalError
+)
 
 
 @app.on_event("startup")
 async def startup():
     """Load models and data on startup."""
-    global embeddings, metadata, embedding_model, anthropic_client
+    global embeddings, metadata, embedding_model, anthropic_client, supabase_client
     
     print("\n" + "=" * 50)
-    print("Starting Magna Backend...")
+    print("Starting Bowen Backend...")
     print("=" * 50)
     
     # Load embeddings
@@ -192,7 +205,17 @@ async def startup():
             print(f"✗ Could not initialize Anthropic: {e}")
     else:
         print("✗ ANTHROPIC_API_KEY not set in .env")
-    
+
+    # Initialize Supabase client
+    if SUPABASE_AVAILABLE and SUPABASE_URL and SUPABASE_ANON_KEY and not SUPABASE_URL.startswith("your-"):
+        try:
+            supabase_client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
+            print("✓ Supabase client initialized")
+        except Exception as e:
+            print(f"✗ Could not initialize Supabase: {e}")
+    else:
+        print("⚠ Supabase not configured (chat will work but not be logged)")
+
     print("\n" + "=" * 50)
     print("Startup complete!")
     print("=" * 50 + "\n")
@@ -293,7 +316,7 @@ def build_context(results: List[dict]) -> str:
 async def generate_response(query: str, context: str) -> str:
     """Generate response using Claude with hybrid knowledge approach."""
     if not anthropic_client:
-        return "I'm sorry, but the AI service is not available. Please check the API key configuration."
+        raise_anthropic_unavailable()
 
     try:
         message = anthropic_client.messages.create(
@@ -320,14 +343,91 @@ Remember: Provide information, not legal advice. Cite specific sections where po
         )
         return message.content[0].text
     except Exception as e:
-        print(f"Claude API error: {e}")
-        return f"I encountered an error generating a response. Please try again."
+        logger.error(LogEvent.CLAUDE_ERROR, f"Claude API error: {e}", error=e)
+        raise_generation_failed(str(e))
+
+
+async def log_chat_message(session_id: str, role: str, content: str, sources: List[dict] = None):
+    """Log a chat message to Supabase."""
+    if not supabase_client:
+        logger.warning(LogEvent.ANALYTICS_FAILURE, "Supabase not configured, skipping chat message log")
+        return
+
+    try:
+        supabase_client.table("chat_messages").insert({
+            "session_id": session_id,
+            "role": role,
+            "content": content,
+            "sources": sources
+        }).execute()
+        logger.track_analytics_success("chat_message", session_id)
+    except Exception as e:
+        logger.track_analytics_failure("chat_message", e, session_id)
+
+
+async def log_analytics(
+    event_type: str,
+    session_id: str = None,
+    query: str = None,
+    detected_act: str = None,
+    sources_count: int = None,
+    response_time_ms: int = None
+):
+    """Log analytics event to Supabase."""
+    if not supabase_client:
+        logger.warning(LogEvent.ANALYTICS_FAILURE, "Supabase not configured, skipping analytics log")
+        return
+
+    try:
+        supabase_client.table("analytics").insert({
+            "event_type": event_type,
+            "session_id": session_id,
+            "query": query,
+            "detected_act": detected_act,
+            "sources_count": sources_count,
+            "response_time_ms": response_time_ms
+        }).execute()
+        logger.track_analytics_success("analytics_event", session_id)
+    except Exception as e:
+        logger.track_analytics_failure("analytics_event", e, session_id)
+
+
+async def update_topic_stats(act_name: str):
+    """Update topic statistics in Supabase."""
+    if not supabase_client or not act_name:
+        if not act_name:
+            return  # No act detected, nothing to log
+        logger.warning(LogEvent.ANALYTICS_FAILURE, "Supabase not configured, skipping topic stats")
+        return
+
+    try:
+        # Try to upsert the topic stats
+        supabase_client.table("topic_stats").upsert({
+            "act_name": act_name,
+            "query_count": 1,
+            "last_queried": datetime.utcnow().isoformat()
+        }, on_conflict="act_name").execute()
+
+        # Increment the count
+        supabase_client.rpc("increment_topic_count", {"act": act_name}).execute()
+        logger.track_analytics_success("topic_stats")
+    except Exception as e:
+        # Fallback: just insert if RPC doesn't exist
+        try:
+            supabase_client.table("topic_stats").upsert({
+                "act_name": act_name,
+                "query_count": 1,
+                "last_queried": datetime.utcnow().isoformat()
+            }, on_conflict="act_name").execute()
+            logger.track_analytics_success("topic_stats_fallback")
+        except Exception as fallback_error:
+            logger.track_analytics_failure("topic_stats", fallback_error)
 
 
 @app.get("/")
 async def root():
     return {
-        "name": "Magna - NZ Legal Assistant",
+        "name": "Bowen - NZ Legal Assistant",
         "version": "0.1.0",
         "status": "running",
         "chunks_loaded": len(metadata) if metadata else 0
@@ -336,25 +436,46 @@ async def root():
 
 @app.get("/health")
 async def health():
+    failure_counts = logger.get_failure_counts()
     return {
         "status": "healthy",
         "embeddings_loaded": embeddings is not None,
         "model_loaded": embedding_model is not None,
         "anthropic_ready": anthropic_client is not None,
-        "chunks": len(metadata) if metadata else 0
+        "supabase_ready": supabase_client is not None,
+        "chunks": len(metadata) if metadata else 0,
+        "analytics_failures": failure_counts,
+        "has_failures": len(failure_counts) > 0
     }
 
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
     """Main chat endpoint with improved retrieval."""
+    start_time = time.time()
     query = request.message.strip()
 
     if not query:
-        raise HTTPException(status_code=400, detail="Message cannot be empty")
+        raise_empty_message()
+
+    # Check service availability
+    if embeddings is None or metadata is None:
+        raise_embeddings_not_loaded()
+
+    if embedding_model is None:
+        raise_model_not_loaded()
+
+    if anthropic_client is None:
+        raise_anthropic_unavailable()
+
+    # Get or generate session ID
+    session_id = request.session_id or str(uuid.uuid4())
 
     # Detect if asking about specific Act
     detected_act = detect_act_from_query(query)
+
+    # Log incoming request
+    logger.log_chat_request(session_id, len(query), detected_act)
 
     # Search with optional act filter and increased results
     results = search_similar(
@@ -369,21 +490,50 @@ async def chat(request: ChatRequest):
     # Generate response
     response_text = await generate_response(query, context)
 
-    # Format sources (deduplicate)
+    # Format sources (deduplicate by act+section, or by text hash if no section)
     sources = []
     seen = set()
     for r in results:
-        key = f"{r['act_title']}:{r['section_number']}"
-        if key not in seen and r['section_number']:  # Only include if has section number
+        section_num = r['section_number'].strip() if r['section_number'] else ''
+
+        if section_num:
+            # Standard deduplication by act:section
+            key = f"{r['act_title']}:{section_num}"
+        else:
+            # For chunks without section numbers, use text hash to avoid false duplicates
+            text_hash = hash(r['text'][:100])
+            key = f"{r['act_title']}:__no_section__{text_hash}"
+
+        if key not in seen:
             seen.add(key)
             sources.append(Source(
                 act_title=r['act_title'],
-                section_number=r['section_number'],
-                section_heading=r['section_heading'],
+                section_number=section_num if section_num else 'General',
+                section_heading=r['section_heading'] or 'General Provisions',
                 url=r['section_url'] or r['act_url'],
                 excerpt=r['text'][:200] + "..." if len(r['text']) > 200 else r['text'],
                 score=r['score']
             ))
+
+    # Calculate response time
+    response_time_ms = int((time.time() - start_time) * 1000)
+
+    # Log to Supabase (non-blocking)
+    sources_for_log = [{"act": s.act_title, "section": s.section_number} for s in sources[:5]]
+    await log_chat_message(session_id, "user", query)
+    await log_chat_message(session_id, "assistant", response_text, sources_for_log)
+    await log_analytics(
+        event_type="chat",
+        session_id=session_id,
+        query=query,
+        detected_act=detected_act,
+        sources_count=len(sources),
+        response_time_ms=response_time_ms
+    )
+    await update_topic_stats(detected_act)
+
+    # Log response metrics
+    logger.log_chat_response(session_id, response_time_ms, len(sources), success=True)
 
     return ChatResponse(
         response=response_text,
@@ -396,8 +546,11 @@ async def chat(request: ChatRequest):
 async def search(q: str, limit: int = 10):
     """Direct search endpoint."""
     if not q:
-        raise HTTPException(status_code=400, detail="Query 'q' is required")
-    
+        raise_invalid_query()
+
+    if embeddings is None or embedding_model is None:
+        raise_embeddings_not_loaded()
+
     results = search_similar(q, top_k=min(limit, 20))
     
     return {
@@ -418,21 +571,56 @@ async def search(q: str, limit: int = 10):
 
 @app.get("/acts")
 async def list_acts():
-    """List all available acts."""
-    if not metadata:
-        return {"acts": []}
-    
-    acts = {}
-    for m in metadata:
-        title = m.get("act_title", "Unknown")
-        if title not in acts:
-            acts[title] = {
-                "title": title,
-                "short_name": m.get("act_short_name", ""),
-                "url": m.get("act_url", "")
-            }
-    
-    return {"acts": list(acts.values())}
+    """List all available acts from the registry (single source of truth)."""
+    return {"acts": get_all_acts()}
+
+
+# =============================================================================
+# API v1 Routes (versioned endpoints)
+# =============================================================================
+
+@api_v1.get("/health")
+async def v1_health():
+    """Health check endpoint (v1)."""
+    return await health()
+
+
+@api_v1.post("/chat", response_model=ChatResponse)
+async def v1_chat(request: ChatRequest):
+    """Chat endpoint (v1)."""
+    return await chat(request)
+
+
+@api_v1.get("/search")
+async def v1_search(q: str, limit: int = 10):
+    """Search endpoint (v1)."""
+    return await search(q, limit)
+
+
+@api_v1.get("/acts")
+async def v1_list_acts():
+    """List acts endpoint (v1)."""
+    return await list_acts()
+
+
+@api_v1.get("/version")
+async def v1_version():
+    """Get API version information."""
+    return {
+        "api_version": API_VERSION,
+        "app_version": "0.1.0",
+        "endpoints": [
+            "/api/v1/health",
+            "/api/v1/chat",
+            "/api/v1/search",
+            "/api/v1/acts",
+            "/api/v1/version"
+        ]
+    }
+
+
+# Mount the v1 router
+app.include_router(api_v1)
 
 
 if __name__ == "__main__":

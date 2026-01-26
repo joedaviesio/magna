@@ -10,7 +10,7 @@ export function TypingIndicator() {
           <div className="w-6 h-6 bg-gradient-to-br from-navy to-navy-light rounded-md flex items-center justify-center">
             <ManatIcon className="w-3.5 h-3.5 text-white" />
           </div>
-          <span className="magna-brand text-xs text-slate-500">Magna</span>
+          <span className="bowen-brand text-xs text-slate-500">Bowen</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-2 h-2 bg-navy rounded-full animate-bounce [animation-delay:-0.3s]" />

@@ -35,7 +35,7 @@ export function ChatInput({ onSend, isLoading, placeholder = 'Ask about New Zeal
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           rows={1}
-          className="flex-1 resize-none bg-transparent border-none outline-none px-3 py-2.5 text-slate-900 placeholder:text-slate-400 font-serif text-[15px]"
+          className="flex-1 resize-none bg-transparent border-none outline-none px-3 py-2.5 text-slate-900 placeholder:text-slate-400 text-[15px]"
           style={{ minHeight: '44px', maxHeight: '120px' }}
           disabled={isLoading}
         />
