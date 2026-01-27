@@ -15,6 +15,8 @@ import json
 import uuid
 import time
 import numpy as np
+
+from .key_sections import get_key_sections_for_query, should_boost_section
 from pathlib import Path
 from typing import List, Optional
 from datetime import datetime
@@ -23,6 +25,7 @@ from fastapi import FastAPI, HTTPException, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
+
 
 # Optional Supabase support
 try:
@@ -215,7 +218,12 @@ async def startup():
 
 
 def search_similar(query: str, top_k: int = TOP_K, act_filter: str = None) -> List[dict]:
-    """Search for similar chunks with optional act filtering and keyword boosting."""
+    """
+    Search for similar chunks with:
+    - Optional act filtering
+    - Keyword boosting for overview questions
+    - KEY SECTION boosting for common topics
+    """
     if embeddings is None or embedding_model is None:
         return []
 
@@ -225,25 +233,47 @@ def search_similar(query: str, top_k: int = TOP_K, act_filter: str = None) -> Li
     # Calculate cosine similarities
     similarities = np.dot(embeddings, query_embedding).copy()
 
-    # Keyword boosting for important sections
-    boost_terms = ['purpose', 'interpretation', 'application', 'object', 'principle', 'definition']
     query_lower = query.lower()
 
-    # Boost scores for chunks containing key terms when asking "what is" questions
-    if any(q in query_lower for q in ['what is', 'what are', 'explain', 'overview', 'purpose of']):
-        for i, meta in enumerate(metadata):
-            text_lower = meta.get('text', '').lower()
-            heading_lower = meta.get('section_heading', '').lower()
+    # Get key sections for this query
+    key_sections = get_key_sections_for_query(query)
 
-            # Boost purpose/interpretation sections
+    # Keyword boosting for "what is" questions
+    boost_terms = ['purpose', 'interpretation', 'application', 'object', 'principle', 'definition']
+    is_overview_question = any(q in query_lower for q in ['what is', 'what are', 'explain', 'overview', 'purpose of'])
+
+    for i, meta in enumerate(metadata):
+        text_lower = meta.get('text', '').lower()
+        heading_lower = meta.get('section_heading', '').lower()
+        section_num = meta.get('section_number', '').strip()
+
+        # Apply key section boosting
+        section_boost = should_boost_section(meta, key_sections)
+        if section_boost > 1.0:
+            similarities[i] *= section_boost
+
+        # Boost purpose/interpretation sections for overview questions
+        if is_overview_question:
             for term in boost_terms:
                 if term in heading_lower or term in text_lower[:200]:
                     similarities[i] *= 1.3  # 30% boost
 
-            # Boost section 1-10 (usually purpose/interpretation)
-            section_num = meta.get('section_number', '')
+            # Boost early sections (usually purpose/interpretation)
             if section_num.isdigit() and int(section_num) <= 10:
                 similarities[i] *= 1.2  # 20% boost
+
+        # Boost chunks with actual section numbers
+        # Prefer chunks that have section numbers over general text
+        if section_num and section_num.replace('.', '').isdigit():
+            similarities[i] *= 1.1  # 10% boost for having a section number
+
+        # Boost chunks where section heading matches query terms
+        # If the query mentions "bond" and the heading contains "bond", boost it
+        query_terms = [t for t in query_lower.split() if len(t) > 3]
+        for term in query_terms:
+            if term in heading_lower:
+                similarities[i] *= 1.4  # 40% boost for heading match
+                break  # Only boost once per chunk
 
     # Apply act filter if specified
     if act_filter:
@@ -614,6 +644,38 @@ async def v1_version():
 
 # Mount the v1 router
 app.include_router(api_v1)
+
+
+# =============================================================================
+# Debug endpoint to test retrieval without Claude
+# =============================================================================
+
+@app.get("/debug/search")
+async def debug_search(q: str, limit: int = 10):
+    """
+    Debug endpoint to see what sections are being retrieved.
+    Shows key section boosting in action.
+    """
+    key_sections = get_key_sections_for_query(q)
+    detected_act = detect_act_from_query(q)
+
+    results = search_similar(q, top_k=limit, act_filter=detected_act)
+
+    return {
+        "query": q,
+        "detected_act": detected_act,
+        "key_sections_matched": key_sections,
+        "results": [
+            {
+                "act": r["act_title"],
+                "section": r["section_number"],
+                "heading": r["section_heading"],
+                "score": round(r["score"], 4),
+                "text_preview": r["text"][:150] + "..."
+            }
+            for r in results
+        ]
+    }
 
 
 if __name__ == "__main__":

@@ -156,16 +156,8 @@ export function Chat() {
                 <span style={{color: '#ffce31'}}>e</span>
                 <span style={{color: '#1c66d1'}}>n</span>
               </h1>
-              <p className="text-[10px] uppercase tracking-wider">
-                <span style={{color: '#00ac3f'}}>P</span>
-                <span style={{color: '#1c66d1'}}>r</span>
-                <span style={{color: '#e23d30'}}>o</span>
-                <span style={{color: '#ffce31'}}>t</span>
-                <span style={{color: '#1c66d1'}}>o</span>
-                <span style={{color: '#00ac3f'}}>t</span>
-                <span style={{color: '#1c66d1'}}>y</span>
-                <span style={{color: '#e23d30'}}>p</span>
-                <span style={{color: '#ffce31'}}>e</span>
+              <p className="text-[10px] uppercase tracking-wider text-black">
+                PUBLIC
               </p>
             </div>
           </Link>
