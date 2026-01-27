@@ -113,6 +113,86 @@ ACT_METADATA = {
         "short_name": "RMA",
         "topics": ["environment", "resource consent", "planning", "land use", "subdivision"]
     },
+    "crimes-1961.html": {
+        "title": "Crimes Act 1961",
+        "year": 1961,
+        "number": 43,
+        "url": "https://www.legislation.govt.nz/act/public/1961/0043/latest/whole.html",
+        "short_name": "CA1961",
+        "topics": ["criminal", "offence", "murder", "assault", "theft", "fraud", "sentence"]
+    },
+    "health-safety-work-2015.html": {
+        "title": "Health and Safety at Work Act 2015",
+        "year": 2015,
+        "number": 70,
+        "url": "https://www.legislation.govt.nz/act/public/2015/0070/latest/whole.html",
+        "short_name": "HSWA",
+        "topics": ["workplace", "safety", "health", "PCBU", "worker", "hazard", "risk"]
+    },
+    "human-rights-1993.html": {
+        "title": "Human Rights Act 1993",
+        "year": 1993,
+        "number": 82,
+        "url": "https://www.legislation.govt.nz/act/public/1993/0082/latest/whole.html",
+        "short_name": "HRA",
+        "topics": ["discrimination", "human rights", "equality", "complaint", "tribunal"]
+    },
+    "income-tax-2007.html": {
+        "title": "Income Tax Act 2007",
+        "year": 2007,
+        "number": 97,
+        "url": "https://www.legislation.govt.nz/act/public/2007/0097/latest/whole.html",
+        "short_name": "ITA",
+        "topics": ["tax", "income", "deduction", "GST", "business", "investment"]
+    },
+    "land-transport-1998.html": {
+        "title": "Land Transport Act 1998",
+        "year": 1998,
+        "number": 110,
+        "url": "https://www.legislation.govt.nz/act/public/1998/0110/latest/whole.html",
+        "short_name": "LTA",
+        "topics": ["driving", "licence", "vehicle", "road", "traffic", "transport"]
+    },
+    "immigration-2009.html": {
+        "title": "Immigration Act 2009",
+        "year": 2009,
+        "number": 51,
+        "url": "https://www.legislation.govt.nz/act/public/2009/0051/latest/whole.html",
+        "short_name": "IA",
+        "topics": ["visa", "immigration", "deportation", "residence", "refugee", "border"]
+    },
+    "trusts-2019.html": {
+        "title": "Trusts Act 2019",
+        "year": 2019,
+        "number": 38,
+        "url": "https://www.legislation.govt.nz/act/public/2019/0038/latest/whole.html",
+        "short_name": "TA",
+        "topics": ["trust", "trustee", "beneficiary", "settlement", "fiduciary"]
+    },
+    "insolvency-2006.html": {
+        "title": "Insolvency Act 2006",
+        "year": 2006,
+        "number": 55,
+        "url": "https://www.legislation.govt.nz/act/public/2006/0055/latest/whole.html",
+        "short_name": "INSA",
+        "topics": ["bankruptcy", "insolvency", "debt", "creditor", "liquidation"]
+    },
+    "copyright-1994.html": {
+        "title": "Copyright Act 1994",
+        "year": 1994,
+        "number": 143,
+        "url": "https://www.legislation.govt.nz/act/public/1994/0143/latest/whole.html",
+        "short_name": "CRA",
+        "topics": ["copyright", "intellectual property", "infringement", "licence", "moral rights"]
+    },
+    "credit-contracts-2003.html": {
+        "title": "Credit Contracts and Consumer Finance Act 2003",
+        "year": 2003,
+        "number": 52,
+        "url": "https://www.legislation.govt.nz/act/public/2003/0052/latest/whole.html",
+        "short_name": "CCCFA",
+        "topics": ["credit", "loan", "interest", "consumer finance", "lender", "borrower"]
+    },
 }
 
 

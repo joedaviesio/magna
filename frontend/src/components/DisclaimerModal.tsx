@@ -34,16 +34,16 @@ export function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl p-8 max-w-lg w-full shadow-2xl">
-        <div className="w-14 h-14 bg-gradient-to-br from-navy to-navy-light rounded-xl flex items-center justify-center mb-6">
+        <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary-light rounded-xl flex items-center justify-center mb-6">
           <ManatIcon className="w-7 h-7 text-white" />
         </div>
 
-        <h2 className="text-2xl text-navy mb-4">
+        <h2 className="text-2xl text-primary mb-4">
           Welcome to <span className="bowen-brand">Bowen</span>
         </h2>
 
         <p className="text-slate-600 mb-4 leading-relaxed">
-          <span className="bowen-brand text-navy">Bowen</span> is an AI-powered legal information tool that searches New Zealand legislation to answer your questions.
+          <span className="bowen-brand text-primary">Bowen</span> is a chatbot legal information tool that searches New Zealand legislation to answer your questions.
         </p>
 
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
@@ -63,10 +63,10 @@ export function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
             type="checkbox"
             checked={checked}
             onChange={(e) => setChecked(e.target.checked)}
-            className="mt-1 w-4 h-4 rounded border-slate-300 text-navy focus:ring-navy"
+            className="mt-1 w-4 h-4 rounded border-slate-300 text-primary focus:ring-primary"
           />
           <span className="text-sm text-slate-600">
-            I understand <span className="bowen-brand">Bowen</span> is an AI Chat bot, not legal advice, and I will verify important information with official sources.
+            I understand <span className="bowen-brand">Bowen</span> is a Chat bot, not legal advice, and I will verify important information with official sources.
           </span>
         </label>
 
@@ -75,7 +75,7 @@ export function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
           disabled={!checked}
           className={`w-full py-3.5 rounded-lg font-medium transition-all ${
             checked
-              ? 'bg-gradient-to-r from-navy to-navy-light text-white hover:shadow-lg hover:-translate-y-0.5'
+              ? 'bg-gradient-to-r from-primary to-primary-light text-white hover:shadow-lg hover:-translate-y-0.5'
               : 'bg-slate-100 text-slate-400 cursor-not-allowed'
           }`}
         >

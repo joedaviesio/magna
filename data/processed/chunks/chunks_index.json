@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-01-24T10:52:57.675635",
-  "total_chunks": 27645,
+  "generated_at": "2026-01-27T13:17:18.824834",
+  "total_chunks": 67663,
   "chunk_config": {
     "max_tokens": 512,
     "overlap_tokens": 50,
@@ -10,12 +10,22 @@
     "building-2004": 3820,
     "companies-1993": 4093,
     "contract-commercial-law-2017": 1592,
+    "copyright-1994": 2256,
+    "credit-contracts-2003": 1562,
+    "crimes-1961": 1873,
     "employment-relations-2000": 3206,
     "fair-trading-1986": 903,
+    "health-safety-work-2015": 1596,
+    "human-rights-1993": 1178,
+    "immigration-2009": 3546,
+    "income-tax-2007": 21550,
+    "insolvency-2006": 2100,
+    "land-transport-1998": 3296,
     "privacy-1993": 935,
     "privacy-2020": 1169,
     "property-law-2007": 2296,
     "residential-tenancies-1986": 2197,
-    "resource-management-1991": 7434
+    "resource-management-1991": 7434,
+    "trusts-2019": 1061
   }
 }

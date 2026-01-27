@@ -68,7 +68,7 @@ API_VERSION = "1.0.0"
 # Initialize FastAPI
 app = FastAPI(
     title="Bowen - NZ Legal Assistant",
-    description="AI-powered legal information retrieval for New Zealand legislation",
+    description="Chatbot legal information retrieval for New Zealand legislation",
     version=API_VERSION
 )
 
@@ -92,7 +92,7 @@ anthropic_client = None
 supabase_client = None
 
 # System prompt
-SYSTEM_PROMPT = """You are Bowen, an AI legal information assistant for New Zealand legislation.
+SYSTEM_PROMPT = """You are Bowen, a chatbot legal information assistant for New Zealand legislation.
 
 ## YOUR KNOWLEDGE
 You have general knowledge about NZ law from your training, including:
@@ -143,7 +143,7 @@ When using general knowledge: "The [Act] generally provides for..." or "Based on
 
 Always end responses by encouraging users to verify current legislation at legislation.govt.nz and consult a lawyer for specific situations."""
 
-DISCLAIMER = """⚠️ Bowen is an AI Chat bot, NOT legal advice. It may be incomplete or outdated. For legal decisions, consult a qualified NZ lawyer or Community Law Centre."""
+DISCLAIMER = """⚠️ Bowen is a chatbot, not legal advice. It may be incomplete or outdated. For legal decisions, consult a qualified NZ lawyer or Community Law Centre."""
 
 
 # Import act detection from registry (single source of truth)

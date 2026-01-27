@@ -27,7 +27,7 @@ export function ExampleQuestions({ onSelect }: ExampleQuestionsProps) {
           <button
             key={index}
             onClick={() => onSelect(question)}
-            className="text-left p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-xl transition-all text-sm text-slate-700 hover:text-navy"
+            className="text-left p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 rounded-xl transition-all text-sm text-slate-700 hover:text-primary"
           >
             {question}
           </button>

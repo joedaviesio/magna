@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-01-24T10:50:45.606376",
-  "total_acts": 10,
-  "total_sections": 26125,
+  "generated_at": "2026-01-27T13:16:58.646795",
+  "total_acts": 20,
+  "total_sections": 63339,
   "acts": [
     {
       "title": "Building Act 2004",
@@ -25,6 +25,27 @@
       "file": "contract-commercial-law-2017.json"
     },
     {
+      "title": "Copyright Act 1994",
+      "short_name": "CRA",
+      "year": 1994,
+      "sections_count": 2159,
+      "file": "copyright-1994.json"
+    },
+    {
+      "title": "Credit Contracts and Consumer Finance Act 2003",
+      "short_name": "CCCFA",
+      "year": 2003,
+      "sections_count": 1463,
+      "file": "credit-contracts-2003.json"
+    },
+    {
+      "title": "Crimes Act 1961",
+      "short_name": "CA1961",
+      "year": 1961,
+      "sections_count": 1785,
+      "file": "crimes-1961.json"
+    },
+    {
       "title": "Employment Relations Act 2000",
       "short_name": "ERA",
       "year": 2000,
@@ -37,6 +58,48 @@
       "year": 1986,
       "sections_count": 840,
       "file": "fair-trading-1986.json"
+    },
+    {
+      "title": "Health and Safety at Work Act 2015",
+      "short_name": "HSWA",
+      "year": 2015,
+      "sections_count": 1523,
+      "file": "health-safety-work-2015.json"
+    },
+    {
+      "title": "Human Rights Act 1993",
+      "short_name": "HRA",
+      "year": 1993,
+      "sections_count": 1145,
+      "file": "human-rights-1993.json"
+    },
+    {
+      "title": "Immigration Act 2009",
+      "short_name": "IA",
+      "year": 2009,
+      "sections_count": 3267,
+      "file": "immigration-2009.json"
+    },
+    {
+      "title": "Income Tax Act 2007",
+      "short_name": "ITA",
+      "year": 2007,
+      "sections_count": 19800,
+      "file": "income-tax-2007.json"
+    },
+    {
+      "title": "Insolvency Act 2006",
+      "short_name": "INSA",
+      "year": 2006,
+      "sections_count": 2059,
+      "file": "insolvency-2006.json"
+    },
+    {
+      "title": "Land Transport Act 1998",
+      "short_name": "LTA",
+      "year": 1998,
+      "sections_count": 2979,
+      "file": "land-transport-1998.json"
     },
     {
       "title": "Privacy Act 1993",
@@ -72,6 +135,13 @@
       "year": 1991,
       "sections_count": 6845,
       "file": "resource-management-1991.json"
+    },
+    {
+      "title": "Trusts Act 2019",
+      "short_name": "TA",
+      "year": 2019,
+      "sections_count": 1034,
+      "file": "trusts-2019.json"
     }
   ]
 }

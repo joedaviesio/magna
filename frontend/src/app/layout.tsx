@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Bowen - NZ Legal Information Assistant',
-  description: 'AI-powered legal information tool for New Zealand legislation. Get instant answers with citations to official sources.',
+  description: 'Chatbot legal information tool for New Zealand legislation. Get instant answers with citations to official sources.',
   keywords: ['New Zealand law', 'legal information', 'NZ legislation', 'legal assistant'],
 };
 

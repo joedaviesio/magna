@@ -17,13 +17,14 @@ export function ChatMessage({ message }: ChatMessageProps) {
       <div
         className={`max-w-[85%] md:max-w-[75%] ${
           isUser
-            ? 'bg-gradient-to-br from-navy to-navy-light text-white rounded-2xl rounded-br-sm'
+            ? 'text-white rounded-2xl rounded-br-sm'
             : 'bg-white border border-slate-200 rounded-2xl rounded-bl-sm'
         } p-4`}
+        style={isUser ? {background: 'linear-gradient(to bottom right, #DC602E, #2d2d44)'} : undefined}
       >
         {!isUser && (
           <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-100">
-            <div className="w-6 h-6 bg-gradient-to-br from-navy to-navy-light rounded-md flex items-center justify-center">
+            <div className="w-6 h-6 bg-gradient-to-br from-primary to-primary-light rounded-md flex items-center justify-center">
               <ManatIcon className="w-3.5 h-3.5 text-white" />
             </div>
             <span className="bowen-brand text-xs text-slate-500">Bowen</span>
@@ -34,7 +35,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
           className={`prose prose-sm max-w-none ${
             isUser
               ? 'prose-invert'
-              : 'prose-slate prose-headings:text-navy prose-a:text-blue-600'
+              : 'prose-slate prose-headings:text-primary prose-a:text-blue-600'
           }`}
         >
           {isUser ? (

@@ -44,7 +44,7 @@ export function ChatInput({ onSend, isLoading, placeholder = 'Ask about New Zeal
           disabled={!input.trim() || isLoading}
           className={`px-5 rounded-lg font-medium transition-all flex items-center gap-2 ${
             input.trim() && !isLoading
-              ? 'bg-gradient-to-r from-navy to-navy-light text-white hover:shadow-md'
+              ? 'bg-gradient-to-r from-primary to-primary-light text-white hover:shadow-md'
               : 'bg-slate-100 text-slate-400 cursor-not-allowed'
           }`}
         >

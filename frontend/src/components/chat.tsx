@@ -16,16 +16,34 @@ import { Act } from '@/types';
 
 // Fallback legislation coverage (used if API fails)
 const FALLBACK_LEGISLATION = [
-  { title: 'Residential Tenancies Act 1986', short_name: 'RTA', topics: ['tenancy', 'bonds', 'landlord/tenant rights'] },
-  { title: 'Employment Relations Act 2000', short_name: 'ERA', topics: ['employment', 'dismissal', 'leave', 'unions'] },
-  { title: 'Companies Act 1993', short_name: 'CA', topics: ['company formation', 'directors', 'shareholders'] },
+  { title: 'Residential Tenancies Act 1986', short_name: 'RTA', topics: ['tenancy', 'bonds', 'housing'] },
+  { title: 'Employment Relations Act 2000', short_name: 'ERA', topics: ['employment', 'dismissal', 'leave'] },
+  { title: 'Companies Act 1993', short_name: 'CA', topics: ['directors', 'shareholders', 'incorporation'] },
+  { title: 'Consumer Guarantees Act 1993', short_name: 'CGA', topics: ['refunds', 'repairs', 'guarantees'] },
+  { title: 'Property Law Act 2007', short_name: 'PLA', topics: ['property', 'mortgages', 'leases'] },
   { title: 'Fair Trading Act 1986', short_name: 'FTA', topics: ['consumer protection', 'misleading conduct'] },
-  { title: 'Property Law Act 2007', short_name: 'PLA', topics: ['property transactions', 'mortgages', 'leases'] },
-  { title: 'Privacy Act 2020', short_name: 'PA', topics: ['personal information', 'privacy principles'] },
-  { title: 'Building Act 2004', short_name: 'BA', topics: ['building consents', 'code compliance'] },
+  { title: 'Privacy Act 2020', short_name: 'PA', topics: ['personal information', 'data breaches'] },
+  { title: 'Building Act 2004', short_name: 'BA', topics: ['consents', 'code compliance'] },
   { title: 'Contract and Commercial Law Act 2017', short_name: 'CCLA', topics: ['contracts', 'sale of goods'] },
-  { title: 'Resource Management Act 1991', short_name: 'RMA', topics: ['environmental management', 'resource consents'] },
+  { title: 'Resource Management Act 1991', short_name: 'RMA', topics: ['environment', 'resource consents'] },
+  { title: 'Crimes Act 1961', short_name: 'CA1961', topics: ['criminal offences', 'sentencing'] },
+  { title: 'Health and Safety at Work Act 2015', short_name: 'HSWA', topics: ['workplace safety', 'PCBU duties'] },
+  { title: 'Human Rights Act 1993', short_name: 'HRA', topics: ['discrimination', 'equality'] },
+  { title: 'Income Tax Act 2007', short_name: 'ITA', topics: ['tax', 'deductions', 'income'] },
+  { title: 'Land Transport Act 1998', short_name: 'LTA', topics: ['driving', 'licences', 'traffic'] },
+  { title: 'Immigration Act 2009', short_name: 'IA', topics: ['visas', 'residence', 'deportation'] },
+  { title: 'Trusts Act 2019', short_name: 'TA', topics: ['trusts', 'trustees', 'beneficiaries'] },
+  { title: 'Insolvency Act 2006', short_name: 'INSA', topics: ['bankruptcy', 'liquidation'] },
+  { title: 'Copyright Act 1994', short_name: 'CRA', topics: ['copyright', 'intellectual property'] },
+  { title: 'Credit Contracts and Consumer Finance Act 2003', short_name: 'CCCFA', topics: ['loans', 'credit', 'interest'] },
 ];
+
+// Database stats (updated when legislation is processed)
+const DATABASE_STATS = {
+  acts: 20,
+  sections: 63339,
+  chunks: 67663,
+};
 
 // Placeholder supporters - replace with actual donors
 const SUPPORTERS = [
@@ -97,15 +115,27 @@ export function Chat() {
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <div className="w-10 h-10 bg-gradient-to-br from-navy to-navy-light rounded-lg flex items-center justify-center shadow-md">
-              <ManatIcon className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 bg-white border border-slate-200 rounded-lg flex items-center justify-center shadow-md">
+              <ManatIcon className="w-5 h-5 text-black" />
             </div>
             <div>
-              <h1 className="bowen-brand text-xl text-navy tracking-wide">
-                Bowen
+              <h1 className="bowen-brand text-xl tracking-wide">
+                <span style={{color: '#00ac3f'}}>B</span>
+                <span style={{color: '#1c66d1'}}>o</span>
+                <span style={{color: '#e23d30'}}>w</span>
+                <span style={{color: '#ffce31'}}>e</span>
+                <span style={{color: '#1c66d1'}}>n</span>
               </h1>
-              <p className="text-[10px] text-slate-400 uppercase tracking-wider">
-                Prototype
+              <p className="text-[10px] uppercase tracking-wider">
+                <span style={{color: '#00ac3f'}}>P</span>
+                <span style={{color: '#1c66d1'}}>r</span>
+                <span style={{color: '#e23d30'}}>o</span>
+                <span style={{color: '#ffce31'}}>t</span>
+                <span style={{color: '#1c66d1'}}>o</span>
+                <span style={{color: '#00ac3f'}}>t</span>
+                <span style={{color: '#1c66d1'}}>y</span>
+                <span style={{color: '#e23d30'}}>p</span>
+                <span style={{color: '#ffce31'}}>e</span>
               </p>
             </div>
           </Link>
@@ -122,32 +152,50 @@ export function Chat() {
           <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
             <div className="flex items-center gap-3 mb-6">
             <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center">
-                <ManatIcon className="w-8 h-8 text-navy" />
+                <ManatIcon className="w-8 h-8 text-primary" />
               </div>
               <div className="w-16 h-16 bg-slate-100 rounded-2xl flex items-center justify-center">
-                <KiwiIcon className="w-8 h-8 text-navy" />
+                <KiwiIcon className="w-8 h-8 text-primary" />
               </div>
 
             </div>
-            <h2 className="text-3xl text-navy mb-3">
-              Ask <span className="bowen-brand">Bowen</span> about New Zealand Law
+            <h2 className="text-3xl text-primary mb-3">
+              Ask <span className="bowen-brand"><span style={{color: '#00ac3f'}}>B</span><span style={{color: '#1c66d1'}}>o</span><span style={{color: '#e23d30'}}>w</span><span style={{color: '#ffce31'}}>e</span><span style={{color: '#1c66d1'}}>n</span></span> about New Zealand Law
             </h2>
             <p className="text-slate-500 max-w-md mb-8">
-              Get instant answers grounded in legislation, with direct citations to official sources.
+              A public and free service for all New Zealanders.
             </p>
+
+            {/* Database Stats */}
+            <div className="w-full max-w-2xl mb-6">
+              <div className="grid grid-cols-3 gap-3">
+                <div className="bg-slate-50 rounded-lg border border-slate-200 p-3 text-center">
+                  <p className="text-2xl font-semibold text-slate-800">{acts.length}</p>
+                  <p className="text-[10px] text-slate-500 uppercase tracking-wide">Acts</p>
+                </div>
+                <div className="bg-slate-50 rounded-lg border border-slate-200 p-3 text-center">
+                  <p className="text-2xl font-semibold text-slate-800">{DATABASE_STATS.sections.toLocaleString()}</p>
+                  <p className="text-[10px] text-slate-500 uppercase tracking-wide">Sections</p>
+                </div>
+                <div className="bg-slate-50 rounded-lg border border-slate-200 p-3 text-center">
+                  <p className="text-2xl font-semibold text-slate-800">{DATABASE_STATS.chunks.toLocaleString()}</p>
+                  <p className="text-[10px] text-slate-500 uppercase tracking-wide">Searchable Chunks</p>
+                </div>
+              </div>
+            </div>
 
             {/* Legislation Coverage */}
             <div className="w-full max-w-2xl">
-              <div className="flex items-center justify-center gap-2 text-sm text-slate-500 mb-4">
+              <div className="flex items-center justify-center gap-2 text-sm text-slate-500 mb-3">
                 <BookOpen className="w-4 h-4" />
                 <span>Legislation Coverage</span>
               </div>
-              <div className="bg-slate-50 rounded-xl border border-slate-200 p-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <div className="bg-slate-50 rounded-xl border border-slate-200 p-3">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
                   {acts.map((act) => (
-                    <div key={act.short_name} className="text-left">
-                      <p className="text-sm font-medium text-slate-700">{act.title}</p>
-                      <p className="text-xs text-slate-500">{act.topics.join(', ')}</p>
+                    <div key={act.short_name} className="text-left p-2 bg-white rounded-lg border border-slate-100">
+                      <p className="text-xs font-medium text-slate-700 leading-tight">{act.title}</p>
+                      <p className="text-[10px] text-slate-400 mt-0.5 truncate">{act.topics.join(', ')}</p>
                     </div>
                   ))}
                 </div>
@@ -162,7 +210,7 @@ export function Chat() {
               </div>
               <div className="bg-gradient-to-br from-slate-50 to-white rounded-xl border border-slate-200 p-6">
                 {/* Gold Tier */}
-                <div className="mb-6">
+                {/* <div className="mb-6">
                   <p className="text-[10px] uppercase tracking-widest text-amber-600 font-medium text-center mb-3">Gold Partners</p>
                   <div className="flex flex-wrap justify-center gap-4">
                     {SUPPORTERS.filter(s => s.tier === 'gold').map((supporter) => (
@@ -174,10 +222,10 @@ export function Chat() {
                       </div>
                     ))}
                   </div>
-                </div>
+                </div> */}
 
                 {/* Silver Tier */}
-                <div className="mb-6">
+                {/* <div className="mb-6">
                   <p className="text-[10px] uppercase tracking-widest text-slate-400 font-medium text-center mb-3">Silver Partners</p>
                   <div className="flex flex-wrap justify-center gap-3">
                     {SUPPORTERS.filter(s => s.tier === 'silver').map((supporter) => (
@@ -189,11 +237,11 @@ export function Chat() {
                       </div>
                     ))}
                   </div>
-                </div>
+                </div> */}
 
                 {/* Bronze Tier */}
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-orange-400 font-medium text-center mb-3">Bronze Partners</p>
+                {/* <div>
+                  <p className="text-[10px] uppercase tracking-widest text-primary-400 font-medium text-center mb-3">Bronze Partners</p>
                   <div className="flex flex-wrap justify-center gap-2">
                     {SUPPORTERS.filter(s => s.tier === 'bronze').map((supporter) => (
                       <div
@@ -204,7 +252,7 @@ export function Chat() {
                       </div>
                     ))}
                   </div>
-                </div>
+                </div> */}
 
                 {/* Call to Action */}
                 <div className="mt-8 pt-6 border-t border-slate-200 text-center">
@@ -212,7 +260,7 @@ export function Chat() {
                     Help us expand free legal information access for all New Zealanders
                   </p>
                   <p className="text-xs text-slate-400">
-                    Contact <span className="text-navy font-medium">donate@bowen.law</span> to become a supporter
+                    Contact <span className="text-primary font-medium">donate@bowenlaw.online</span> to become a supporter
                   </p>
                 </div>
               </div>
