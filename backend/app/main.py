@@ -131,7 +131,7 @@ For specific questions ("What is the bond limit?"):
 
 ## AVAILABLE ACTS
 You have excerpts from these NZ Acts (as at late 2025):
-50 pieces of law in the html folder.
+79 pieces of law in the html folder.
 
 ## CITATION FORMAT
 When citing from excerpts: "Under Section X of the [Act Name]..."
