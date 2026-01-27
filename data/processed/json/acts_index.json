@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-01-27T14:18:16.298015",
-  "total_acts": 50,
-  "total_sections": 104039,
+  "generated_at": "2026-01-27T21:39:19.246266",
+  "total_acts": 77,
+  "total_sections": 131019,
   "acts": [
     {
       "title": "Accident Compensation Act 2001",
@@ -39,6 +39,13 @@
       "file": "citizenship-1977.json"
     },
     {
+      "title": "Civil Defence Emergency Management 2002",
+      "short_name": "CIV",
+      "year": 0,
+      "sections_count": 784,
+      "file": "civil-defence-emergency-management-2002.json"
+    },
+    {
       "title": "Climate Change Response Act 2002",
       "short_name": "CCRA",
       "year": 2002,
@@ -65,6 +72,13 @@
       "year": 1986,
       "sections_count": 133,
       "file": "constitution-1986.json"
+    },
+    {
+      "title": "Consumer Guarantees Act 1993",
+      "short_name": "CGA",
+      "year": 1993,
+      "sections_count": 283,
+      "file": "consumer-guarantees-1993.json"
     },
     {
       "title": "Contract and Commercial Law Act 2017",
@@ -200,11 +214,25 @@
       "file": "health-1956.json"
     },
     {
+      "title": "Health Practitioners Competence 2003",
+      "short_name": "HEA",
+      "year": 0,
+      "sections_count": 1521,
+      "file": "health-practitioners-competence-2003.json"
+    },
+    {
       "title": "Health and Safety at Work Act 2015",
       "short_name": "HSWA",
       "year": 2015,
       "sections_count": 1523,
       "file": "health-safety-work-2015.json"
+    },
+    {
+      "title": "Heritage Nz Pouhere Taonga 2014",
+      "short_name": "HER",
+      "year": 0,
+      "sections_count": 697,
+      "file": "heritage-nz-pouhere-taonga-2014.json"
     },
     {
       "title": "Human Rights Act 1993",
@@ -242,11 +270,60 @@
       "file": "land-transport-1998.json"
     },
     {
+      "title": "Local Electoral 2001",
+      "short_name": "LOC",
+      "year": 0,
+      "sections_count": 1499,
+      "file": "local-electoral-2001.json"
+    },
+    {
+      "title": "Local Government 1974",
+      "short_name": "LOC",
+      "year": 0,
+      "sections_count": 2274,
+      "file": "local-government-1974.json"
+    },
+    {
       "title": "Local Government Act 2002",
       "short_name": "LGA",
       "year": 2002,
       "sections_count": 3875,
       "file": "local-government-2002.json"
+    },
+    {
+      "title": "Local Government Auckland Council 2009",
+      "short_name": "LOC",
+      "year": 0,
+      "sections_count": 698,
+      "file": "local-government-auckland-council-2009.json"
+    },
+    {
+      "title": "Local Government Official Information 1987",
+      "short_name": "LOC",
+      "year": 0,
+      "sections_count": 348,
+      "file": "local-government-official-information-1987.json"
+    },
+    {
+      "title": "Local Government Rating 2002",
+      "short_name": "LOC",
+      "year": 0,
+      "sections_count": 1062,
+      "file": "local-government-rating-2002.json"
+    },
+    {
+      "title": "Maori Fisheries 2004",
+      "short_name": "MAO",
+      "year": 0,
+      "sections_count": 1237,
+      "file": "maori-fisheries-2004.json"
+    },
+    {
+      "title": "Marine Coastal Area 2011",
+      "short_name": "MAR",
+      "year": 0,
+      "sections_count": 937,
+      "file": "marine-coastal-area-2011.json"
     },
     {
       "title": "Medicines Act 1981",
@@ -256,11 +333,39 @@
       "file": "medicines-1981.json"
     },
     {
+      "title": "Nga Wai Maniapoto Waipa River 2012",
+      "short_name": "NGA",
+      "year": 0,
+      "sections_count": 278,
+      "file": "nga-wai-maniapoto-waipa-river-2012.json"
+    },
+    {
+      "title": "Ngai Tahu Claims Settlement 1998",
+      "short_name": "NGA",
+      "year": 0,
+      "sections_count": 2252,
+      "file": "ngai-tahu-claims-settlement-1998.json"
+    },
+    {
+      "title": "Ngati Tuwharetoa Raukawa Te Arawa River 2010",
+      "short_name": "NGA",
+      "year": 0,
+      "sections_count": 627,
+      "file": "ngati-tuwharetoa-raukawa-te-arawa-river-2010.json"
+    },
+    {
       "title": "Official Information Act 1982",
       "short_name": "OIA",
       "year": 1982,
       "sections_count": 263,
       "file": "official-information-1982.json"
+    },
+    {
+      "title": "Oranga Tamariki 1989",
+      "short_name": "ORA",
+      "year": 0,
+      "sections_count": 2915,
+      "file": "oranga-tamariki-1989.json"
     },
     {
       "title": "Patents Act 2013",
@@ -305,6 +410,27 @@
       "file": "public-service-2020.json"
     },
     {
+      "title": "Rates Rebate 1973",
+      "short_name": "RAT",
+      "year": 0,
+      "sections_count": 93,
+      "file": "rates-rebate-1973.json"
+    },
+    {
+      "title": "Rating Valuations 1998",
+      "short_name": "RAT",
+      "year": 0,
+      "sections_count": 291,
+      "file": "rating-valuations-1998.json"
+    },
+    {
+      "title": "Reserves 1977",
+      "short_name": "RES",
+      "year": 0,
+      "sections_count": 933,
+      "file": "reserves-1977.json"
+    },
+    {
       "title": "Residential Tenancies Act 1986",
       "short_name": "RTA",
       "year": 1986,
@@ -333,11 +459,60 @@
       "file": "smokefree-1990.json"
     },
     {
+      "title": "Te Awa Tupua 2017",
+      "short_name": "TE-",
+      "year": 0,
+      "sections_count": 827,
+      "file": "te-awa-tupua-2017.json"
+    },
+    {
+      "title": "Te Reo Maori 2016",
+      "short_name": "TE-",
+      "year": 0,
+      "sections_count": 896,
+      "file": "te-reo-maori-2016.json"
+    },
+    {
+      "title": "Te Runanga Ngai Tahu 1996",
+      "short_name": "TE-",
+      "year": 0,
+      "sections_count": 161,
+      "file": "te-runanga-ngai-tahu-1996.json"
+    },
+    {
+      "title": "Te Ture Whenua Maori 1993",
+      "short_name": "TE-",
+      "year": 0,
+      "sections_count": 2624,
+      "file": "te-ture-whenua-maori-1993.json"
+    },
+    {
+      "title": "Te Urewera 2014",
+      "short_name": "TE-",
+      "year": 0,
+      "sections_count": 1132,
+      "file": "te-urewera-2014.json"
+    },
+    {
       "title": "Trade Marks Act 2002",
       "short_name": "TMA",
       "year": 2002,
-      "sections_count": 0,
+      "sections_count": 1073,
       "file": "trade-marks-2002.json"
+    },
+    {
+      "title": "Treaty Waitangi 1975",
+      "short_name": "TRE",
+      "year": 0,
+      "sections_count": 299,
+      "file": "treaty-waitangi-1975.json"
+    },
+    {
+      "title": "Treaty Waitangi Fisheries Settlement 1992",
+      "short_name": "TRE",
+      "year": 0,
+      "sections_count": 88,
+      "file": "treaty-waitangi-fisheries-settlement-1992.json"
     },
     {
       "title": "Trusts Act 2019",
@@ -352,6 +527,20 @@
       "year": 2010,
       "sections_count": 1455,
       "file": "unit-titles-2010.json"
+    },
+    {
+      "title": "Waikato Raupatu Claims Settlement 1995",
+      "short_name": "WAI",
+      "year": 0,
+      "sections_count": 222,
+      "file": "waikato-raupatu-claims-settlement-1995.json"
+    },
+    {
+      "title": "Waikato Tainui Waikato River 2010",
+      "short_name": "WAI",
+      "year": 0,
+      "sections_count": 929,
+      "file": "waikato-tainui-waikato-river-2010.json"
     }
   ]
 }
