@@ -193,6 +193,246 @@ ACT_METADATA = {
         "short_name": "CCCFA",
         "topics": ["credit", "loan", "interest", "consumer finance", "lender", "borrower"]
     },
+    "official-information-1982.html": {
+        "title": "Official Information Act 1982",
+        "year": 1982,
+        "number": 156,
+        "url": "https://www.legislation.govt.nz/act/public/1982/0156/latest/whole.html",
+        "short_name": "OIA",
+        "topics": ["official information", "government", "request", "disclosure", "public"]
+    },
+    "family-violence-2018.html": {
+        "title": "Family Violence Act 2018",
+        "year": 2018,
+        "number": 46,
+        "url": "https://www.legislation.govt.nz/act/public/2018/0046/latest/whole.html",
+        "short_name": "FVA",
+        "topics": ["family violence", "protection order", "domestic", "safety"]
+    },
+    "accident-compensation-act-2001.html": {
+        "title": "Accident Compensation Act 2001",
+        "year": 2001,
+        "number": 49,
+        "url": "https://www.legislation.govt.nz/act/public/2001/0049/latest/whole.html",
+        "short_name": "ACA",
+        "topics": ["ACC", "injury", "compensation", "rehabilitation", "cover"]
+    },
+    "financial-markets-conduct-2013.html": {
+        "title": "Financial Markets Conduct Act 2013",
+        "year": 2013,
+        "number": 69,
+        "url": "https://www.legislation.govt.nz/act/public/2013/0069/latest/whole.html",
+        "short_name": "FMCA",
+        "topics": ["financial markets", "securities", "disclosure", "investment", "FMA"]
+    },
+    "harmful-digital-communications-2015.html": {
+        "title": "Harmful Digital Communications Act 2015",
+        "year": 2015,
+        "number": 63,
+        "url": "https://www.legislation.govt.nz/act/public/2015/0063/latest/whole.html",
+        "short_name": "HDCA",
+        "topics": ["cyberbullying", "online harassment", "digital", "netsafe"]
+    },
+    "unit-titles-2010.html": {
+        "title": "Unit Titles Act 2010",
+        "year": 2010,
+        "number": 22,
+        "url": "https://www.legislation.govt.nz/act/public/2010/0022/latest/whole.html",
+        "short_name": "UTA",
+        "topics": ["unit title", "body corporate", "apartment", "strata"]
+    },
+    "local-government-2002.html": {
+        "title": "Local Government Act 2002",
+        "year": 2002,
+        "number": 84,
+        "url": "https://www.legislation.govt.nz/act/public/2002/0084/latest/whole.html",
+        "short_name": "LGA",
+        "topics": ["council", "local authority", "rates", "bylaws", "planning"]
+    },
+    "family-court-1980.html": {
+        "title": "Family Court Act 1980",
+        "year": 1980,
+        "number": 161,
+        "url": "https://www.legislation.govt.nz/act/public/1980/0161/latest/whole.html",
+        "short_name": "FCA",
+        "topics": ["family court", "jurisdiction", "proceedings"]
+    },
+    "coroners-2006.html": {
+        "title": "Coroners Act 2006",
+        "year": 2006,
+        "number": 38,
+        "url": "https://www.legislation.govt.nz/act/public/2006/0038/latest/whole.html",
+        "short_name": "CORA",
+        "topics": ["coroner", "death", "inquest", "inquiry"]
+    },
+    "sale-of-goods-1908.html": {
+        "title": "Sale of Goods Act 1908",
+        "year": 1908,
+        "number": 168,
+        "url": "https://www.legislation.govt.nz/act/public/1908/0168/latest/whole.html",
+        "short_name": "SOGA",
+        "topics": ["sale", "goods", "contract", "title", "delivery"]
+    },
+    "education-1989.html": {
+        "title": "Education Act 1989",
+        "year": 1989,
+        "number": 80,
+        "url": "https://www.legislation.govt.nz/act/public/1989/0080/latest/whole.html",
+        "short_name": "EA",
+        "topics": ["education", "school", "tertiary", "student", "teacher"]
+    },
+    "constitution-1986.html": {
+        "title": "Constitution Act 1986",
+        "year": 1986,
+        "number": 114,
+        "url": "https://www.legislation.govt.nz/act/public/1986/0114/latest/whole.html",
+        "short_name": "CONST",
+        "topics": ["constitution", "parliament", "sovereign", "government"]
+    },
+    "electoral-1993.html": {
+        "title": "Electoral Act 1993",
+        "year": 1993,
+        "number": 87,
+        "url": "https://www.legislation.govt.nz/act/public/1993/0087/latest/whole.html",
+        "short_name": "ELEC",
+        "topics": ["voting", "election", "parliament", "electoral roll", "MMP"]
+    },
+    "citizenship-1977.html": {
+        "title": "Citizenship Act 1977",
+        "year": 1977,
+        "number": 61,
+        "url": "https://www.legislation.govt.nz/act/public/1977/0061/latest/whole.html",
+        "short_name": "CITZ",
+        "topics": ["citizenship", "naturalisation", "passport", "nationality"]
+    },
+    "anti-money-laundering-2009.html": {
+        "title": "Anti-Money Laundering and Countering Financing of Terrorism Act 2009",
+        "year": 2009,
+        "number": 35,
+        "url": "https://www.legislation.govt.nz/act/public/2009/0035/latest/whole.html",
+        "short_name": "AML",
+        "topics": ["money laundering", "terrorism financing", "reporting", "compliance"]
+    },
+    "trade-marks-2002.html": {
+        "title": "Trade Marks Act 2002",
+        "year": 2002,
+        "number": 49,
+        "url": "https://www.legislation.govt.nz/act/public/2002/0049/latest/whole.html",
+        "short_name": "TMA",
+        "topics": ["trademark", "brand", "registration", "infringement"]
+    },
+    "patents-2013.html": {
+        "title": "Patents Act 2013",
+        "year": 2013,
+        "number": 68,
+        "url": "https://www.legislation.govt.nz/act/public/2013/0068/latest/whole.html",
+        "short_name": "PATA",
+        "topics": ["patent", "invention", "intellectual property", "innovation"]
+    },
+    "climate-change-response-2002.html": {
+        "title": "Climate Change Response Act 2002",
+        "year": 2002,
+        "number": 40,
+        "url": "https://www.legislation.govt.nz/act/public/2002/0040/latest/whole.html",
+        "short_name": "CCRA",
+        "topics": ["climate change", "emissions", "carbon", "ETS"]
+    },
+    "conservation-1987.html": {
+        "title": "Conservation Act 1987",
+        "year": 1987,
+        "number": 65,
+        "url": "https://www.legislation.govt.nz/act/public/1987/0065/latest/whole.html",
+        "short_name": "CONA",
+        "topics": ["conservation", "DOC", "national park", "wildlife", "nature"]
+    },
+    "public-service-2020.html": {
+        "title": "Public Service Act 2020",
+        "year": 2020,
+        "number": 40,
+        "url": "https://www.legislation.govt.nz/act/public/2020/0040/latest/whole.html",
+        "short_name": "PSA",
+        "topics": ["public service", "government", "departments", "employment"]
+    },
+    "fire-emergency-2017.html": {
+        "title": "Fire and Emergency New Zealand Act 2017",
+        "year": 2017,
+        "number": 17,
+        "url": "https://www.legislation.govt.nz/act/public/2017/0017/latest/whole.html",
+        "short_name": "FENZ",
+        "topics": ["fire", "emergency", "firefighter", "rescue", "hazard"]
+    },
+    "public-finance-1989.html": {
+        "title": "Public Finance Act 1989",
+        "year": 1989,
+        "number": 44,
+        "url": "https://www.legislation.govt.nz/act/public/1989/0044/latest/whole.html",
+        "short_name": "PFA",
+        "topics": ["public finance", "budget", "appropriation", "crown", "accounts"]
+    },
+    "district-courts-1947.html": {
+        "title": "District Courts Act 1947",
+        "year": 1947,
+        "number": 16,
+        "url": "https://www.legislation.govt.nz/act/public/1947/0016/latest/whole.html",
+        "short_name": "DCA",
+        "topics": ["district court", "jurisdiction", "judge", "civil", "criminal"]
+    },
+    "biosecurity-1993.html": {
+        "title": "Biosecurity Act 1993",
+        "year": 1993,
+        "number": 95,
+        "url": "https://www.legislation.govt.nz/act/public/1993/0095/latest/whole.html",
+        "short_name": "BSA",
+        "topics": ["biosecurity", "pest", "border", "quarantine", "organism"]
+    },
+    "fisheries-1996.html": {
+        "title": "Fisheries Act 1996",
+        "year": 1996,
+        "number": 88,
+        "url": "https://www.legislation.govt.nz/act/public/1996/0088/latest/whole.html",
+        "short_name": "FA",
+        "topics": ["fishing", "quota", "marine", "aquaculture", "commercial fishing"]
+    },
+    "hazardous-substances-1996.html": {
+        "title": "Hazardous Substances and New Organisms Act 1996",
+        "year": 1996,
+        "number": 30,
+        "url": "https://www.legislation.govt.nz/act/public/1996/0030/latest/whole.html",
+        "short_name": "HSNO",
+        "topics": ["hazardous", "chemicals", "GMO", "organisms", "EPA"]
+    },
+    "freedom-camping-2011.html": {
+        "title": "Freedom Camping Act 2011",
+        "year": 2011,
+        "number": 61,
+        "url": "https://www.legislation.govt.nz/act/public/2011/0061/latest/whole.html",
+        "short_name": "FCAM",
+        "topics": ["camping", "freedom camping", "local authority", "vehicles"]
+    },
+    "health-1956.html": {
+        "title": "Health Act 1956",
+        "year": 1956,
+        "number": 65,
+        "url": "https://www.legislation.govt.nz/act/public/1956/0065/latest/whole.html",
+        "short_name": "HA",
+        "topics": ["health", "public health", "sanitation", "disease", "medical"]
+    },
+    "medicines-1981.html": {
+        "title": "Medicines Act 1981",
+        "year": 1981,
+        "number": 118,
+        "url": "https://www.legislation.govt.nz/act/public/1981/0118/latest/whole.html",
+        "short_name": "MA",
+        "topics": ["medicine", "pharmacy", "prescription", "drug", "therapeutic"]
+    },
+    "smokefree-1990.html": {
+        "title": "Smokefree Environments Act 1990",
+        "year": 1990,
+        "number": 108,
+        "url": "https://www.legislation.govt.nz/act/public/1990/0108/latest/whole.html",
+        "short_name": "SEA",
+        "topics": ["smoking", "tobacco", "vaping", "smokefree", "health"]
+    },
 }
 
 

@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-01-27T13:19:25.321412",
+  "generated_at": "2026-01-27T14:22:08.176498",
   "embedding_model": "all-MiniLM-L6-v2",
-  "total_chunks": 67663,
+  "total_chunks": 110866,
   "embedding_dimension": 384,
   "embeddings_file": "embeddings.npy",
   "metadata_file": "metadata.json"

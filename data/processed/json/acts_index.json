@@ -1,8 +1,29 @@
 {
-  "generated_at": "2026-01-27T13:16:58.646795",
-  "total_acts": 20,
-  "total_sections": 63339,
+  "generated_at": "2026-01-27T14:18:16.298015",
+  "total_acts": 50,
+  "total_sections": 104039,
   "acts": [
+    {
+      "title": "Accident Compensation Act 2001",
+      "short_name": "ACA",
+      "year": 2001,
+      "sections_count": 2952,
+      "file": "accident-compensation-act-2001.json"
+    },
+    {
+      "title": "Anti-Money Laundering and Countering Financing of Terrorism Act 2009",
+      "short_name": "AML",
+      "year": 2009,
+      "sections_count": 794,
+      "file": "anti-money-laundering-2009.json"
+    },
+    {
+      "title": "Biosecurity Act 1993",
+      "short_name": "BSA",
+      "year": 1993,
+      "sections_count": 2112,
+      "file": "biosecurity-1993.json"
+    },
     {
       "title": "Building Act 2004",
       "short_name": "BA",
@@ -11,11 +32,39 @@
       "file": "building-2004.json"
     },
     {
+      "title": "Citizenship Act 1977",
+      "short_name": "CITZ",
+      "year": 1977,
+      "sections_count": 232,
+      "file": "citizenship-1977.json"
+    },
+    {
+      "title": "Climate Change Response Act 2002",
+      "short_name": "CCRA",
+      "year": 2002,
+      "sections_count": 3292,
+      "file": "climate-change-response-2002.json"
+    },
+    {
       "title": "Companies Act 1993",
       "short_name": "CA",
       "year": 1993,
       "sections_count": 3831,
       "file": "companies-1993.json"
+    },
+    {
+      "title": "Conservation Act 1987",
+      "short_name": "CONA",
+      "year": 1987,
+      "sections_count": 1621,
+      "file": "conservation-1987.json"
+    },
+    {
+      "title": "Constitution Act 1986",
+      "short_name": "CONST",
+      "year": 1986,
+      "sections_count": 133,
+      "file": "constitution-1986.json"
     },
     {
       "title": "Contract and Commercial Law Act 2017",
@@ -32,6 +81,13 @@
       "file": "copyright-1994.json"
     },
     {
+      "title": "Coroners Act 2006",
+      "short_name": "CORA",
+      "year": 2006,
+      "sections_count": 890,
+      "file": "coroners-2006.json"
+    },
+    {
       "title": "Credit Contracts and Consumer Finance Act 2003",
       "short_name": "CCCFA",
       "year": 2003,
@@ -46,6 +102,27 @@
       "file": "crimes-1961.json"
     },
     {
+      "title": "District Courts Act 1947",
+      "short_name": "DCA",
+      "year": 1947,
+      "sections_count": 219,
+      "file": "district-courts-1947.json"
+    },
+    {
+      "title": "Education Act 1989",
+      "short_name": "EA",
+      "year": 1989,
+      "sections_count": 197,
+      "file": "education-1989.json"
+    },
+    {
+      "title": "Electoral Act 1993",
+      "short_name": "ELE",
+      "year": 0,
+      "sections_count": 2928,
+      "file": "electoral-act-1993.json"
+    },
+    {
       "title": "Employment Relations Act 2000",
       "short_name": "ERA",
       "year": 2000,
@@ -58,6 +135,69 @@
       "year": 1986,
       "sections_count": 840,
       "file": "fair-trading-1986.json"
+    },
+    {
+      "title": "Family Court Act 1980",
+      "short_name": "FCA",
+      "year": 1980,
+      "sections_count": 229,
+      "file": "family-court-1980.json"
+    },
+    {
+      "title": "Family Violence Act 2018",
+      "short_name": "FVA",
+      "year": 2018,
+      "sections_count": 1302,
+      "file": "family-violence-2018.json"
+    },
+    {
+      "title": "Financial Markets Conduct Act 2013",
+      "short_name": "FMCA",
+      "year": 2013,
+      "sections_count": 4424,
+      "file": "financial-markets-conduct-2013.json"
+    },
+    {
+      "title": "Fire and Emergency New Zealand Act 2017",
+      "short_name": "FENZ",
+      "year": 2017,
+      "sections_count": 1176,
+      "file": "fire-emergency-2017.json"
+    },
+    {
+      "title": "Fisheries Act 1996",
+      "short_name": "FA",
+      "year": 1996,
+      "sections_count": 3234,
+      "file": "fisheries-1996.json"
+    },
+    {
+      "title": "Freedom Camping Act 2011",
+      "short_name": "FCAM",
+      "year": 2011,
+      "sections_count": 356,
+      "file": "freedom-camping-2011.json"
+    },
+    {
+      "title": "Harmful Digital Communications Act 2015",
+      "short_name": "HDCA",
+      "year": 2015,
+      "sections_count": 220,
+      "file": "harmful-digital-communications-2015.json"
+    },
+    {
+      "title": "Hazardous Substances and New Organisms Act 1996",
+      "short_name": "HSNO",
+      "year": 1996,
+      "sections_count": 1584,
+      "file": "hazardous-substances-1996.json"
+    },
+    {
+      "title": "Health Act 1956",
+      "short_name": "HA",
+      "year": 1956,
+      "sections_count": 1492,
+      "file": "health-1956.json"
     },
     {
       "title": "Health and Safety at Work Act 2015",
@@ -102,6 +242,34 @@
       "file": "land-transport-1998.json"
     },
     {
+      "title": "Local Government Act 2002",
+      "short_name": "LGA",
+      "year": 2002,
+      "sections_count": 3875,
+      "file": "local-government-2002.json"
+    },
+    {
+      "title": "Medicines Act 1981",
+      "short_name": "MA",
+      "year": 1981,
+      "sections_count": 975,
+      "file": "medicines-1981.json"
+    },
+    {
+      "title": "Official Information Act 1982",
+      "short_name": "OIA",
+      "year": 1982,
+      "sections_count": 263,
+      "file": "official-information-1982.json"
+    },
+    {
+      "title": "Patents Act 2013",
+      "short_name": "PATA",
+      "year": 2013,
+      "sections_count": 1411,
+      "file": "patents-2013.json"
+    },
+    {
       "title": "Privacy Act 1993",
       "short_name": "PA1993",
       "year": 1993,
@@ -123,6 +291,20 @@
       "file": "property-law-2007.json"
     },
     {
+      "title": "Public Finance Act 1989",
+      "short_name": "PFA",
+      "year": 1989,
+      "sections_count": 1166,
+      "file": "public-finance-1989.json"
+    },
+    {
+      "title": "Public Service Act 2020",
+      "short_name": "PSA",
+      "year": 2020,
+      "sections_count": 973,
+      "file": "public-service-2020.json"
+    },
+    {
       "title": "Residential Tenancies Act 1986",
       "short_name": "RTA",
       "year": 1986,
@@ -137,11 +319,39 @@
       "file": "resource-management-1991.json"
     },
     {
+      "title": "Sale of Goods Act 1908",
+      "short_name": "SOGA",
+      "year": 1908,
+      "sections_count": 336,
+      "file": "sale-of-goods-1908.json"
+    },
+    {
+      "title": "Smokefree Environments Act 1990",
+      "short_name": "SEA",
+      "year": 1990,
+      "sections_count": 859,
+      "file": "smokefree-1990.json"
+    },
+    {
+      "title": "Trade Marks Act 2002",
+      "short_name": "TMA",
+      "year": 2002,
+      "sections_count": 0,
+      "file": "trade-marks-2002.json"
+    },
+    {
       "title": "Trusts Act 2019",
       "short_name": "TA",
       "year": 2019,
       "sections_count": 1034,
       "file": "trusts-2019.json"
+    },
+    {
+      "title": "Unit Titles Act 2010",
+      "short_name": "UTA",
+      "year": 2010,
+      "sections_count": 1455,
+      "file": "unit-titles-2010.json"
     }
   ]
 }
