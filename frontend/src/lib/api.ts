@@ -40,7 +40,7 @@ export class BowenApiError extends Error {
   }
 }
 
-const API_HOST = 'http://localhost:8000';
+const API_HOST = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 // Use versioned API by default, fall back to legacy if needed
 const API_VERSION = 'v1';
 const API_BASE = `${API_HOST}/api/${API_VERSION}`;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { AlertCircle, BookOpen, Heart } from 'lucide-react';
 import { ManatIcon } from './ManatIcon';
@@ -8,7 +8,6 @@ import { KiwiIcon } from './KiwiIcon';
 import { useChat } from '@/hooks/useChat';
 import { ChatMessage } from './ChatMessage';
 import { ChatInput } from './ChatInput';
-import { DisclaimerModal } from './DisclaimerModal';
 import { DisclaimerFooter } from './DisclaimerFooter';
 import { TypingIndicator } from './TypingIndicator';
 import { getActs } from '@/lib/api';
@@ -66,12 +65,39 @@ const FALLBACK_LEGISLATION = [
   { title: 'Health Act 1956', short_name: 'HA', topics: ['public health', 'sanitation', 'disease'] },
   { title: 'Medicines Act 1981', short_name: 'MA', topics: ['medicine', 'pharmacy', 'prescription'] },
   { title: 'Smokefree Environments Act 1990', short_name: 'SEA', topics: ['smoking', 'tobacco', 'vaping'] },
+  { title: 'Civil Defence Emergency Management Act 2002', short_name: 'CDEM', topics: ['civil defence', 'emergency', 'disaster response'] },
+  { title: 'Health Practitioners Competence Assurance Act 2003', short_name: 'HPCA', topics: ['health practitioners', 'registration', 'competence'] },
+  { title: 'Heritage New Zealand Pouhere Taonga Act 2014', short_name: 'HNZPT', topics: ['heritage', 'historic places', 'archaeology'] },
+  { title: 'Local Electoral Act 2001', short_name: 'LEA', topics: ['local elections', 'voting', 'councils'] },
+  { title: 'Local Government Act 1974', short_name: 'LGA1974', topics: ['local government', 'roads', 'public works'] },
+  { title: 'Local Government (Auckland Council) Act 2009', short_name: 'LGACA', topics: ['Auckland', 'council', 'local government'] },
+  { title: 'Local Government Official Information and Meetings Act 1987', short_name: 'LGOIMA', topics: ['official information', 'meetings', 'councils'] },
+  { title: 'Local Government (Rating) Act 2002', short_name: 'LGRA', topics: ['rates', 'rating', 'property tax'] },
+  { title: 'Maori Fisheries Act 2004', short_name: 'MFA', topics: ['Maori fisheries', 'Te Ohu Kaimoana', 'iwi'] },
+  { title: 'Marine and Coastal Area (Takutai Moana) Act 2011', short_name: 'MCAA', topics: ['marine area', 'coastal', 'customary rights'] },
+  { title: 'Nga Wai o Maniapoto (Waipa River) Act 2012', short_name: 'NWMWR', topics: ['Waipa River', 'Maniapoto', 'treaty settlement'] },
+  { title: 'Ngai Tahu Claims Settlement Act 1998', short_name: 'NTCS', topics: ['Ngai Tahu', 'treaty settlement', 'South Island'] },
+  { title: 'Ngati Tuwharetoa, Raukawa, and Te Arawa River Iwi Waikato River Act 2010', short_name: 'NTRTA', topics: ['Waikato River', 'river iwi', 'treaty settlement'] },
+  { title: 'Oranga Tamariki Act 1989', short_name: 'OTA', topics: ['child protection', 'youth justice', 'welfare'] },
+  { title: 'Privacy Act 1993', short_name: 'PA1993', topics: ['privacy', 'personal information', 'data protection'] },
+  { title: 'Rates Rebate Act 1973', short_name: 'RRA', topics: ['rates rebate', 'low income', 'relief'] },
+  { title: 'Rating Valuations Act 1998', short_name: 'RVA', topics: ['valuations', 'property', 'rating'] },
+  { title: 'Reserves Act 1977', short_name: 'RA', topics: ['reserves', 'recreation', 'conservation'] },
+  { title: 'Te Awa Tupua (Whanganui River Claims Settlement) Act 2017', short_name: 'TAT', topics: ['Whanganui River', 'legal personhood', 'treaty settlement'] },
+  { title: 'Te Ture mo Te Reo Maori 2016 (Maori Language Act)', short_name: 'TRMA', topics: ['Te Reo Maori', 'language', 'revitalisation'] },
+  { title: 'Te Runanga o Ngai Tahu Act 1996', short_name: 'TRNT', topics: ['Ngai Tahu', 'governance', 'iwi'] },
+  { title: 'Te Ture Whenua Maori Act 1993 (Maori Land Act)', short_name: 'TTWM', topics: ['Maori land', 'land court', 'succession'] },
+  { title: 'Te Urewera Act 2014', short_name: 'TUA', topics: ['Te Urewera', 'Tuhoe', 'treaty settlement'] },
+  { title: 'Treaty of Waitangi Act 1975', short_name: 'TOWA', topics: ['Treaty of Waitangi', 'Waitangi Tribunal', 'claims'] },
+  { title: 'Treaty of Waitangi (Fisheries Claims) Settlement Act 1992', short_name: 'TOWFS', topics: ['fisheries settlement', 'Sealord', 'Treaty'] },
+  { title: 'Waikato Raupatu Claims Settlement Act 1995', short_name: 'WRCS', topics: ['Waikato-Tainui', 'raupatu', 'treaty settlement'] },
+  { title: 'Waikato-Tainui Raupatu Claims (Waikato River) Settlement Act 2010', short_name: 'WTWR', topics: ['Waikato River', 'Waikato-Tainui', 'river settlement'] },
 ];
 
 // Database stats (updated when legislation is processed)
 const DATABASE_STATS = {
-  acts: 79,
-  sections: 131803,
+  acts: 77,
+  sections: 131019,
   chunks: 140404,
 };
 
@@ -89,7 +115,6 @@ const SUPPORTERS = [
 
 export function Chat() {
   const { messages, isLoading, error, send, clearMessages } = useChat();
-  const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
   const [acts, setActs] = useState<Array<{ title: string; short_name: string; topics: string[] }>>(FALLBACK_LEGISLATION);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const lastAssistantRef = useRef<HTMLDivElement>(null);
@@ -133,13 +158,8 @@ export function Chat() {
     wasLoadingRef.current = isLoading;
   }, [messages, isLoading]);
 
-  const handleDisclaimerAccept = useCallback(() => {
-    setDisclaimerAccepted(true);
-  }, []);
-
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <DisclaimerModal onAccept={handleDisclaimerAccept} />
 
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-slate-200">
@@ -227,64 +247,8 @@ export function Chat() {
             {/* Supporters Section */}
             <div className="w-full max-w-2xl mt-12 mb-24">
               <div className="flex items-center justify-center gap-2 text-sm text-slate-500 mb-4">
-                <Heart className="w-4 h-4" />
-                <span>Proudly Supported By</span>
-              </div>
-              <div className="bg-gradient-to-br from-slate-50 to-white rounded-xl border border-slate-200 p-6">
-                {/* Gold Tier */}
-                {/* <div className="mb-6">
-                  <p className="text-[10px] uppercase tracking-widest text-amber-600 font-medium text-center mb-3">Gold Partners</p>
-                  <div className="flex flex-wrap justify-center gap-4">
-                    {SUPPORTERS.filter(s => s.tier === 'gold').map((supporter) => (
-                      <div
-                        key={supporter.name}
-                        className="px-5 py-3 bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200 rounded-lg"
-                      >
-                        <span className="font-semibold text-slate-800">{supporter.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div> */}
-
-                {/* Silver Tier */}
-                {/* <div className="mb-6">
-                  <p className="text-[10px] uppercase tracking-widest text-slate-400 font-medium text-center mb-3">Silver Partners</p>
-                  <div className="flex flex-wrap justify-center gap-3">
-                    {SUPPORTERS.filter(s => s.tier === 'silver').map((supporter) => (
-                      <div
-                        key={supporter.name}
-                        className="px-4 py-2 bg-slate-100 border border-slate-200 rounded-lg"
-                      >
-                        <span className="font-medium text-sm text-slate-700">{supporter.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div> */}
-
-                {/* Bronze Tier */}
-                {/* <div>
-                  <p className="text-[10px] uppercase tracking-widest text-primary-400 font-medium text-center mb-3">Bronze Partners</p>
-                  <div className="flex flex-wrap justify-center gap-2">
-                    {SUPPORTERS.filter(s => s.tier === 'bronze').map((supporter) => (
-                      <div
-                        key={supporter.name}
-                        className="px-3 py-1.5 bg-orange-50 border border-orange-100 rounded-md"
-                      >
-                        <span className="text-sm text-slate-600">{supporter.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div> */}
-
-                {/* Call to Action */}
-                <div className="mt-8 pt-6 border-t border-slate-200 text-center">
-                  <p className="text-xs text-slate-500 mb-2">
-                    Help us expand free legal information access for all New Zealanders
-                  </p>
-                  <p className="text-xs text-slate-400">
-                    Contact <span className="text-primary font-medium">donate@bowenlaw.online</span> to become a supporter
-                  </p>
-                </div>
+               
+                <span>If you would like to help Bowen Public expand its data bank and reach more people contact <br></br><br></br>joe@bowenpublic.com </span>
               </div>
             </div>
           </div>

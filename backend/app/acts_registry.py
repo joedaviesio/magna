@@ -409,6 +409,222 @@ ACTS_REGISTRY: Dict[str, Dict] = {
         "topics": ["smoking", "tobacco", "vaping"],
         "url": "https://www.legislation.govt.nz/act/public/1990/0108/latest/DLM223191.html"
     },
+    "CDEM": {
+        "title": "Civil Defence Emergency Management Act 2002",
+        "short_name": "CDEM",
+        "year": 2002,
+        "keywords": ["civil defence", "emergency management", "cdem", "disaster", "emergency"],
+        "topics": ["civil defence", "emergency", "disaster response"],
+        "url": "https://www.legislation.govt.nz/act/public/2002/0033/latest/DLM149789.html"
+    },
+    "HPCA": {
+        "title": "Health Practitioners Competence Assurance Act 2003",
+        "short_name": "HPCA",
+        "year": 2003,
+        "keywords": ["health practitioners", "medical registration", "competence", "hpca"],
+        "topics": ["health practitioners", "registration", "competence"],
+        "url": "https://www.legislation.govt.nz/act/public/2003/0048/latest/DLM203312.html"
+    },
+    "HNZPT": {
+        "title": "Heritage New Zealand Pouhere Taonga Act 2014",
+        "short_name": "HNZPT",
+        "year": 2014,
+        "keywords": ["heritage", "pouhere taonga", "historic places", "archaeological"],
+        "topics": ["heritage", "historic places", "archaeology"],
+        "url": "https://www.legislation.govt.nz/act/public/2014/0026/latest/DLM4005414.html"
+    },
+    "LEA": {
+        "title": "Local Electoral Act 2001",
+        "short_name": "LEA",
+        "year": 2001,
+        "keywords": ["local electoral", "local elections", "council elections", "sts voting"],
+        "topics": ["local elections", "voting", "councils"],
+        "url": "https://www.legislation.govt.nz/act/public/2001/0035/latest/DLM93301.html"
+    },
+    "LGA1974": {
+        "title": "Local Government Act 1974",
+        "short_name": "LGA1974",
+        "year": 1974,
+        "keywords": ["local government 1974", "roads", "drainage", "public works"],
+        "topics": ["local government", "roads", "public works"],
+        "url": "https://www.legislation.govt.nz/act/public/1974/0066/latest/DLM415532.html"
+    },
+    "LGACA": {
+        "title": "Local Government (Auckland Council) Act 2009",
+        "short_name": "LGACA",
+        "year": 2009,
+        "keywords": ["auckland council", "auckland supercity", "auckland local government"],
+        "topics": ["Auckland", "council", "local government"],
+        "url": "https://www.legislation.govt.nz/act/public/2009/0032/latest/DLM2044909.html"
+    },
+    "LGOIMA": {
+        "title": "Local Government Official Information and Meetings Act 1987",
+        "short_name": "LGOIMA",
+        "year": 1987,
+        "keywords": ["lgoima", "local government official information", "council meetings", "council information"],
+        "topics": ["official information", "meetings", "councils"],
+        "url": "https://www.legislation.govt.nz/act/public/1987/0174/latest/DLM122242.html"
+    },
+    "LGRA": {
+        "title": "Local Government (Rating) Act 2002",
+        "short_name": "LGRA",
+        "year": 2002,
+        "keywords": ["rating", "rates", "council rates", "property rates"],
+        "topics": ["rates", "rating", "property tax"],
+        "url": "https://www.legislation.govt.nz/act/public/2002/0006/latest/DLM131394.html"
+    },
+    "MFA": {
+        "title": "Maori Fisheries Act 2004",
+        "short_name": "MFA",
+        "year": 2004,
+        "keywords": ["maori fisheries", "te ohu kaimoana", "iwi fisheries", "settlement assets"],
+        "topics": ["Maori fisheries", "Te Ohu Kaimoana", "iwi"],
+        "url": "https://www.legislation.govt.nz/act/public/2004/0078/latest/DLM311464.html"
+    },
+    "MCAA": {
+        "title": "Marine and Coastal Area (Takutai Moana) Act 2011",
+        "short_name": "MCAA",
+        "year": 2011,
+        "keywords": ["marine coastal area", "takutai moana", "foreshore seabed", "customary rights"],
+        "topics": ["marine area", "coastal", "customary rights"],
+        "url": "https://www.legislation.govt.nz/act/public/2011/0003/latest/DLM3213131.html"
+    },
+    "NWMWR": {
+        "title": "Nga Wai o Maniapoto (Waipa River) Act 2012",
+        "short_name": "NWMWR",
+        "year": 2012,
+        "keywords": ["maniapoto", "waipa river", "nga wai o maniapoto"],
+        "topics": ["Waipa River", "Maniapoto", "treaty settlement"],
+        "url": "https://www.legislation.govt.nz/act/public/2012/0029/latest/DLM3335204.html"
+    },
+    "NTCS": {
+        "title": "Ngai Tahu Claims Settlement Act 1998",
+        "short_name": "NTCS",
+        "year": 1998,
+        "keywords": ["ngai tahu", "ngai tahu settlement", "south island iwi"],
+        "topics": ["Ngai Tahu", "treaty settlement", "South Island"],
+        "url": "https://www.legislation.govt.nz/act/public/1998/0097/latest/DLM429090.html"
+    },
+    "NTRTA": {
+        "title": "Ngati Tuwharetoa, Raukawa, and Te Arawa River Iwi Waikato River Act 2010",
+        "short_name": "NTRTA",
+        "year": 2010,
+        "keywords": ["ngati tuwharetoa", "raukawa", "te arawa", "waikato river"],
+        "topics": ["Waikato River", "river iwi", "treaty settlement"],
+        "url": "https://www.legislation.govt.nz/act/public/2010/0119/latest/DLM2921815.html"
+    },
+    "OTA": {
+        "title": "Oranga Tamariki Act 1989",
+        "short_name": "OTA",
+        "year": 1989,
+        "keywords": ["oranga tamariki", "children young persons", "child protection", "youth justice", "cyf"],
+        "topics": ["child protection", "youth justice", "welfare"],
+        "url": "https://www.legislation.govt.nz/act/public/1989/0024/latest/DLM147088.html"
+    },
+    "PA1993": {
+        "title": "Privacy Act 1993",
+        "short_name": "PA1993",
+        "year": 1993,
+        "keywords": ["privacy 1993", "old privacy act", "information privacy"],
+        "topics": ["privacy", "personal information", "data protection"],
+        "url": "https://www.legislation.govt.nz/act/public/1993/0028/latest/DLM296639.html"
+    },
+    "RRA": {
+        "title": "Rates Rebate Act 1973",
+        "short_name": "RRA",
+        "year": 1973,
+        "keywords": ["rates rebate", "rates relief", "low income rates"],
+        "topics": ["rates rebate", "low income", "relief"],
+        "url": "https://www.legislation.govt.nz/act/public/1973/0005/latest/DLM409766.html"
+    },
+    "RVA": {
+        "title": "Rating Valuations Act 1998",
+        "short_name": "RVA",
+        "year": 1998,
+        "keywords": ["rating valuations", "property valuation", "qv", "valuation roll"],
+        "topics": ["valuations", "property", "rating"],
+        "url": "https://www.legislation.govt.nz/act/public/1998/0069/latest/DLM427297.html"
+    },
+    "RA": {
+        "title": "Reserves Act 1977",
+        "short_name": "RA",
+        "year": 1977,
+        "keywords": ["reserves", "reserve land", "recreation reserves", "scenic reserves"],
+        "topics": ["reserves", "recreation", "conservation"],
+        "url": "https://www.legislation.govt.nz/act/public/1977/0066/latest/DLM444305.html"
+    },
+    "TAT": {
+        "title": "Te Awa Tupua (Whanganui River Claims Settlement) Act 2017",
+        "short_name": "TAT",
+        "year": 2017,
+        "keywords": ["te awa tupua", "whanganui river", "river personhood", "whanganui settlement"],
+        "topics": ["Whanganui River", "legal personhood", "treaty settlement"],
+        "url": "https://www.legislation.govt.nz/act/public/2017/0007/latest/DLM6830851.html"
+    },
+    "TRMA": {
+        "title": "Te Ture mo Te Reo Maori 2016 (Maori Language Act)",
+        "short_name": "TRMA",
+        "year": 2016,
+        "keywords": ["te reo maori", "maori language", "te taura whiri", "te matawai"],
+        "topics": ["Te Reo Maori", "language", "revitalisation"],
+        "url": "https://www.legislation.govt.nz/act/public/2016/0017/latest/DLM6174509.html"
+    },
+    "TRNT": {
+        "title": "Te Runanga o Ngai Tahu Act 1996",
+        "short_name": "TRNT",
+        "year": 1996,
+        "keywords": ["te runanga o ngai tahu", "ngai tahu governance", "ngai tahu runanga"],
+        "topics": ["Ngai Tahu", "governance", "iwi"],
+        "url": "https://www.legislation.govt.nz/act/public/1996/0001/latest/DLM371876.html"
+    },
+    "TTWM": {
+        "title": "Te Ture Whenua Maori Act 1993 (Maori Land Act)",
+        "short_name": "TTWM",
+        "year": 1993,
+        "keywords": ["te ture whenua", "maori land", "maori land court", "whenua maori"],
+        "topics": ["Maori land", "land court", "succession"],
+        "url": "https://www.legislation.govt.nz/act/public/1993/0004/latest/DLM289882.html"
+    },
+    "TUA": {
+        "title": "Te Urewera Act 2014",
+        "short_name": "TUA",
+        "year": 2014,
+        "keywords": ["te urewera", "tuhoe", "urewera national park"],
+        "topics": ["Te Urewera", "Tuhoe", "treaty settlement"],
+        "url": "https://www.legislation.govt.nz/act/public/2014/0051/latest/DLM6183601.html"
+    },
+    "TOWA": {
+        "title": "Treaty of Waitangi Act 1975",
+        "short_name": "TOWA",
+        "year": 1975,
+        "keywords": ["treaty of waitangi", "waitangi tribunal", "treaty claims"],
+        "topics": ["Treaty of Waitangi", "Waitangi Tribunal", "claims"],
+        "url": "https://www.legislation.govt.nz/act/public/1975/0114/latest/DLM435368.html"
+    },
+    "TOWFS": {
+        "title": "Treaty of Waitangi (Fisheries Claims) Settlement Act 1992",
+        "short_name": "TOWFS",
+        "year": 1992,
+        "keywords": ["sealord deal", "fisheries settlement", "treaty fisheries"],
+        "topics": ["fisheries settlement", "Sealord", "Treaty"],
+        "url": "https://www.legislation.govt.nz/act/public/1992/0121/latest/DLM281433.html"
+    },
+    "WRCS": {
+        "title": "Waikato Raupatu Claims Settlement Act 1995",
+        "short_name": "WRCS",
+        "year": 1995,
+        "keywords": ["waikato raupatu", "tainui settlement", "waikato-tainui"],
+        "topics": ["Waikato-Tainui", "raupatu", "treaty settlement"],
+        "url": "https://www.legislation.govt.nz/act/public/1995/0058/latest/DLM370102.html"
+    },
+    "WTWR": {
+        "title": "Waikato-Tainui Raupatu Claims (Waikato River) Settlement Act 2010",
+        "short_name": "WTWR",
+        "year": 2010,
+        "keywords": ["waikato river settlement", "waikato-tainui river", "river settlement"],
+        "topics": ["Waikato River", "Waikato-Tainui", "river settlement"],
+        "url": "https://www.legislation.govt.nz/act/public/2010/0024/latest/DLM1630002.html"
+    },
 }
 
 

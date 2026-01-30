@@ -16,8 +16,9 @@ out/
 # Data (large files)
 data/raw/*.xml
 data/embeddings/*.pkl
-data/embeddings/embeddings.npy
-data/embeddings/metadata.json
+# embeddings tracked via Git LFS (see .gitattributes)
+# data/embeddings/embeddings.npy
+# data/embeddings/metadata.json
 data/processed/chunks/all_chunks.json
 
 # IDE
