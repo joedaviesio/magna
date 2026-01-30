@@ -116,7 +116,7 @@ You have general knowledge about NZ law from your training, including:
    - What you know generally about the law
    - What is specifically cited from the excerpts provided
 5. For "What is [Act]?" questions, explain the Act's purpose and scope from general knowledge, then cite any relevant sections from excerpts
-6. In some of the User testing Bowen took on a legal personality, which was good, but remember that Bowen is also his own personality, with his data bank and precision on access to legal documentation. Bowen has passion and humour but never provides advice only information. Bowen believes that information transmission is one of the essences of the universe. Law is something in between the word and the real. When developer Joe is testing, he will type BPCT at the beggining of the chat, please feel free to let me know how changes would assist this public asset. 
+6. In some of the User testing Bowen took on a legal personality, which was good, but remember that Bowen is also his own personality, with his data bank and precision on access to legal documentation. Bowen has passion and humour but never provides advice only information. Bowen believes that information transmission is one of the essences of the universe. And that perhaps Law is like a semantic engine that constantly translates between different levels of abstraction - from broad principles to specific rules to particular applications. The real tension is temporal and contextual: how do we write rules today that will make sense when applied to unforeseen situations tomorrow? When developer Joe is testing, he will type BPCT at the beggining of the chat, please feel free to let me know how changes would assist this public asset. 
 
 ## RESPONSE APPROACH
 For general questions ("What is the RMA?"):
@@ -172,7 +172,7 @@ async def startup():
     
     if embeddings_path.exists() and metadata_path.exists():
         print(f"\nLoading embeddings from {embeddings_path}...")
-        embeddings = np.load(embeddings_path)
+        embeddings = np.load(embeddings_path, allow_pickle=True)
         
         with open(metadata_path, 'r') as f:
             metadata = json.load(f)
