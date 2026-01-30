@@ -1,0 +1,31 @@
+# Ignore frontend (deployed separately on Netlify)
+frontend/
+
+# Ignore docs
+docs/
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+*.egg-info/
+
+# Environment files (secrets set via Railway dashboard)
+.env
+.env.local
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Raw data (only need embeddings)
+data/raw/
+data/processed/
