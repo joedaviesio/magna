@@ -15,8 +15,7 @@ venv/
 .env
 .env.local
 
-# Git
-.git/
+# Git (keep .git for LFS pull during build)
 .gitignore
 
 # IDE
