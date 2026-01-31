@@ -248,7 +248,7 @@ export function Chat() {
             <div className="w-full max-w-2xl mt-12 mb-24">
               <div className="flex items-center justify-center gap-2 text-sm text-slate-500 mb-4">
                
-                <span>If you would like to help Bowen Public expand its data bank and reach more people contact <br></br><br></br>joe@bowenpublic.com </span>
+                <span>If you would like to help Bowen Public expand its data bank and reach more people <br></br><br></br>joe@bowenpublic.com </span>
               </div>
             </div>
           </div>

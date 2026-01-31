@@ -21,9 +21,11 @@ from pathlib import Path
 from typing import List, Optional
 from datetime import datetime
 
-from fastapi import FastAPI, HTTPException, APIRouter
+from fastapi import FastAPI, HTTPException, APIRouter, Request, Query
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import Response
+from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 
@@ -49,8 +51,8 @@ TOP_K = 5
 
 # Pydantic models
 class ChatRequest(BaseModel):
-    message: str
-    session_id: Optional[str] = None
+    message: str = Field(..., min_length=1, max_length=5000, description="User message")
+    session_id: Optional[str] = Field(None, max_length=100, description="Session ID for conversation tracking")
 
 class Source(BaseModel):
     act_title: str
@@ -78,14 +80,33 @@ app = FastAPI(
 # API v1 Router
 api_v1 = APIRouter(prefix="/api/v1", tags=["v1"])
 
-# CORS
+# CORS - Configure allowed origins from environment
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "").split(",") if os.getenv("ALLOWED_ORIGINS") else []
+DEFAULT_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
+CORS_ORIGINS = ALLOWED_ORIGINS if ALLOWED_ORIGINS else DEFAULT_ORIGINS
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "*"],
+    allow_origins=CORS_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
 )
+
+
+# Security Headers Middleware
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["X-XSS-Protection"] = "1; mode=block"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+        return response
+
+
+app.add_middleware(SecurityHeadersMiddleware)
 
 # Global state
 embeddings = None
@@ -161,10 +182,23 @@ from .errors import (
 async def startup():
     """Load models and data on startup."""
     global embeddings, metadata, embedding_model, anthropic_client, supabase_client
-    
+
     print("\n" + "=" * 50)
     print("Starting Bowen Backend...")
     print("=" * 50)
+
+    # Validate required environment variables
+    missing_vars = []
+    if not ANTHROPIC_API_KEY:
+        missing_vars.append("ANTHROPIC_API_KEY")
+
+    if missing_vars:
+        print(f"\n✗ CRITICAL: Missing required environment variables: {', '.join(missing_vars)}")
+        print("  Set these in your .env file or environment before starting the server.")
+        raise RuntimeError(f"Missing required environment variables: {', '.join(missing_vars)}")
+
+    # Log CORS configuration
+    print(f"\n✓ CORS origins: {CORS_ORIGINS}")
     
     # Load embeddings
     embeddings_path = EMBEDDINGS_DIR / "embeddings.npy"
@@ -566,15 +600,15 @@ async def chat(request: ChatRequest):
 
 
 @app.get("/search")
-async def search(q: str, limit: int = 10):
+async def search(
+    q: str = Query(..., min_length=1, max_length=1000, description="Search query"),
+    limit: int = Query(default=10, ge=1, le=20, description="Maximum results to return")
+):
     """Direct search endpoint."""
-    if not q:
-        raise_invalid_query()
-
     if embeddings is None or embedding_model is None:
         raise_embeddings_not_loaded()
 
-    results = search_similar(q, top_k=min(limit, 20))
+    results = search_similar(q, top_k=limit)
     
     return {
         "query": q,
@@ -615,7 +649,10 @@ async def v1_chat(request: ChatRequest):
 
 
 @api_v1.get("/search")
-async def v1_search(q: str, limit: int = 10):
+async def v1_search(
+    q: str = Query(..., min_length=1, max_length=1000, description="Search query"),
+    limit: int = Query(default=10, ge=1, le=20, description="Maximum results to return")
+):
     """Search endpoint (v1)."""
     return await search(q, limit)
 
@@ -650,12 +687,20 @@ app.include_router(api_v1)
 # Debug endpoint to test retrieval without Claude
 # =============================================================================
 
+# Debug endpoints - only available in development
+DEBUG_MODE = os.getenv("DEBUG", "false").lower() == "true"
+
+
 @app.get("/debug/search")
-async def debug_search(q: str, limit: int = 10):
+async def debug_search(q: str, limit: int = Field(default=10, ge=1, le=50)):
     """
     Debug endpoint to see what sections are being retrieved.
     Shows key section boosting in action.
+    Only available when DEBUG=true environment variable is set.
     """
+    if not DEBUG_MODE:
+        raise HTTPException(status_code=404, detail="Not found")
+
     key_sections = get_key_sections_for_query(q)
     detected_act = detect_act_from_query(q)
 
