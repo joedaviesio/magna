@@ -692,7 +692,7 @@ DEBUG_MODE = os.getenv("DEBUG", "false").lower() == "true"
 
 
 @app.get("/debug/search")
-async def debug_search(q: str, limit: int = Field(default=10, ge=1, le=50)):
+async def debug_search(q: str, limit: int = Query(default=10, ge=1, le=50)):
     """
     Debug endpoint to see what sections are being retrieved.
     Shows key section boosting in action.
