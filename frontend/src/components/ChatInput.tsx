@@ -1,7 +1,19 @@
 'use client';
 
-import { useState, FormEvent, KeyboardEvent } from 'react';
+import { useState, useMemo, FormEvent, KeyboardEvent } from 'react';
 import { Send, Loader2 } from 'lucide-react';
+
+// Bowen brand colors from the logo
+const BRAND_COLORS = ['#00ac3f', '#1c66d1', '#e23d30', '#ffce31'];
+
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -11,6 +23,17 @@ interface ChatInputProps {
 
 export function ChatInput({ onSend, isLoading, placeholder = 'Ask about New Zealand legislation...' }: ChatInputProps) {
   const [input, setInput] = useState('');
+
+  // Randomly assign brand colors to each border side
+  const borderColors = useMemo(() => {
+    const shuffled = shuffleArray(BRAND_COLORS);
+    return {
+      top: shuffled[0],
+      right: shuffled[1],
+      bottom: shuffled[2],
+      left: shuffled[3],
+    };
+  }, []);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -28,7 +51,17 @@ export function ChatInput({ onSend, isLoading, placeholder = 'Ask about New Zeal
 
   return (
     <form onSubmit={handleSubmit} className="relative">
-      <div className="flex gap-3 bg-white border border-slate-200 rounded-xl p-2 shadow-lg shadow-slate-200/50">
+      <div
+        className="flex gap-3 bg-white rounded-xl p-2 shadow-lg shadow-slate-200/50"
+        style={{
+          borderWidth: '2px',
+          borderStyle: 'solid',
+          borderTopColor: borderColors.top,
+          borderRightColor: borderColors.right,
+          borderBottomColor: borderColors.bottom,
+          borderLeftColor: borderColors.left,
+        }}
+      >
         <textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
