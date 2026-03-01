@@ -29,22 +29,13 @@ from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 
-# Optional Supabase support
-try:
-    from supabase import create_client, Client
-    SUPABASE_AVAILABLE = True
-except ImportError as e:
-    print(f"⚠ Supabase not available: {e}")
-    SUPABASE_AVAILABLE = False
-    Client = None
-
 # Load environment variables
 load_dotenv()
 
 # Configuration
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY")
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")  # For accessing logs
+LOGS_DIR = Path("logs")
 EMBEDDINGS_DIR = Path("data/embeddings")
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 TOP_K = 5
@@ -113,7 +104,6 @@ embeddings = None
 metadata = None
 embedding_model = None
 anthropic_client = None
-supabase_client = None
 
 # System prompt
 SYSTEM_PROMPT = """You are Bowen, a chatbot legal information assistant for New Zealand legislation.
@@ -237,15 +227,9 @@ async def startup():
     else:
         print("✗ ANTHROPIC_API_KEY not set in .env")
 
-    # Initialize Supabase client
-    if SUPABASE_AVAILABLE and SUPABASE_URL and SUPABASE_ANON_KEY and not SUPABASE_URL.startswith("your-"):
-        try:
-            supabase_client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
-            print("✓ Supabase client initialized")
-        except Exception as e:
-            print(f"✗ Could not initialize Supabase: {e}")
-    else:
-        print("⚠ Supabase not configured (chat will work but not be logged)")
+    # Initialize logs directory
+    LOGS_DIR.mkdir(exist_ok=True)
+    print("✓ Logs directory ready")
 
     print("\n" + "=" * 50)
     print("Startup complete!")
@@ -410,81 +394,33 @@ Remember: Provide information, not legal advice. Cite specific sections where po
         raise_generation_failed(str(e))
 
 
-async def log_chat_message(session_id: str, role: str, content: str, sources: List[dict] = None):
-    """Log a chat message to Supabase."""
-    if not supabase_client:
-        logger.warning(LogEvent.ANALYTICS_FAILURE, "Supabase not configured, skipping chat message log")
-        return
-
-    try:
-        supabase_client.table("chat_messages").insert({
-            "session_id": session_id,
-            "role": role,
-            "content": content,
-            "sources": sources
-        }).execute()
-        logger.track_analytics_success("chat_message", session_id)
-    except Exception as e:
-        logger.track_analytics_failure("chat_message", e, session_id)
-
-
-async def log_analytics(
-    event_type: str,
-    session_id: str = None,
-    query: str = None,
-    detected_act: str = None,
-    sources_count: int = None,
-    response_time_ms: int = None
+def log_query(
+    session_id: str,
+    ip: str,
+    query: str,
+    response: str,
+    detected_act: str,
+    sources_count: int,
+    response_time_ms: int
 ):
-    """Log analytics event to Supabase."""
-    if not supabase_client:
-        logger.warning(LogEvent.ANALYTICS_FAILURE, "Supabase not configured, skipping analytics log")
-        return
-
+    """Log query to JSON file."""
     try:
-        supabase_client.table("analytics").insert({
-            "event_type": event_type,
+        log_entry = {
+            "timestamp": datetime.utcnow().isoformat() + "Z",
             "session_id": session_id,
+            "ip": ip,
             "query": query,
+            "response": response,
             "detected_act": detected_act,
             "sources_count": sources_count,
             "response_time_ms": response_time_ms
-        }).execute()
-        logger.track_analytics_success("analytics_event", session_id)
+        }
+
+        log_file = LOGS_DIR / "queries.jsonl"
+        with open(log_file, "a") as f:
+            f.write(json.dumps(log_entry) + "\n")
     except Exception as e:
-        logger.track_analytics_failure("analytics_event", e, session_id)
-
-
-async def update_topic_stats(act_name: str):
-    """Update topic statistics in Supabase."""
-    if not supabase_client or not act_name:
-        if not act_name:
-            return  # No act detected, nothing to log
-        logger.warning(LogEvent.ANALYTICS_FAILURE, "Supabase not configured, skipping topic stats")
-        return
-
-    try:
-        # Try to upsert the topic stats
-        supabase_client.table("topic_stats").upsert({
-            "act_name": act_name,
-            "query_count": 1,
-            "last_queried": datetime.utcnow().isoformat()
-        }, on_conflict="act_name").execute()
-
-        # Increment the count
-        supabase_client.rpc("increment_topic_count", {"act": act_name}).execute()
-        logger.track_analytics_success("topic_stats")
-    except Exception as e:
-        # Fallback: just insert if RPC doesn't exist
-        try:
-            supabase_client.table("topic_stats").upsert({
-                "act_name": act_name,
-                "query_count": 1,
-                "last_queried": datetime.utcnow().isoformat()
-            }, on_conflict="act_name").execute()
-            logger.track_analytics_success("topic_stats_fallback")
-        except Exception as fallback_error:
-            logger.track_analytics_failure("topic_stats", fallback_error)
+        logger.error(LogEvent.ANALYTICS_FAILURE, f"Failed to log query: {e}", error=e)
 
 
 @app.get("/")
@@ -505,15 +441,67 @@ async def health():
         "embeddings_loaded": embeddings is not None,
         "model_loaded": embedding_model is not None,
         "anthropic_ready": anthropic_client is not None,
-        "supabase_ready": supabase_client is not None,
         "chunks": len(metadata) if metadata else 0,
         "analytics_failures": failure_counts,
         "has_failures": len(failure_counts) > 0
     }
 
 
+@app.get("/admin/logs")
+async def get_logs(token: str = Query(..., description="Admin token")):
+    """Download query logs. Requires ADMIN_TOKEN."""
+    if not ADMIN_TOKEN or token != ADMIN_TOKEN:
+        raise HTTPException(status_code=401, detail="Invalid admin token")
+
+    log_file = LOGS_DIR / "queries.jsonl"
+    if not log_file.exists():
+        return {"message": "No logs yet", "entries": []}
+
+    entries = []
+    with open(log_file, "r") as f:
+        for line in f:
+            if line.strip():
+                entries.append(json.loads(line))
+
+    return {
+        "total": len(entries),
+        "entries": entries
+    }
+
+
+@app.get("/admin/stats")
+async def get_stats(token: str = Query(..., description="Admin token")):
+    """Get quick stats. Requires ADMIN_TOKEN."""
+    if not ADMIN_TOKEN or token != ADMIN_TOKEN:
+        raise HTTPException(status_code=401, detail="Invalid admin token")
+
+    log_file = LOGS_DIR / "queries.jsonl"
+    if not log_file.exists():
+        return {"total_queries": 0, "top_acts": {}}
+
+    entries = []
+    with open(log_file, "r") as f:
+        for line in f:
+            if line.strip():
+                entries.append(json.loads(line))
+
+    # Count by act
+    act_counts = {}
+    for e in entries:
+        act = e.get("detected_act") or "Unknown"
+        act_counts[act] = act_counts.get(act, 0) + 1
+
+    # Sort by count
+    top_acts = dict(sorted(act_counts.items(), key=lambda x: x[1], reverse=True)[:10])
+
+    return {
+        "total_queries": len(entries),
+        "top_acts": top_acts
+    }
+
+
 @app.post("/chat", response_model=ChatResponse)
-async def chat(request: ChatRequest):
+async def chat(request: ChatRequest, req: Request):
     """Main chat endpoint with improved retrieval."""
     start_time = time.time()
     query = request.message.strip()
@@ -581,19 +569,20 @@ async def chat(request: ChatRequest):
     # Calculate response time
     response_time_ms = int((time.time() - start_time) * 1000)
 
-    # Log to Supabase (non-blocking)
-    sources_for_log = [{"act": s.act_title, "section": s.section_number} for s in sources[:5]]
-    await log_chat_message(session_id, "user", query)
-    await log_chat_message(session_id, "assistant", response_text, sources_for_log)
-    await log_analytics(
-        event_type="chat",
+    # Log query to JSON file
+    client_ip = req.headers.get("X-Forwarded-For", req.client.host if req.client else "unknown")
+    if "," in client_ip:
+        client_ip = client_ip.split(",")[0].strip()  # Get first IP if multiple
+
+    log_query(
         session_id=session_id,
+        ip=client_ip,
         query=query,
+        response=response_text,
         detected_act=detected_act,
         sources_count=len(sources),
         response_time_ms=response_time_ms
     )
-    await update_topic_stats(detected_act)
 
     # Log response metrics
     logger.log_chat_response(session_id, response_time_ms, len(sources), success=True)
