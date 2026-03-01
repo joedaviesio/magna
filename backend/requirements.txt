@@ -19,7 +19,7 @@ sentence-transformers==2.3.1
 
 # Utilities
 pydantic==2.6.0
-httpx>=0.24,<0.26
+httpx>=0.24
 
 # Database
-supabase==2.3.4
+supabase>=2.10.0
