@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Bowen - NZ Legal Information Assistant',
+  title: 'BOWEN',
   description: 'Chatbot legal information tool for New Zealand legislation. Get instant answers with citations to official sources.',
   keywords: ['New Zealand law', 'legal information', 'NZ legislation', 'legal assistant'],
 };

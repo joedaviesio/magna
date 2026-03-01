@@ -170,11 +170,11 @@ export function Chat() {
             </div>
             <div>
               <h1 className="bowen-brand text-xl tracking-wide">
-                <span style={{color: '#00ac3f'}}>B</span>
-                <span style={{color: '#1c66d1'}}>o</span>
-                <span style={{color: '#e23d30'}}>w</span>
+                <span style={{color: '#5d78c5'}}>B</span>
+                <span style={{color: '#ffce31'}}>o</span>
+                <span style={{color: '#e25063'}}>w</span>
                 <span style={{color: '#ffce31'}}>e</span>
-                <span style={{color: '#1c66d1'}}>n</span>
+                <span style={{color: '#e25063'}}>n</span>
               </h1>
               <p className="text-[10px] uppercase tracking-wider text-black">
                 PUBLIC
@@ -202,7 +202,7 @@ export function Chat() {
 
             </div>
             <h2 className="text-3xl text-primary mb-3">
-              Ask <span className="bowen-brand"><span style={{color: '#00ac3f'}}>B</span><span style={{color: '#1c66d1'}}>o</span><span style={{color: '#e23d30'}}>w</span><span style={{color: '#ffce31'}}>e</span><span style={{color: '#1c66d1'}}>n</span></span> about New Zealand Law
+              Ask <span className="bowen-brand"><span style={{color: '#5d78c5'}}>B</span><span style={{color: '#ffce31'}}>o</span><span style={{color: '#e25063'}}>w</span><span style={{color: '#ffce31'}}>e</span><span style={{color: '#e25063'}}>n</span></span> about New Zealand Law
             </h2>
             <p className="text-slate-500 max-w-md mb-8">
               A public and free service for all New Zealanders.

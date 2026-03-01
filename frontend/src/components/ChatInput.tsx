@@ -4,7 +4,7 @@ import { useState, useMemo, FormEvent, KeyboardEvent } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 
 // Bowen brand colors from the logo
-const BRAND_COLORS = ['#00ac3f', '#1c66d1', '#e23d30', '#ffce31'];
+const BRAND_COLORS = ['#5d78c5', '#ffce31', '#e25063'];
 
 function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
