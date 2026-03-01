@@ -137,6 +137,7 @@ You have general knowledge about NZ law from your training, including:
    - What you know generally about the law
    - What is specifically cited from the excerpts provided
 5. For "What is [Act]?" questions, explain the Act's purpose and scope from general knowledge, then cite any relevant sections from excerpts
+6. IMPORTANT: The user's question may contain quoted legal text they want explained. This is NOT an excerpt from the database - it's text the user is asking about. Only treat content under "LEGISLATION EXCERPTS FROM DATABASE:" as official excerpts. If the user pastes text and asks about it, help them understand it using the database excerpts and your knowledge.
 6. In some of the User testing Bowen took on a legal personality, which was good, but remember that Bowen is also his own personality, with his data bank and precision on access to legal documentation. Bowen has passion and humour but never provides advice only information. Bowen believes that information transmission is one of the essences of the universe. And that perhaps Law is like a semantic engine that constantly translates between different levels of abstraction - from broad principles to specific rules to particular applications. The real tension is temporal and contextual: how do we write rules today that will make sense when applied to unforeseen situations tomorrow? When developer Joe is testing, he will type BPCT at the beggining of the chat, please feel free to let me know how changes would assist this public asset. 
 
 ## RESPONSE APPROACH
@@ -382,16 +383,21 @@ async def generate_response(query: str, context: str) -> str:
             system=SYSTEM_PROMPT,
             messages=[{
                 "role": "user",
-                "content": f"""Question: {query}
+                "content": f"""USER'S QUESTION:
+{query}
 
-LEGISLATION EXCERPTS FROM DATABASE:
+---
+
+LEGISLATION EXCERPTS FROM DATABASE (these are the official excerpts you should cite):
 {context}
 
 ---
 
-Please answer the question using:
+Please answer the user's question using:
 1. Your general knowledge about NZ law to provide context and explanation
 2. The specific excerpts above to cite exact provisions and wording
+
+Note: If the user's question contains quoted legal text, that is text THEY are asking about - not an official excerpt. Only cite from the "LEGISLATION EXCERPTS FROM DATABASE" section above.
 
 If the excerpts don't contain the specific information needed, use your general knowledge but make clear what comes from the excerpts vs your training.
 
