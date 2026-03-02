@@ -24,65 +24,7 @@ export default function TeTiritiPage() {
 
         <div className="prose prose-slate max-w-none">
           <section className="mb-12">
-            <h2>Why This Matters</h2>
-            <p>
-              Te Tiriti o Waitangi is foundational to New Zealand's legal system. It is not simply
-              one piece of legislation among many—it underpins our constitutional arrangements and
-              increasingly permeates statute law across environmental, health, education, and
-              governance domains.
-            </p>
-            <p>
-              For a legal information tool like Bowen, handling Treaty matters requires particular
-              care. The Treaty's interpretation has evolved significantly since 1840, and continues
-              to develop through legislation, case law, and Waitangi Tribunal findings.
-            </p>
-          </section>
-
-          <section className="mb-12">
-            <h2>How Bowen Approaches Treaty Queries</h2>
-
-            <h3>The Two Texts</h3>
-            <p>
-              Bowen recognises the material differences between the Māori and English texts of
-              Te Tiriti. Article 2, for example, guarantees "tino rangatiratanga" in te reo Māori
-              but "exclusive and undisturbed possession" in English—concepts that carry different
-              weight and meaning.
-            </p>
-
-            <h3>Treaty Principles</h3>
-            <p>
-              Through case law, particularly the landmark <em>NZ Maori Council v Attorney-General</em> [1987]
-              (the "Lands Case"), the courts have developed Treaty principles including:
-            </p>
-            <ul>
-              <li><strong>Partnership</strong> — The Crown and Māori are partners requiring good faith</li>
-              <li><strong>Active Protection</strong> — The Crown must actively protect Māori interests</li>
-              <li><strong>Redress</strong> — Where breaches occur, the Crown should provide remedy</li>
-            </ul>
-
-            <h3>Treaty Clauses in Legislation</h3>
-            <p>
-              Many modern NZ Acts contain Treaty clauses. Bowen's database includes legislation like:
-            </p>
-            <ul>
-              <li>Treaty of Waitangi Act 1975</li>
-              <li>Te Ture Whenua Maori Act 1993</li>
-              <li>Resource Management Act 1991 (s8 — Treaty principles)</li>
-              <li>Conservation Act 1987 (s4 — give effect to Treaty principles)</li>
-              <li>Various Treaty settlement Acts</li>
-            </ul>
-
-            <h3>Historical Context</h3>
-            <p>
-              Bowen draws on curated scholarly references to provide historical context, including
-              the evolution from <em>Wi Parata v Bishop of Wellington</em> (1877)—which dismissed
-              the Treaty as "a simple nullity"—to the modern recognition of Treaty principles as
-              central to NZ law.
-            </p>
-          </section>
-
-          <section className="mb-12">
-            <h2>From Possession to Ownership: A Historical Perspective</h2>
+            <h2>From Possession to Ownership: Land Law and the Treaty in Colonial New Zealand</h2>
             <p className="text-sm text-slate-500 mb-4">
               Essay by Joe Davies, Founder of Bowen
             </p>
@@ -179,6 +121,55 @@ export default function TeTiritiPage() {
               historical evolution of land registration and the transition from possession-based
               to ownership-based titles, we gain valuable context for understanding New Zealand's
               legal jurisdiction—and why Te Tiriti remains central to it.
+            </p>
+          </section>
+
+          <section className="mb-12 border-t border-slate-200 pt-12">
+            <h2>How Bowen Handles Treaty Queries</h2>
+            <p>
+              Te Tiriti o Waitangi is foundational to New Zealand's legal system. It underpins our
+              constitutional arrangements and increasingly permeates statute law across environmental,
+              health, education, and governance domains. For a legal information tool like Bowen,
+              handling Treaty matters requires particular care.
+            </p>
+
+            <h3>The Two Texts</h3>
+            <p>
+              Bowen recognises the material differences between the Māori and English texts of
+              Te Tiriti. Article 2, for example, guarantees "tino rangatiratanga" in te reo Māori
+              but "exclusive and undisturbed possession" in English—concepts that carry different
+              weight and meaning.
+            </p>
+
+            <h3>Treaty Principles</h3>
+            <p>
+              Through case law, particularly the landmark <em>NZ Maori Council v Attorney-General</em> [1987]
+              (the "Lands Case"), the courts have developed Treaty principles including:
+            </p>
+            <ul>
+              <li><strong>Partnership</strong> — The Crown and Māori are partners requiring good faith</li>
+              <li><strong>Active Protection</strong> — The Crown must actively protect Māori interests</li>
+              <li><strong>Redress</strong> — Where breaches occur, the Crown should provide remedy</li>
+            </ul>
+
+            <h3>Treaty Clauses in Legislation</h3>
+            <p>
+              Many modern NZ Acts contain Treaty clauses. Bowen's database includes legislation like:
+            </p>
+            <ul>
+              <li>Treaty of Waitangi Act 1975</li>
+              <li>Te Ture Whenua Maori Act 1993</li>
+              <li>Resource Management Act 1991 (s8 — Treaty principles)</li>
+              <li>Conservation Act 1987 (s4 — give effect to Treaty principles)</li>
+              <li>Various Treaty settlement Acts</li>
+            </ul>
+
+            <h3>Historical Context</h3>
+            <p>
+              Bowen draws on curated scholarly references to provide historical context, including
+              the evolution from <em>Wi Parata v Bishop of Wellington</em> (1877)—which dismissed
+              the Treaty as "a simple nullity"—to the modern recognition of Treaty principles as
+              central to NZ law.
             </p>
           </section>
 
