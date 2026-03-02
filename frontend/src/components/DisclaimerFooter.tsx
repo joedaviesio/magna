@@ -10,12 +10,20 @@ export function DisclaimerFooter() {
           <span className="bowen-brand">Bowen</span> is an ai model, NOT legal advice. Consult a qualified NZ lawyer for legal decisions.
         </span>
       </div>
-      <Link
-        href="/data-policy"
-        className="text-slate-400 hover:text-slate-600 underline underline-offset-2"
-      >
-        Data Policy
-      </Link>
+      <div className="flex gap-3">
+        <Link
+          href="/data-policy"
+          className="text-slate-400 hover:text-slate-600 underline underline-offset-2"
+        >
+          Data Policy
+        </Link>
+        <Link
+          href="/te-tiriti"
+          className="text-slate-400 hover:text-slate-600 underline underline-offset-2"
+        >
+          Bowen's approach to Te Tiriti
+        </Link>
+      </div>
     </div>
   );
 }
