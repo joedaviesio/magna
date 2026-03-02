@@ -5,6 +5,7 @@ Single source of truth for all NZ Acts supported by Bowen.
 Used by both the backend for act detection and served to frontend via API.
 """
 
+import re
 from typing import List, Dict, Optional
 
 # Acts Registry - the single source of truth
@@ -629,16 +630,23 @@ ACTS_REGISTRY: Dict[str, Dict] = {
 
 
 def detect_act_from_query(query: str) -> Optional[str]:
-    """Detect if user is asking about a specific Act using the registry."""
+    """Detect if user is asking about a specific Act using the registry.
+
+    Uses word boundary matching to prevent false positives like 'pla' matching 'explain'.
+    """
     query_lower = query.lower()
 
     for short_name, act_info in ACTS_REGISTRY.items():
-        if any(kw in query_lower for kw in act_info["keywords"]):
-            # Return the base name for filtering (e.g., "Residential Tenancies")
-            title = act_info["title"]
-            # Extract the base name (without year)
-            base_name = title.rsplit(" Act", 1)[0] if " Act" in title else title
-            return base_name
+        for kw in act_info["keywords"]:
+            # Use word boundary matching to ensure we match whole words only
+            # This prevents 'pla' from matching 'explain' or 'property' from matching 'patent'
+            pattern = r'\b' + re.escape(kw) + r'\b'
+            if re.search(pattern, query_lower):
+                # Return the base name for filtering (e.g., "Residential Tenancies")
+                title = act_info["title"]
+                # Extract the base name (without year)
+                base_name = title.rsplit(" Act", 1)[0] if " Act" in title else title
+                return base_name
 
     return None
 
