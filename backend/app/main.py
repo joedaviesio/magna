@@ -35,7 +35,7 @@ load_dotenv()
 # Configuration
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")  # For accessing logs
-LOGS_DIR = Path("logs")
+LOGS_DIR = Path(os.getenv("LOGS_DIR", "logs"))  # Use env var for Railway volume
 EMBEDDINGS_DIR = Path("data/embeddings")
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 TOP_K = 5
