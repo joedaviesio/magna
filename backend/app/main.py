@@ -37,6 +37,7 @@ ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")  # For accessing logs
 LOGS_DIR = Path(os.getenv("LOGS_DIR", "logs"))  # Use env var for Railway volume
 EMBEDDINGS_DIR = Path("data/embeddings")
+REFERENCES_DIR = Path("data/references")
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 TOP_K = 5
 
@@ -104,6 +105,7 @@ embeddings = None
 metadata = None
 embedding_model = None
 anthropic_client = None
+references = []  # Curated scholarly references
 
 # System prompt
 SYSTEM_PROMPT = """You are Bowen, a chatbot legal information assistant for New Zealand legislation.
@@ -113,6 +115,55 @@ You have general knowledge about NZ law from your training, including:
 - The purpose and scope of major NZ Acts
 - How NZ legal system works
 - Common legal concepts and terminology
+
+## TE TIRITI O WAITANGI / TREATY OF WAITANGI
+The Treaty is foundational to NZ law and requires particular care in your responses.
+
+### Constitutional Status
+The Treaty is not formally part of NZ's constitution, but has been described as a "constitutional document" by the courts. Its legal effect depends on incorporation into statute - it has no direct legal force unless Parliament gives it effect through legislation. However, its principles increasingly permeate NZ law.
+
+### The Two Texts
+There are material differences between the Māori and English texts:
+- Article 1: Māori text cedes "kāwanatanga" (governance), English cedes "sovereignty"
+- Article 2: Māori guarantees "tino rangatiratanga" (full chieftainship) over taonga; English guarantees "exclusive and undisturbed possession" of lands, estates, forests, fisheries
+- Article 2 also established Crown pre-emption (exclusive right to purchase Māori land)
+- Article 3: Both texts grant Māori the rights of British subjects
+
+### Treaty Principles (from case law)
+Key principles developed through litigation include:
+- **Partnership**: The Crown and Māori are partners, requiring good faith and reasonable cooperation
+- **Active Protection**: The Crown must actively protect Māori interests, not merely avoid harming them
+- **Redress**: Where the Crown has breached Treaty obligations, it should provide redress
+- **Informed Decision-making**: Māori should have sufficient information to make decisions about their taonga
+
+### Key Cases
+- **R v Symonds (1847)**: Recognised native title; Crown's exclusive pre-emption right
+- **Wi Parata v Bishop of Wellington (1877)**: Described Treaty as "a simple nullity" - this was the dominant view for over a century but is now discredited
+- **NZ Maori Council v Attorney-General [1987] (Lands Case)**: Pivotal case establishing Treaty principles; Court of Appeal held the Crown must act in good faith and make informed decisions
+- **Te Runanga o Muriwhenua v Attorney-General [1990]**: Fisheries and Treaty rights
+- **Ngati Apa v Attorney-General [2003]**: Recognised Māori customary title to foreshore and seabed may not have been extinguished
+
+### Treaty Clauses in Modern Legislation
+Many NZ Acts now contain Treaty clauses requiring decision-makers to consider Treaty principles:
+- RMA 1991, s8: "shall take into account the principles of the Treaty"
+- Conservation Act 1987, s4: "shall give effect to the principles of the Treaty"
+- Education and Training Act 2020, s9: Treaty obligations
+- Local Government Act 2002, s4: Treaty principles in local governance
+
+### The Waitangi Tribunal
+Established by the Treaty of Waitangi Act 1975, the Tribunal:
+- Investigates Crown breaches of Treaty principles
+- Makes recommendations (generally not binding)
+- Can investigate historical claims back to 1840
+- Has produced significant reports on Treaty settlements
+
+### Responding to Treaty Questions
+When users ask about Treaty matters:
+1. Acknowledge the complexity and ongoing nature of Treaty jurisprudence
+2. Note the difference between Māori and English texts where relevant
+3. Distinguish between historical positions (like Wi Parata) and modern law
+4. Reference specific Treaty clauses in relevant Acts
+5. Be respectful of the significance of these issues to Māori and to NZ's constitutional development
 
 ## YOUR ROLE
 1. Use your general knowledge to EXPLAIN and provide context about NZ legislation
@@ -172,7 +223,7 @@ from .errors import (
 @app.on_event("startup")
 async def startup():
     """Load models and data on startup."""
-    global embeddings, metadata, embedding_model, anthropic_client, supabase_client
+    global embeddings, metadata, embedding_model, anthropic_client, references
 
     print("\n" + "=" * 50)
     print("Starting Bowen Backend...")
@@ -230,6 +281,20 @@ async def startup():
     # Initialize logs directory
     LOGS_DIR.mkdir(exist_ok=True)
     print("✓ Logs directory ready")
+
+    # Load curated references
+    if REFERENCES_DIR.exists():
+        for ref_file in REFERENCES_DIR.glob("*.json"):
+            try:
+                with open(ref_file, 'r') as f:
+                    ref_data = json.load(f)
+                    references.append(ref_data)
+                    print(f"✓ Loaded reference: {ref_data.get('title', ref_file.name)}")
+            except Exception as e:
+                print(f"✗ Could not load reference {ref_file.name}: {e}")
+        print(f"✓ Loaded {len(references)} curated references")
+    else:
+        print("  No references directory found (optional)")
 
     print("\n" + "=" * 50)
     print("Startup complete!")
@@ -355,10 +420,85 @@ def build_context(results: List[dict]) -> str:
     return "\n---\n\n".join(parts)
 
 
-async def generate_response(query: str, context: str) -> str:
+def find_matching_references(query: str) -> List[dict]:
+    """Find curated references that match the query based on keywords."""
+    if not references:
+        return []
+
+    query_lower = query.lower()
+    matches = []
+
+    for ref in references:
+        # Check if any keywords match
+        keywords = ref.get('keywords', [])
+        topics = ref.get('topics', [])
+        all_terms = keywords + topics
+
+        matched_terms = []
+        for term in all_terms:
+            if term.lower() in query_lower:
+                matched_terms.append(term)
+
+        # Also check for partial matches on important terms
+        important_terms = ['treaty', 'waitangi', 'maori', 'land', 'possession', 'title', 'property']
+        for term in important_terms:
+            if term in query_lower and term not in [t.lower() for t in matched_terms]:
+                # Check if reference covers this term
+                if any(term in kw.lower() for kw in all_terms):
+                    matched_terms.append(term)
+
+        if matched_terms:
+            matches.append({
+                'reference': ref,
+                'matched_terms': list(set(matched_terms)),
+                'score': len(set(matched_terms))
+            })
+
+    # Sort by number of matched terms (relevance)
+    matches.sort(key=lambda x: x['score'], reverse=True)
+    return matches
+
+
+def build_reference_context(matched_refs: List[dict]) -> str:
+    """Build context string from matched references."""
+    if not matched_refs:
+        return ""
+
+    parts = []
+    for match in matched_refs[:2]:  # Limit to top 2 most relevant references
+        ref = match['reference']
+        parts.append(f"""## Curated Reference: {ref.get('title', 'Unknown')}
+**Author:** {ref.get('author', 'Unknown')} ({ref.get('author_role', '')})
+**Relevance:** Matched on: {', '.join(match['matched_terms'])}
+
+**Summary:** {ref.get('summary', '')}
+
+**Key Historical Context:**
+{chr(10).join('- ' + str(e['year']) + ': ' + e['event'] for e in ref.get('historical_timeline', [])[:5])}
+
+**Key Cases Discussed:**
+{chr(10).join('- ' + c['name'] + ' ' + c['citation'] + ' - ' + c['relevance'] for c in ref.get('key_cases', [])[:4])}
+""")
+
+    return "\n---\n\n".join(parts)
+
+
+async def generate_response(query: str, context: str, reference_context: str = "") -> str:
     """Generate response using Claude with hybrid knowledge approach."""
     if not anthropic_client:
         raise_anthropic_unavailable()
+
+    # Build the reference section if we have matching references
+    reference_section = ""
+    if reference_context:
+        reference_section = f"""
+---
+
+CURATED SCHOLARLY REFERENCES (use for historical context and case law background):
+{reference_context}
+
+---
+"""
 
     try:
         message = anthropic_client.messages.create(
@@ -374,16 +514,17 @@ async def generate_response(query: str, context: str) -> str:
 
 LEGISLATION EXCERPTS FROM DATABASE (these are the official excerpts you should cite):
 {context}
-
----
-
+{reference_section}
 Please answer the user's question using:
 1. Your general knowledge about NZ law to provide context and explanation
 2. The specific excerpts above to cite exact provisions and wording
+3. The curated scholarly references (if provided) for historical context and case law
 
 Note: If the user's question contains quoted legal text, that is text THEY are asking about - not an official excerpt. Only cite from the "LEGISLATION EXCERPTS FROM DATABASE" section above.
 
 If the excerpts don't contain the specific information needed, use your general knowledge but make clear what comes from the excerpts vs your training.
+
+When using curated references, you may cite them as: "According to [Author]..." or "Historical analysis by [Author] notes..."
 
 Remember: Provide information, not legal advice. Cite specific sections where possible."""
             }]
@@ -538,8 +679,12 @@ async def chat(request: ChatRequest, req: Request):
     # Build context
     context = build_context(results)
 
+    # Find matching curated references
+    matched_refs = find_matching_references(query)
+    reference_context = build_reference_context(matched_refs)
+
     # Generate response
-    response_text = await generate_response(query, context)
+    response_text = await generate_response(query, context, reference_context)
 
     # Format sources (deduplicate by act+section, or by text hash if no section)
     sources = []
