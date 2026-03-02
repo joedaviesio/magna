@@ -70,7 +70,7 @@ export default function DataPolicyPage() {
             <ul>
               <li>Sell your queries or any data to third parties</li>
               <li>Use your data for advertising or marketing purposes</li>
-              <li>Share identifiable information with anyone outside of Bowen</li>
+      
             </ul>
             <p>
               All data is held internally and used exclusively to ensure Bowen continues
@@ -87,20 +87,13 @@ export default function DataPolicyPage() {
             </p>
           </section>
 
-          <section className="mb-10">
-            <h2>Third-Party Services</h2>
-            <p>
-              Bowen uses AI technology to generate responses. Your queries are processed
-              through these services to provide answers, but are not stored by third parties
-              for their own purposes beyond providing the immediate response.
-            </p>
-          </section>
+
 
           <section className="mb-10">
             <h2>Questions</h2>
             <p>
               If you have any questions about this data policy or how Bowen handles your
-              information, please get in touch with us.
+              information, please get in touch with us.<br /><br />joe@bowenpublic.com
             </p>
           </section>
 
