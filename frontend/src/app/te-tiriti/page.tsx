@@ -16,7 +16,13 @@ export default function TeTiritiPage() {
         </Link>
 
         <h1 className="text-3xl font-semibold text-slate-900 mb-2">
-          Bowen's Approach to Te Tiriti o Waitangi
+          <span className="bowen-brand">
+            <span style={{color: '#5d78c5'}}>B</span>
+            <span style={{color: '#ffce31'}}>o</span>
+            <span style={{color: '#e25063'}}>w</span>
+            <span style={{color: '#ffce31'}}>e</span>
+            <span style={{color: '#e25063'}}>n</span>
+          </span>'s Approach to Te Tiriti o Waitangi
         </h1>
         <p className="text-slate-500 mb-6">
           How Bowen handles Treaty of Waitangi matters in New Zealand law

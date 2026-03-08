@@ -68,7 +68,7 @@ export function ChatInput({ onSend, isLoading, placeholder = 'Ask about New Zeal
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           rows={1}
-          className="flex-1 resize-none bg-transparent border-none outline-none px-3 py-2.5 text-slate-900 placeholder:text-slate-400 text-[15px]"
+          className="flex-1 resize-none bg-transparent border-none outline-none focus:outline-none focus:ring-0 px-3 py-2.5 text-slate-900 placeholder:text-slate-400 text-[15px]"
           style={{ minHeight: '44px', maxHeight: '120px' }}
           disabled={isLoading}
         />
@@ -77,7 +77,7 @@ export function ChatInput({ onSend, isLoading, placeholder = 'Ask about New Zeal
           disabled={!input.trim() || isLoading}
           className={`px-5 rounded-lg font-medium transition-all flex items-center gap-2 ${
             input.trim() && !isLoading
-              ? 'bg-gradient-to-r from-primary to-primary-light text-white hover:shadow-md'
+              ? 'bg-slate-600 text-white hover:bg-slate-500 hover:shadow-md rounded-xl'
               : 'bg-slate-100 text-slate-400 cursor-not-allowed'
           }`}
         >
