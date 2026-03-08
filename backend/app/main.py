@@ -468,7 +468,7 @@ def build_reference_context(matched_refs: List[dict]) -> str:
     for match in matched_refs[:2]:  # Limit to top 2 most relevant references
         ref = match['reference']
         parts.append(f"""## Curated Reference: {ref.get('title', 'Unknown')}
-**Author:** {ref.get('author', 'Unknown')} ({ref.get('author_role', '')})
+**Source:** Essay on Bowen's Te Tiriti page (bowenpublic.com/te-tiriti)
 **Relevance:** Matched on: {', '.join(match['matched_terms'])}
 
 **Summary:** {ref.get('summary', '')}
@@ -524,7 +524,7 @@ Note: If the user's question contains quoted legal text, that is text THEY are a
 
 If the excerpts don't contain the specific information needed, use your general knowledge but make clear what comes from the excerpts vs your training.
 
-When using curated references, you may cite them as: "According to [Author]..." or "Historical analysis by [Author] notes..."
+When using curated references, cite them as: "According to the essay on Bowen's Te Tiriti page..." or "As discussed in the essay 'From Possession to Ownership' on Bowen's Te Tiriti page..." Never attribute the essay to a named individual.
 
 Remember: Provide information, not legal advice. Cite specific sections where possible."""
             }]
