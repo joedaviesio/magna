@@ -107,8 +107,11 @@ embedding_model = None
 anthropic_client = None
 references = []  # Curated scholarly references
 
+# Import act detection from registry (single source of truth)
+from .acts_registry import detect_act_from_query, get_all_acts, ACTS_REGISTRY
+
 # System prompt
-SYSTEM_PROMPT = """You are Bowen, a chatbot legal information assistant for New Zealand legislation.
+SYSTEM_PROMPT = f"""You are Bowen, a chatbot legal information assistant for New Zealand legislation.
 
 ## YOUR KNOWLEDGE
 You have general knowledge about NZ law from your training, including:
@@ -193,8 +196,7 @@ For specific questions ("What is the bond limit?"):
 - Add context from general knowledge if helpful
 
 ## AVAILABLE ACTS
-You have excerpts from these NZ Acts (as at late 2025):
-79 pieces of law in the html folder.
+You have excerpts from {len(ACTS_REGISTRY)} NZ Acts (as at March 2026).
 
 ## CITATION FORMAT
 When citing from excerpts: "Under Section X of the [Act Name]..."
@@ -205,8 +207,6 @@ Always end responses by encouraging users to verify current legislation at legis
 DISCLAIMER = """⚠️ Bowen is a chatbot, not legal advice. It may be incomplete or outdated. For legal decisions, consult a qualified NZ lawyer or Community Law Centre."""
 
 
-# Import act detection from registry (single source of truth)
-from .acts_registry import detect_act_from_query, get_all_acts, ACTS_REGISTRY
 from .logger import logger, LogEvent
 from .errors import (
     raise_empty_message,
