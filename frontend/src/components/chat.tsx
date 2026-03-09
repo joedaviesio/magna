@@ -92,11 +92,21 @@ const FALLBACK_LEGISLATION = [
   { title: 'Treaty of Waitangi (Fisheries Claims) Settlement Act 1992', short_name: 'TOWFS', topics: ['fisheries settlement', 'Sealord', 'Treaty'] },
   { title: 'Waikato Raupatu Claims Settlement Act 1995', short_name: 'WRCS', topics: ['Waikato-Tainui', 'raupatu', 'treaty settlement'] },
   { title: 'Waikato-Tainui Raupatu Claims (Waikato River) Settlement Act 2010', short_name: 'WTWR', topics: ['Waikato River', 'Waikato-Tainui', 'river settlement'] },
+  { title: 'Sentencing Act 2002', short_name: 'SA', topics: ['sentencing', 'imprisonment', 'community sentences'] },
+  { title: 'Criminal Procedure Act 2011', short_name: 'CPA', topics: ['criminal procedure', 'trials', 'charges'] },
+  { title: 'Evidence Act 2006', short_name: 'EVA', topics: ['evidence', 'admissibility', 'witnesses'] },
+  { title: 'Bail Act 2000', short_name: 'BAIL', topics: ['bail', 'remand', 'conditions'] },
+  { title: 'Care of Children Act 2004', short_name: 'COCA', topics: ['children', 'guardianship', 'parenting orders'] },
+  { title: 'Property (Relationships) Act 1976', short_name: 'PRA', topics: ['relationship property', 'separation', 'division'] },
+  { title: 'Limitation Act 2010', short_name: 'LA', topics: ['limitation periods', 'time bars', 'claims'] },
+  { title: 'Lawyers and Conveyancers Act 2006', short_name: 'LCA', topics: ['legal profession', 'conduct', 'discipline'] },
+  { title: 'Search and Surveillance Act 2012', short_name: 'SSA', topics: ['search warrants', 'surveillance', 'police powers'] },
+  { title: 'Protection of Personal and Property Rights Act 1988', short_name: 'PPPR', topics: ['enduring powers of attorney', 'welfare guardians', 'capacity'] },
 ];
 
 // Database stats (updated when legislation is processed)
 const DATABASE_STATS = {
-  acts: 88,
+  acts: 87,
   sections: 145538,
   chunks: 155447,
 };
