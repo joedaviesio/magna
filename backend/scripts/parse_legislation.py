@@ -433,6 +433,86 @@ ACT_METADATA = {
         "short_name": "SEA",
         "topics": ["smoking", "tobacco", "vaping", "smokefree", "health"]
     },
+    "sentencing-2002.html": {
+        "title": "Sentencing Act 2002",
+        "year": 2002,
+        "number": 9,
+        "url": "https://www.legislation.govt.nz/act/public/2002/0009/latest/whole.html",
+        "short_name": "SA",
+        "topics": ["sentencing", "conviction", "imprisonment", "fine", "discharge", "home detention", "community"]
+    },
+    "criminal-procedure-2011.html": {
+        "title": "Criminal Procedure Act 2011",
+        "year": 2011,
+        "number": 81,
+        "url": "https://www.legislation.govt.nz/act/public/2011/0081/latest/whole.html",
+        "short_name": "CPA",
+        "topics": ["criminal procedure", "charge", "plea", "trial", "jury", "appeal", "prosecution"]
+    },
+    "evidence-2006.html": {
+        "title": "Evidence Act 2006",
+        "year": 2006,
+        "number": 69,
+        "url": "https://www.legislation.govt.nz/act/public/2006/0069/latest/whole.html",
+        "short_name": "EVA",
+        "topics": ["evidence", "witness", "hearsay", "admissibility", "privilege", "testimony"]
+    },
+    "bail-2000.html": {
+        "title": "Bail Act 2000",
+        "year": 2000,
+        "number": 38,
+        "url": "https://www.legislation.govt.nz/act/public/2000/0038/latest/whole.html",
+        "short_name": "BAIL",
+        "topics": ["bail", "remand", "custody", "surety", "conditions", "arrest"]
+    },
+    "care-of-children-2004.html": {
+        "title": "Care of Children Act 2004",
+        "year": 2004,
+        "number": 90,
+        "url": "https://www.legislation.govt.nz/act/public/2004/0090/latest/whole.html",
+        "short_name": "COCA",
+        "topics": ["children", "custody", "guardianship", "parenting order", "care", "welfare"]
+    },
+    "property-relationships-1976.html": {
+        "title": "Property (Relationships) Act 1976",
+        "year": 1976,
+        "number": 166,
+        "url": "https://www.legislation.govt.nz/act/public/1976/0166/latest/whole.html",
+        "short_name": "PRA",
+        "topics": ["relationship property", "separation", "matrimonial", "de facto", "division", "spouse"]
+    },
+    "limitation-2010.html": {
+        "title": "Limitation Act 2010",
+        "year": 2010,
+        "number": 110,
+        "url": "https://www.legislation.govt.nz/act/public/2010/0110/latest/whole.html",
+        "short_name": "LA",
+        "topics": ["limitation", "time bar", "statute of limitations", "claim", "period"]
+    },
+    "lawyers-conveyancers-2006.html": {
+        "title": "Lawyers and Conveyancers Act 2006",
+        "year": 2006,
+        "number": 1,
+        "url": "https://www.legislation.govt.nz/act/public/2006/0001/latest/whole.html",
+        "short_name": "LCA",
+        "topics": ["lawyer", "conveyancer", "legal profession", "conduct", "discipline", "trust account"]
+    },
+    "search-surveillance-2012.html": {
+        "title": "Search and Surveillance Act 2012",
+        "year": 2012,
+        "number": 24,
+        "url": "https://www.legislation.govt.nz/act/public/2012/0024/latest/whole.html",
+        "short_name": "SSA",
+        "topics": ["search", "surveillance", "warrant", "interception", "police powers", "seizure"]
+    },
+    "protection-personal-property-rights-1988.html": {
+        "title": "Protection of Personal and Property Rights Act 1988",
+        "year": 1988,
+        "number": 4,
+        "url": "https://www.legislation.govt.nz/act/public/1988/0004/latest/whole.html",
+        "short_name": "PPPR",
+        "topics": ["enduring power of attorney", "welfare guardian", "personal rights", "property manager", "capacity"]
+    },
 }
 
 

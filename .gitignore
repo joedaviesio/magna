@@ -28,3 +28,8 @@ data/processed/chunks/all_chunks.json
 # OS
 .DS_Store
 Thumbs.db
+
+# Local logs
+logsweek1
+logs/
+backend/logs/
