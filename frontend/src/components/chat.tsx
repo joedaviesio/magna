@@ -104,9 +104,8 @@ const FALLBACK_LEGISLATION = [
   { title: 'Protection of Personal and Property Rights Act 1988', short_name: 'PPPR', topics: ['enduring powers of attorney', 'welfare guardians', 'capacity'] },
 ];
 
-// Database stats (updated when legislation is processed)
+// Database stats - acts count derived from FALLBACK_LEGISLATION above
 const DATABASE_STATS = {
-  acts: 87,
   sections: 145538,
   chunks: 155447,
 };
