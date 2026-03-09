@@ -52,7 +52,7 @@ class ChatResponse(BaseModel):
 app = FastAPI(
     title="Magna - NZ Legal Assistant",
     description="AI-powered legal information retrieval for New Zealand legislation",
-    version="0.1.0"
+    version="0.2.0"
 )
 
 # CORS
@@ -223,7 +223,7 @@ Provide a helpful response based on the legislation above. Cite specific section
 async def root():
     return {
         "name": "Magna - NZ Legal Assistant",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "status": "running",
         "chunks_loaded": len(metadata) if metadata else 0
     }

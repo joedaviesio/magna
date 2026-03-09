@@ -609,7 +609,7 @@ def log_query(
 async def root():
     return {
         "name": "Bowen - NZ Legal Assistant",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "status": "running",
         "chunks_loaded": len(metadata) if metadata else 0
     }
@@ -940,7 +940,7 @@ async def v1_version():
     """Get API version information."""
     return {
         "api_version": API_VERSION,
-        "app_version": "0.1.0",
+        "app_version": "0.2.0",
         "endpoints": [
             "/api/v1/health",
             "/api/v1/chat",
