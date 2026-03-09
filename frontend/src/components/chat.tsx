@@ -96,9 +96,9 @@ const FALLBACK_LEGISLATION = [
 
 // Database stats (updated when legislation is processed)
 const DATABASE_STATS = {
-  acts: 77,
-  sections: 131019,
-  chunks: 140404,
+  acts: 88,
+  sections: 145538,
+  chunks: 155447,
 };
 
 // Placeholder supporters - replace with actual donors

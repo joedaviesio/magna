@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-01-27T21:39:19.246266",
-  "total_acts": 77,
-  "total_sections": 131019,
+  "generated_at": "2026-03-09T13:13:21.152427",
+  "total_acts": 87,
+  "total_sections": 145538,
   "acts": [
     {
       "title": "Accident Compensation Act 2001",
@@ -18,6 +18,13 @@
       "file": "anti-money-laundering-2009.json"
     },
     {
+      "title": "Bail Act 2000",
+      "short_name": "BAIL",
+      "year": 2000,
+      "sections_count": 597,
+      "file": "bail-2000.json"
+    },
+    {
       "title": "Biosecurity Act 1993",
       "short_name": "BSA",
       "year": 1993,
@@ -30,6 +37,13 @@
       "year": 2004,
       "sections_count": 3695,
       "file": "building-2004.json"
+    },
+    {
+      "title": "Care of Children Act 2004",
+      "short_name": "COCA",
+      "year": 2004,
+      "sections_count": 957,
+      "file": "care-of-children-2004.json"
     },
     {
       "title": "Citizenship Act 1977",
@@ -116,6 +130,13 @@
       "file": "crimes-1961.json"
     },
     {
+      "title": "Criminal Procedure Act 2011",
+      "short_name": "CPA",
+      "year": 2011,
+      "sections_count": 2715,
+      "file": "criminal-procedure-2011.json"
+    },
+    {
       "title": "District Courts Act 1947",
       "short_name": "DCA",
       "year": 1947,
@@ -142,6 +163,13 @@
       "year": 2000,
       "sections_count": 3104,
       "file": "employment-relations-2000.json"
+    },
+    {
+      "title": "Evidence Act 2006",
+      "short_name": "EVA",
+      "year": 2006,
+      "sections_count": 1297,
+      "file": "evidence-2006.json"
     },
     {
       "title": "Fair Trading Act 1986",
@@ -270,6 +298,20 @@
       "file": "land-transport-1998.json"
     },
     {
+      "title": "Lawyers and Conveyancers Act 2006",
+      "short_name": "LCA",
+      "year": 2006,
+      "sections_count": 2265,
+      "file": "lawyers-conveyancers-2006.json"
+    },
+    {
+      "title": "Limitation Act 2010",
+      "short_name": "LA",
+      "year": 2010,
+      "sections_count": 329,
+      "file": "limitation-2010.json"
+    },
+    {
       "title": "Local Electoral 2001",
       "short_name": "LOC",
       "year": 0,
@@ -396,6 +438,20 @@
       "file": "property-law-2007.json"
     },
     {
+      "title": "Property (Relationships) Act 1976",
+      "short_name": "PRA",
+      "year": 1976,
+      "sections_count": 908,
+      "file": "property-relationships-1976.json"
+    },
+    {
+      "title": "Protection of Personal and Property Rights Act 1988",
+      "short_name": "PPPR",
+      "year": 1988,
+      "sections_count": 838,
+      "file": "protection-personal-property-rights-1988.json"
+    },
+    {
       "title": "Public Finance Act 1989",
       "short_name": "PFA",
       "year": 1989,
@@ -450,6 +506,20 @@
       "year": 1908,
       "sections_count": 336,
       "file": "sale-of-goods-1908.json"
+    },
+    {
+      "title": "Search and Surveillance Act 2012",
+      "short_name": "SSA",
+      "year": 2012,
+      "sections_count": 2457,
+      "file": "search-surveillance-2012.json"
+    },
+    {
+      "title": "Sentencing Act 2002",
+      "short_name": "SA",
+      "year": 2002,
+      "sections_count": 2156,
+      "file": "sentencing-2002.json"
     },
     {
       "title": "Smokefree Environments Act 1990",

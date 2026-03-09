@@ -626,6 +626,86 @@ ACTS_REGISTRY: Dict[str, Dict] = {
         "topics": ["Waikato River", "Waikato-Tainui", "river settlement"],
         "url": "https://www.legislation.govt.nz/act/public/2010/0024/latest/DLM1630002.html"
     },
+    "SA": {
+        "title": "Sentencing Act 2002",
+        "short_name": "SA",
+        "year": 2002,
+        "keywords": ["sentencing act", "sentencing", "sentence", "imprisonment", "home detention", "community detention", "discharge", "fine"],
+        "topics": ["sentencing", "imprisonment", "community sentences"],
+        "url": "https://www.legislation.govt.nz/act/public/2002/0009/latest/DLM135342.html"
+    },
+    "CPA": {
+        "title": "Criminal Procedure Act 2011",
+        "short_name": "CPA",
+        "year": 2011,
+        "keywords": ["criminal procedure", "criminal procedure act", "charge", "plea", "trial", "jury trial", "prosecution", "judge-alone trial"],
+        "topics": ["criminal procedure", "trials", "charges"],
+        "url": "https://www.legislation.govt.nz/act/public/2011/0081/latest/DLM3359902.html"
+    },
+    "EVA": {
+        "title": "Evidence Act 2006",
+        "short_name": "EVA",
+        "year": 2006,
+        "keywords": ["evidence act", "admissibility", "hearsay", "witness", "privilege", "propensity evidence", "testimony"],
+        "topics": ["evidence", "admissibility", "witnesses"],
+        "url": "https://www.legislation.govt.nz/act/public/2006/0069/latest/DLM393462.html"
+    },
+    "BAIL": {
+        "title": "Bail Act 2000",
+        "short_name": "BAIL",
+        "year": 2000,
+        "keywords": ["bail act", "bail", "remand", "custody", "surety", "bail conditions"],
+        "topics": ["bail", "remand", "conditions"],
+        "url": "https://www.legislation.govt.nz/act/public/2000/0038/latest/DLM68380.html"
+    },
+    "COCA": {
+        "title": "Care of Children Act 2004",
+        "short_name": "COCA",
+        "year": 2004,
+        "keywords": ["coca", "care of children", "custody", "guardianship", "parenting order", "day-to-day care", "contact order"],
+        "topics": ["children", "guardianship", "parenting orders"],
+        "url": "https://www.legislation.govt.nz/act/public/2004/0090/latest/DLM317233.html"
+    },
+    "PRA": {
+        "title": "Property (Relationships) Act 1976",
+        "short_name": "PRA",
+        "year": 1976,
+        "keywords": ["pra", "property relationships", "relationship property", "matrimonial property", "separation", "de facto", "division of property"],
+        "topics": ["relationship property", "separation", "division"],
+        "url": "https://www.legislation.govt.nz/act/public/1976/0166/latest/DLM440945.html"
+    },
+    "LA": {
+        "title": "Limitation Act 2010",
+        "short_name": "LA",
+        "year": 2010,
+        "keywords": ["limitation act", "limitation period", "time bar", "statute of limitations", "limitation"],
+        "topics": ["limitation periods", "time bars", "claims"],
+        "url": "https://www.legislation.govt.nz/act/public/2010/0110/latest/DLM2033101.html"
+    },
+    "LCA": {
+        "title": "Lawyers and Conveyancers Act 2006",
+        "short_name": "LCA",
+        "year": 2006,
+        "keywords": ["lawyers and conveyancers", "lawyer", "conveyancer", "legal profession", "practising certificate", "trust account", "law society"],
+        "topics": ["legal profession", "conduct", "discipline"],
+        "url": "https://www.legislation.govt.nz/act/public/2006/0001/latest/DLM364939.html"
+    },
+    "SSA": {
+        "title": "Search and Surveillance Act 2012",
+        "short_name": "SSA",
+        "year": 2012,
+        "keywords": ["search and surveillance", "search warrant", "surveillance", "interception", "seizure", "police search"],
+        "topics": ["search warrants", "surveillance", "police powers"],
+        "url": "https://www.legislation.govt.nz/act/public/2012/0024/latest/DLM2136536.html"
+    },
+    "PPPR": {
+        "title": "Protection of Personal and Property Rights Act 1988",
+        "short_name": "PPPR",
+        "year": 1988,
+        "keywords": ["pppr", "personal and property rights", "enduring power of attorney", "welfare guardian", "property manager", "epa", "capacity"],
+        "topics": ["enduring powers of attorney", "welfare guardians", "capacity"],
+        "url": "https://www.legislation.govt.nz/act/public/1988/0004/latest/DLM126528.html"
+    },
 }
 
 
