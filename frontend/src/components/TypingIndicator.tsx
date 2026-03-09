@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { RummageKiwi } from './RummageKiwi';
 import { ManatIcon } from './ManatIcon';
 
 const LOADING_PHRASES = [
@@ -45,11 +46,11 @@ export function TypingIndicator() {
           </div>
           <span className="bowen-brand text-xs text-slate-500">Bowen</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <div className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]" />
-          <div className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]" />
-          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
-          <span className="ml-2 text-sm text-slate-500 transition-opacity duration-300">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 text-primary flex-shrink-0">
+            <RummageKiwi className="w-full h-full" />
+          </div>
+          <span className="text-sm text-slate-500 transition-opacity duration-300">
             {LOADING_PHRASES[phraseIndex]}
           </span>
         </div>

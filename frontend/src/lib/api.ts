@@ -101,6 +101,14 @@ export async function checkHealth(): Promise<boolean> {
   }
 }
 
+export async function clearSession(sessionId: string): Promise<void> {
+  try {
+    await fetchWithFallback(`/session/${sessionId}`, { method: 'DELETE' });
+  } catch {
+    // Best-effort — don't break the UI if this fails
+  }
+}
+
 export async function getActs(): Promise<Act[]> {
   const response = await fetchWithFallback('/acts');
   if (!response.ok) {

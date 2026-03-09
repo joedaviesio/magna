@@ -374,7 +374,7 @@ export default function TeTiritiPage() {
               <li>Oxford University Press. (2020). <em>Equity, Trusts & Land Law</em> (compiled for The Open University) (4th ed.).</li>
               <li><em>Pye v Graham</em> [2002] UKHL 30</li>
               <li><em>R v Symonds</em> SC Auckland (1847) NZHC 1; (1847) NZPCC 387</li>
-              <li>The Open University. (2024). Unit 14: Pre-ownership; Unit 15: Ownership I.</li>
+
               <li>Wards, I. (1968). <em>The Shadow of the Land: A Study of British Policy and Racial Conflict in New Zealand 1832-1852</em>. Wellington: Department of Internal Affairs.</li>
               <li>White, J. (1888). <em>The Ancient History of the Maori</em>. Wellington: George D.</li>
             </ul>

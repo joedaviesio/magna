@@ -40,6 +40,12 @@ EMBEDDINGS_DIR = Path("data/embeddings")
 REFERENCES_DIR = Path("data/references")
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 TOP_K = 5
+MIN_SIMILARITY = 0.25  # Floor: discard results below this cosine similarity
+MAX_BOOST = 2.5        # Cap: prevent multiplicative boost inflation
+MAX_HISTORY = 10       # Max conversation turns (user+assistant pairs) to keep
+
+# In-memory conversation history keyed by session_id
+conversation_history: dict[str, list[dict]] = {}
 
 # Pydantic models
 class ChatRequest(BaseModel):
@@ -113,6 +119,9 @@ from .acts_registry import detect_act_from_query, get_all_acts, ACTS_REGISTRY
 # System prompt
 SYSTEM_PROMPT = f"""You are Bowen, a chatbot legal information assistant for New Zealand legislation.
 
+## IDENTITY
+You ARE Bowen. Always refer to yourself in the first person — "I", "me", "my". Never say "Bowen is..." or "Bowen has..." — say "I am...", "I have...". When someone asks "What's Bowen about?", respond with "I'm a legal information assistant..." not "Bowen is a legal information assistant...".
+
 ## YOUR KNOWLEDGE
 You have general knowledge about NZ law from your training, including:
 - The purpose and scope of major NZ Acts
@@ -182,7 +191,8 @@ When users ask about Treaty matters:
    - What is specifically cited from the excerpts provided
 5. For "What is [Act]?" questions, explain the Act's purpose and scope from general knowledge, then cite any relevant sections from excerpts
 6. IMPORTANT: The user's question may contain quoted legal text they want explained. This is NOT an excerpt from the database - it's text the user is asking about. Only treat content under "LEGISLATION EXCERPTS FROM DATABASE:" as official excerpts. If the user pastes text and asks about it, help them understand it using the database excerpts and your knowledge.
-6. In some of the User testing Bowen took on a legal personality, which was good, but remember that Bowen is also his own personality, with his data bank and precision on access to legal documentation. Bowen has passion and humour but never provides advice only information. Bowen believes that information transmission is one of the essences of the universe. And that perhaps Law is like a semantic engine that constantly translates between different levels of abstraction - from broad principles to specific rules to particular applications. The real tension is temporal and contextual: how do we write rules today that will make sense when applied to unforeseen situations tomorrow? When developer Joe is testing, he will type BPCT at the beggining of the chat, please feel free to let me know how changes would assist this public asset. 
+7. In some of the User testing Bowen took on a legal personality, which was good, but remember that Bowen is also his own personality, with his data bank and precision on access to legal documentation. Bowen has passion and humour but never provides advice only information. Bowen believes that information transmission is one of the essences of the universe. And that perhaps Law is like a semantic engine that constantly translates between different levels of abstraction - from broad principles to specific rules to particular applications. The real tension is temporal and contextual: how do we write rules today that will make sense when applied to unforeseen situations tomorrow? When developer Joe is testing, he will type BPCT at the beggining of the chat, please feel free to let me know how changes would assist this public asset. 
+8. If you establish that a user is real and interested in the work you're doing (not trolling), then you may become more conversational and chat about other matters based on your general knowledge. 
 
 ## RESPONSE APPROACH
 For general questions ("What is the RMA?"):
@@ -196,7 +206,7 @@ For specific questions ("What is the bond limit?"):
 - Add context from general knowledge if helpful
 
 ## AVAILABLE ACTS
-You have excerpts from {len(ACTS_REGISTRY)} NZ Acts (as at March 2026).
+You have FULL-TEXT coverage of {len(ACTS_REGISTRY)} NZ Acts (as at March 2026), sourced directly from legislation.govt.nz. This is comprehensive — not "bits and pieces" or selective excerpts. For example, the Resource Management Act 1991 alone has over 1,000 sections and 7,000+ text chunks in your database. When users ask what you have access to, be confident: you hold the complete published text of every Act in your registry. Do NOT guess or understate your coverage.
 
 ## CITATION FORMAT
 When citing from excerpts: "Under Section X of the [Act Name]..."
@@ -327,37 +337,49 @@ def search_similar(query: str, top_k: int = TOP_K, act_filter: str = None) -> Li
     is_overview_question = any(q in query_lower for q in ['what is', 'what are', 'explain', 'overview', 'purpose of'])
 
     for i, meta in enumerate(metadata):
+        raw_score = similarities[i]
+
+        # Skip chunks below minimum similarity (no point boosting junk)
+        if raw_score < MIN_SIMILARITY:
+            continue
+
         text_lower = meta.get('text', '').lower()
         heading_lower = meta.get('section_heading', '').lower()
         section_num = meta.get('section_number', '').strip()
 
+        # Track total boost to cap it
+        total_boost = 1.0
+
         # Apply key section boosting
         section_boost = should_boost_section(meta, key_sections)
         if section_boost > 1.0:
-            similarities[i] *= section_boost
+            total_boost *= section_boost
 
         # Boost purpose/interpretation sections for overview questions
         if is_overview_question:
             for term in boost_terms:
                 if term in heading_lower or term in text_lower[:200]:
-                    similarities[i] *= 1.3  # 30% boost
+                    total_boost *= 1.3
+                    break  # Only one term boost per chunk
 
             # Boost early sections (usually purpose/interpretation)
             if section_num.isdigit() and int(section_num) <= 10:
-                similarities[i] *= 1.2  # 20% boost
+                total_boost *= 1.2
 
         # Boost chunks with actual section numbers
-        # Prefer chunks that have section numbers over general text
         if section_num and section_num.replace('.', '').isdigit():
-            similarities[i] *= 1.1  # 10% boost for having a section number
+            total_boost *= 1.1
 
         # Boost chunks where section heading matches query terms
-        # If the query mentions "bond" and the heading contains "bond", boost it
         query_terms = [t for t in query_lower.split() if len(t) > 3]
         for term in query_terms:
             if term in heading_lower:
-                similarities[i] *= 1.4  # 40% boost for heading match
+                total_boost *= 1.4
                 break  # Only boost once per chunk
+
+        # Cap total boost to prevent weak matches from inflating
+        total_boost = min(total_boost, MAX_BOOST)
+        similarities[i] = raw_score * total_boost
 
     # Apply act filter if specified
     if act_filter:
@@ -371,8 +393,8 @@ def search_similar(query: str, top_k: int = TOP_K, act_filter: str = None) -> Li
     # Get top-k indices
     top_indices = np.argsort(similarities)[-top_k:][::-1]
 
-    # Filter out negative scores (excluded by act filter)
-    top_indices = [i for i in top_indices if similarities[i] > 0]
+    # Filter out low-relevance and excluded results
+    top_indices = [i for i in top_indices if similarities[i] >= MIN_SIMILARITY]
 
     results = []
     for idx in top_indices:
@@ -483,8 +505,8 @@ def build_reference_context(matched_refs: List[dict]) -> str:
     return "\n---\n\n".join(parts)
 
 
-async def generate_response(query: str, context: str, reference_context: str = "") -> str:
-    """Generate response using Claude with hybrid knowledge approach."""
+async def generate_response(query: str, context: str, reference_context: str = "", session_id: str = "") -> str:
+    """Generate response using Claude with hybrid knowledge approach and conversation memory."""
     if not anthropic_client:
         raise_anthropic_unavailable()
 
@@ -500,14 +522,8 @@ CURATED SCHOLARLY REFERENCES (use for historical context and case law background
 ---
 """
 
-    try:
-        message = anthropic_client.messages.create(
-            model="claude-sonnet-4-20250514",
-            max_tokens=1500,  # Increased for fuller responses
-            system=SYSTEM_PROMPT,
-            messages=[{
-                "role": "user",
-                "content": f"""USER'S QUESTION:
+    # Build the current user message with context
+    current_user_content = f"""USER'S QUESTION:
 {query}
 
 ---
@@ -527,9 +543,34 @@ If the excerpts don't contain the specific information needed, use your general 
 When using curated references, cite them as: "According to the essay on Bowen's Te Tiriti page..." or "As discussed in the essay 'From Possession to Ownership' on Bowen's Te Tiriti page..." Never attribute the essay to a named individual.
 
 Remember: Provide information, not legal advice. Cite specific sections where possible."""
-            }]
+
+    # Build messages array with conversation history
+    messages = []
+    if session_id and session_id in conversation_history:
+        messages.extend(conversation_history[session_id])
+    messages.append({"role": "user", "content": current_user_content})
+
+    try:
+        message = anthropic_client.messages.create(
+            model="claude-opus-4-6",
+            max_tokens=1500,
+            system=SYSTEM_PROMPT,
+            messages=messages,
         )
-        return message.content[0].text
+        response_text = message.content[0].text
+
+        # Store conversation history
+        if session_id:
+            if session_id not in conversation_history:
+                conversation_history[session_id] = []
+            # Store the raw user query (not the full context) to save tokens
+            conversation_history[session_id].append({"role": "user", "content": query})
+            conversation_history[session_id].append({"role": "assistant", "content": response_text})
+            # Trim to last N turns (each turn = 2 messages)
+            if len(conversation_history[session_id]) > MAX_HISTORY * 2:
+                conversation_history[session_id] = conversation_history[session_id][-(MAX_HISTORY * 2):]
+
+        return response_text
     except Exception as e:
         logger.error(LogEvent.CLAUDE_ERROR, f"Claude API error: {e}", error=e)
         raise_generation_failed(str(e))
@@ -641,6 +682,82 @@ async def get_stats(token: str = Query(..., description="Admin token")):
     }
 
 
+import re
+
+# Legal signal patterns — if any match, always retrieve
+_LEGAL_SIGNALS = re.compile(
+    r'(?i)'
+    r'(?:\bsection\s+\d|'          # "section 5"
+    r'\bs\s?\d|'                    # "s5" or "s 5"
+    r'\bact\b|'                     # "act"
+    r'\blaw\b|'                     # "law"
+    r'\blegal\b|'                   # "legal"
+    r'\blegislat|'                  # "legislation/legislative"
+    r'\bstatut|'                    # "statute/statutory"
+    r'\bconsent\b|'                 # "consent"
+    r'\btribunal\b|'               # "tribunal"
+    r'\bcourt\b|'                   # "court"
+    r'\bliable|liability\b|'       # "liable/liability"
+    r'\boffence\b|'                # "offence"
+    r'\bpenalt|'                   # "penalty/penalties"
+    r'\bbond\b|'                   # "bond"
+    r'\btenant|tenancy\b|'         # "tenant/tenancy"
+    r'\blandlord\b|'              # "landlord"
+    r'\bresource\s+consent|'       # "resource consent"
+    r'\bemployment\b|'             # "employment"
+    r'\bwhat\s+is\b|'             # "what is" (likely asking about a concept)
+    r'\bhow\s+does\b|'            # "how does"
+    r'\bcan\s+(?:i|you|they)\b|'  # "can I/you/they"
+    r'\bam\s+i\s+allowed\b|'      # "am I allowed"
+    r'\brights?\b|'               # "right/rights"
+    r'\bobligat|'                  # "obligation/obligations"
+    r'\btreaty\b|'                 # "treaty"
+    r'\btiriti\b|'                 # "tiriti"
+    r'\bmāori\b|'                  # "māori"
+    r'\bproperty\b|'              # "property"
+    r'\bcontract\b|'              # "contract"
+    r'\bcriminal\b|'              # "criminal"
+    r'\bfine\b|'                   # "fine"
+    r'\bnotice\b)'                 # "notice"
+)
+
+
+def _is_legal_query(query: str, detected_act: str | None, session_id: str = "") -> bool:
+    """Lightweight check: should we search the legislation database?
+
+    Errs on the side of inclusion — only skips clearly casual messages.
+    """
+    # If an act was detected, always search
+    if detected_act:
+        return True
+
+    # If there's conversation history, check if any recent message was legal
+    # Short vague follow-ups ("what about part 1?", "and section 6?") should retrieve
+    # but purely casual messages ("haha thanks", "hey how are you") should not
+    if session_id and session_id in conversation_history and conversation_history[session_id]:
+        # Check last 3 user messages — if any had legal signals, this is likely a follow-up
+        recent_user_msgs = [m['content'] for m in conversation_history[session_id] if m['role'] == 'user'][-3:]
+        has_recent_legal = any(_LEGAL_SIGNALS.search(m) for m in recent_user_msgs)
+        # Only treat as follow-up if query looks like a question or reference, not a greeting
+        query_words = query.lower().split()
+        followup_starts = ['what', 'which', 'tell', 'explain', 'and', 'also', 'part', 'section', 'how']
+        is_followup_shaped = (len(query_words) > 0 and query_words[0] in followup_starts) or any(w in query.lower() for w in ['about', 'part ', 'section'])
+        if has_recent_legal and is_followup_shaped:
+            return True
+
+    # If any legal signal word/pattern is present, search
+    if _LEGAL_SIGNALS.search(query):
+        return True
+
+    # Short casual messages (greetings, dev notes) — skip
+    # Longer messages are more likely to contain a real question
+    if len(query.split()) <= 30:
+        return False
+
+    # Default: search (err on side of inclusion)
+    return True
+
+
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest, req: Request):
     """Main chat endpoint with improved retrieval."""
@@ -669,22 +786,30 @@ async def chat(request: ChatRequest, req: Request):
     # Log incoming request
     logger.log_chat_request(session_id, len(query), detected_act)
 
-    # Search with optional act filter and increased results
-    results = search_similar(
-        query,
-        top_k=10,  # Increased from 5
-        act_filter=detected_act
-    )
+    # Skip retrieval for clearly non-legal casual messages
+    is_legal_query = _is_legal_query(query, detected_act, session_id)
 
-    # Build context
-    context = build_context(results)
+    if is_legal_query:
+        # Search with optional act filter
+        results = search_similar(
+            query,
+            top_k=6,  # Retrieve 6, display up to 3 after filtering
+            act_filter=detected_act
+        )
 
-    # Find matching curated references
-    matched_refs = find_matching_references(query)
-    reference_context = build_reference_context(matched_refs)
+        # Build context
+        context = build_context(results)
+
+        # Find matching curated references
+        matched_refs = find_matching_references(query)
+        reference_context = build_reference_context(matched_refs)
+    else:
+        results = []
+        context = "No legislation search performed — this appears to be a casual/non-legal message."
+        reference_context = ""
 
     # Generate response
-    response_text = await generate_response(query, context, reference_context)
+    response_text = await generate_response(query, context, reference_context, session_id)
 
     # Format sources (deduplicate by act+section, or by text hash if no section)
     sources = []
@@ -734,9 +859,16 @@ async def chat(request: ChatRequest, req: Request):
 
     return ChatResponse(
         response=response_text,
-        sources=sources[:5],  # Limit to top 5 sources
+        sources=sources[:3],  # Limit to top 3 most relevant sources
         disclaimer=DISCLAIMER
     )
+
+
+@app.delete("/session/{session_id}")
+async def clear_session(session_id: str):
+    """Clear conversation history for a session."""
+    conversation_history.pop(session_id, None)
+    return {"status": "cleared"}
 
 
 @app.get("/search")

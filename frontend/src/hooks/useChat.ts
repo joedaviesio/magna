@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo, useEffect } from 'react';
 import { Message } from '@/types';
-import { sendMessage, BowenApiError } from '@/lib/api';
+import { sendMessage, clearSession as clearSessionApi, BowenApiError } from '@/lib/api';
 
 const SESSION_STORAGE_KEY = 'bowen-session-id';
 const MESSAGES_STORAGE_KEY = 'bowen-chat-messages';
@@ -59,13 +59,14 @@ export function useChat() {
   // Get or create session ID (persisted in localStorage)
   const sessionId = useMemo(() => getOrCreateSessionId(), []);
 
-  // Clear stored messages on mount (fresh start on page reload, but keep session ID)
+  // Clear stored messages and backend history on mount (fresh start on page reload)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem(MESSAGES_STORAGE_KEY);
+      clearSessionApi(sessionId);
     }
     setIsInitialized(true);
-  }, []);
+  }, [sessionId]);
 
   // Save messages whenever they change (after initialization)
   useEffect(() => {
@@ -116,12 +117,13 @@ export function useChat() {
   const clearSession = useCallback(() => {
     setMessages([]);
     setError(null);
-    // Clear everything including session ID
+    // Clear everything including session ID and backend history
     if (typeof window !== 'undefined') {
+      clearSessionApi(sessionId);
       localStorage.removeItem(MESSAGES_STORAGE_KEY);
       localStorage.removeItem(SESSION_STORAGE_KEY);
     }
-  }, []);
+  }, [sessionId]);
 
   return {
     messages,
