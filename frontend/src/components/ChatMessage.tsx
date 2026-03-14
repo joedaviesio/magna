@@ -1,6 +1,7 @@
 'use client';
 
 import ReactMarkdown from 'react-markdown';
+import { FileText, Image as ImageIcon } from 'lucide-react';
 import { ManatIcon } from './ManatIcon';
 import { Message } from '@/types';
 import { Sources } from './Sources';
@@ -11,6 +12,9 @@ interface ChatMessageProps {
 
 export function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.role === 'user';
+
+  // Don't render empty assistant messages (streaming placeholder before first token)
+  if (!isUser && !message.content) return null;
 
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
@@ -44,6 +48,25 @@ export function ChatMessage({ message }: ChatMessageProps) {
             <ReactMarkdown>{message.content}</ReactMarkdown>
           )}
         </div>
+
+        {/* Attachment badges for user messages */}
+        {isUser && message.attachments && message.attachments.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-2 pt-2 border-t border-white/20">
+            {message.attachments.map((att, i) => (
+              <span
+                key={i}
+                className="inline-flex items-center gap-1 text-xs bg-white/20 rounded px-2 py-0.5"
+              >
+                {att.content_type === 'application/pdf' ? (
+                  <FileText className="w-3 h-3" />
+                ) : (
+                  <ImageIcon className="w-3 h-3" />
+                )}
+                <span className="truncate max-w-[100px]">{att.filename}</span>
+              </span>
+            ))}
+          </div>
+        )}
 
         {!isUser && message.sources && <Sources sources={message.sources} />}
       </div>

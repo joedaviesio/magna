@@ -1,4 +1,4 @@
-import { ChatResponse, Act, ActsResponse } from '@/types';
+import { ChatResponse, Source, Act, ActsResponse, FileAttachment } from '@/types';
 
 export interface ApiError {
   error: string;
@@ -64,13 +64,26 @@ async function fetchWithFallback(
   return fetch(`${LEGACY_API_BASE}${endpoint}`, options);
 }
 
-export async function sendMessage(message: string, sessionId?: string): Promise<ChatResponse> {
+export async function sendMessage(
+  message: string,
+  sessionId?: string,
+  attachments?: FileAttachment[]
+): Promise<ChatResponse> {
+  const body: Record<string, unknown> = { message, session_id: sessionId };
+  if (attachments && attachments.length > 0) {
+    body.attachments = attachments.map((a) => ({
+      filename: a.filename,
+      content_type: a.content_type,
+      data: a.data,
+    }));
+  }
+
   const response = await fetchWithFallback('/chat', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ message, session_id: sessionId }),
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
@@ -90,6 +103,95 @@ export async function sendMessage(message: string, sessionId?: string): Promise<
   }
 
   return response.json();
+}
+
+export interface StreamCallbacks {
+  onToken: (text: string) => void;
+  onDone: (sources: Source[], disclaimer: string) => void;
+  onError: (error: string) => void;
+}
+
+export async function sendMessageStream(
+  message: string,
+  callbacks: StreamCallbacks,
+  sessionId?: string,
+  attachments?: FileAttachment[]
+): Promise<void> {
+  const body: Record<string, unknown> = { message, session_id: sessionId };
+  if (attachments && attachments.length > 0) {
+    body.attachments = attachments.map((a) => ({
+      filename: a.filename,
+      content_type: a.content_type,
+      data: a.data,
+    }));
+  }
+
+  // Try versioned API first, fall back to legacy
+  let response: Response;
+  try {
+    response = await fetch(`${API_BASE}/chat/stream`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (!response.ok && response.status >= 500) {
+      throw new Error('v1 failed');
+    }
+  } catch {
+    response = await fetch(`${LEGACY_API_BASE}/chat/stream`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+  }
+
+  if (!response.ok) {
+    try {
+      const errorData = await response.json();
+      const msg = errorData?.detail?.error || errorData?.detail || 'Failed to send message';
+      callbacks.onError(msg);
+    } catch {
+      callbacks.onError('Failed to send message');
+    }
+    return;
+  }
+
+  const reader = response.body?.getReader();
+  if (!reader) {
+    callbacks.onError('Streaming not supported');
+    return;
+  }
+
+  const decoder = new TextDecoder();
+  let buffer = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+
+    // Parse SSE lines
+    const lines = buffer.split('\n');
+    buffer = lines.pop() || ''; // Keep incomplete line in buffer
+
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      const jsonStr = line.slice(6);
+      try {
+        const event = JSON.parse(jsonStr);
+        if (event.type === 'token') {
+          callbacks.onToken(event.text);
+        } else if (event.type === 'done') {
+          callbacks.onDone(event.sources || [], event.disclaimer || '');
+        } else if (event.type === 'error') {
+          callbacks.onError(event.error);
+        }
+      } catch {
+        // Skip malformed JSON
+      }
+    }
+  }
 }
 
 export async function checkHealth(): Promise<boolean> {

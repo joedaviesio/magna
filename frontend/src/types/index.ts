@@ -13,10 +13,19 @@ export interface ChatResponse {
   disclaimer: string;
 }
 
+export interface FileAttachment {
+  filename: string;
+  content_type: string;
+  data: string; // base64
+  preview_url?: string; // object URL for local preview
+  size: number; // bytes
+}
+
 export interface Message {
   role: 'user' | 'assistant';
   content: string;
   sources?: Source[];
+  attachments?: Pick<FileAttachment, 'filename' | 'content_type' | 'size'>[];
 }
 
 export interface Act {

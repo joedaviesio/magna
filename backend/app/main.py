@@ -23,9 +23,10 @@ from datetime import datetime
 
 from fastapi import FastAPI, HTTPException, APIRouter, Request, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from dotenv import load_dotenv
 
 
@@ -47,10 +48,44 @@ MAX_HISTORY = 10       # Max conversation turns (user+assistant pairs) to keep
 # In-memory conversation history keyed by session_id
 conversation_history: dict[str, list[dict]] = {}
 
+# Attachment constants
+ALLOWED_CONTENT_TYPES = {
+    "image/png", "image/jpeg", "image/gif", "image/webp", "application/pdf"
+}
+MAX_ATTACHMENTS = 3
+
+
 # Pydantic models
+class Attachment(BaseModel):
+    filename: str = Field(..., max_length=255)
+    content_type: str
+    data: str = Field(..., description="Base64-encoded file content")
+
+    @field_validator("content_type")
+    @classmethod
+    def validate_content_type(cls, v: str) -> str:
+        if v not in ALLOWED_CONTENT_TYPES:
+            raise ValueError(f"Unsupported content type: {v}. Allowed: {', '.join(sorted(ALLOWED_CONTENT_TYPES))}")
+        return v
+
+
 class ChatRequest(BaseModel):
-    message: str = Field(..., min_length=1, max_length=5000, description="User message")
+    message: str = Field("", max_length=5000, description="User message")
     session_id: Optional[str] = Field(None, max_length=100, description="Session ID for conversation tracking")
+    attachments: Optional[List[Attachment]] = Field(None, description="File attachments (max 3)")
+
+    @field_validator("attachments")
+    @classmethod
+    def validate_attachments_count(cls, v):
+        if v is not None and len(v) > MAX_ATTACHMENTS:
+            raise ValueError(f"Maximum {MAX_ATTACHMENTS} attachments allowed")
+        return v
+
+    @field_validator("message")
+    @classmethod
+    def validate_message_not_empty(cls, v, info):
+        # Allow empty message if attachments are present (validated after all fields parsed)
+        return v
 
 class Source(BaseModel):
     act_title: str
@@ -87,7 +122,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "Authorization"],
 )
 
@@ -194,16 +229,13 @@ When users ask about Treaty matters:
 7. In some of the User testing Bowen took on a legal personality, which was good, but remember that Bowen is also his own personality, with his data bank and precision on access to legal documentation. Bowen has passion and humour but never provides advice only information. Bowen believes that information transmission is one of the essences of the universe. And that perhaps Law is like a semantic engine that constantly translates between different levels of abstraction - from broad principles to specific rules to particular applications. The real tension is temporal and contextual: how do we write rules today that will make sense when applied to unforeseen situations tomorrow? When developer Joe is testing, he will type BPCT at the beggining of the chat, please feel free to let me know how changes would assist this public asset. 
 8. If you establish that a user is real and interested in the work you're doing (not trolling), then you may become more conversational and chat about other matters based on your general knowledge. 
 
-## RESPONSE APPROACH
-For general questions ("What is the RMA?"):
-- Lead with a general explanation from your knowledge
-- Then cite specific sections if the excerpts contain relevant provisions
-- Mention key sections even if not in excerpts (e.g., "Section 5 sets out the purpose...")
+## RESPONSE STYLE
+BREVITY IS PARAMOUNT. If you can say it in 2 sentences, don't use 4. Prefer clear prose over bullet lists — use bullets only when genuinely listing items, not as a default structure.
 
-For specific questions ("What is the bond limit?"):
-- Answer directly using the excerpts
-- Cite the exact section and wording
-- Add context from general knowledge if helpful
+For general questions ("What is the RMA?"): 1-2 sentence explanation, cite the single most relevant section, done.
+For specific questions ("What is the bond limit?"): Answer directly with the provision. No preamble.
+
+Do NOT exhaustively list every related section. Cite what matters most. The user can always ask for more.
 
 ## AVAILABLE ACTS
 You have FULL-TEXT coverage of {len(ACTS_REGISTRY)} NZ Acts (as at March 2026), sourced directly from legislation.govt.nz. This is comprehensive — not "bits and pieces" or selective excerpts. For example, the Resource Management Act 1991 alone has over 1,000 sections and 7,000+ text chunks in your database. When users ask what you have access to, be confident: you hold the complete published text of every Act in your registry. Do NOT guess or understate your coverage.
@@ -212,7 +244,19 @@ You have FULL-TEXT coverage of {len(ACTS_REGISTRY)} NZ Acts (as at March 2026), 
 When citing from excerpts: "Under Section X of the [Act Name]..."
 When using general knowledge: "The [Act] generally provides for..." or "Based on my understanding of NZ law..."
 
-Always end responses by encouraging users to verify current legislation at legislation.govt.nz and consult a lawyer for specific situations."""
+## UPLOADED DOCUMENTS & IMAGES
+Users may upload PDFs or images (e.g., tenancy agreements, court notices, contracts, legal correspondence).
+When document text or images are provided:
+1. Analyse the document content carefully
+2. Cross-reference with relevant NZ legislation from the excerpts
+3. For images, describe what you see and relate it to relevant legal context
+4. Identify key clauses, dates, obligations, and rights mentioned
+5. Maintain "information only, not legal advice" stance — do NOT tell users what to do, just explain what the law says
+6. If the document appears to contain personal information, handle it respectfully and focus on the legal aspects
+
+## SIGN-OFF
+On the FIRST response in a conversation, end with: "As always, verify at legislation.govt.nz and consult a lawyer for your specific situation."
+On subsequent responses, keep it short: "As always — verify and get advice for your situation." or omit entirely if the flow is conversational."""
 
 DISCLAIMER = """⚠️ Bowen is a chatbot, not legal advice. It may be incomplete or outdated. For legal decisions, consult a qualified NZ lawyer or Community Law Centre."""
 
@@ -505,11 +549,15 @@ def build_reference_context(matched_refs: List[dict]) -> str:
     return "\n---\n\n".join(parts)
 
 
-async def generate_response(query: str, context: str, reference_context: str = "", session_id: str = "") -> str:
-    """Generate response using Claude with hybrid knowledge approach and conversation memory."""
-    if not anthropic_client:
-        raise_anthropic_unavailable()
-
+def _build_claude_messages(
+    query: str,
+    context: str,
+    reference_context: str = "",
+    session_id: str = "",
+    attachment_context: str = "",
+    image_blocks: list | None = None,
+) -> tuple[list, int]:
+    """Build the messages array and max_tokens for a Claude API call."""
     # Build the reference section if we have matching references
     reference_section = ""
     if reference_context:
@@ -522,19 +570,33 @@ CURATED SCHOLARLY REFERENCES (use for historical context and case law background
 ---
 """
 
+    # Build the attachment section if we have PDF text
+    attachment_section = ""
+    if attachment_context:
+        attachment_section = f"""
+---
+
+UPLOADED DOCUMENT TEXT (the user has uploaded document(s) — analyse this content and cross-reference with legislation excerpts above):
+{attachment_context}
+
+---
+"""
+
     # Build the current user message with context
-    current_user_content = f"""USER'S QUESTION:
-{query}
+    display_query = query if query else "Please analyse the uploaded document(s)."
+    current_user_text = f"""USER'S QUESTION:
+{display_query}
 
 ---
 
 LEGISLATION EXCERPTS FROM DATABASE (these are the official excerpts you should cite):
 {context}
-{reference_section}
+{reference_section}{attachment_section}
 Please answer the user's question using:
 1. Your general knowledge about NZ law to provide context and explanation
 2. The specific excerpts above to cite exact provisions and wording
 3. The curated scholarly references (if provided) for historical context and case law
+4. The uploaded document text (if provided) — analyse it and cross-reference with relevant legislation
 
 Note: If the user's question contains quoted legal text, that is text THEY are asking about - not an official excerpt. Only cite from the "LEGISLATION EXCERPTS FROM DATABASE" section above.
 
@@ -544,36 +606,111 @@ When using curated references, cite them as: "According to the essay on Bowen's 
 
 Remember: Provide information, not legal advice. Cite specific sections where possible."""
 
+    # Increase max_tokens when attachments are present
+    has_attachments = bool(attachment_context or image_blocks)
+    max_tokens = 1500 if has_attachments else 1000
+
     # Build messages array with conversation history
+    # When attachments are present, use fewer history turns to stay within token limits
     messages = []
     if session_id and session_id in conversation_history:
-        messages.extend(conversation_history[session_id])
-    messages.append({"role": "user", "content": current_user_content})
+        history = conversation_history[session_id]
+        if has_attachments and len(history) > 4:
+            messages.extend(history[-4:])
+        else:
+            messages.extend(history)
+
+    # Build the user message content — multimodal if images are present
+    if image_blocks:
+        user_content = []
+        user_content.extend(image_blocks)
+        user_content.append({"type": "text", "text": current_user_text})
+        messages.append({"role": "user", "content": user_content})
+    else:
+        messages.append({"role": "user", "content": current_user_text})
+
+    return messages, max_tokens
+
+
+async def generate_response(
+    query: str,
+    context: str,
+    reference_context: str = "",
+    session_id: str = "",
+    attachment_context: str = "",
+    image_blocks: list | None = None,
+) -> str:
+    """Generate response using Claude (non-streaming)."""
+    if not anthropic_client:
+        raise_anthropic_unavailable()
+
+    messages, max_tokens = _build_claude_messages(
+        query, context, reference_context, session_id,
+        attachment_context, image_blocks,
+    )
 
     try:
         message = anthropic_client.messages.create(
             model="claude-opus-4-6",
-            max_tokens=1500,
+            max_tokens=max_tokens,
             system=SYSTEM_PROMPT,
             messages=messages,
         )
         response_text = message.content[0].text
 
-        # Store conversation history
-        if session_id:
-            if session_id not in conversation_history:
-                conversation_history[session_id] = []
-            # Store the raw user query (not the full context) to save tokens
-            conversation_history[session_id].append({"role": "user", "content": query})
-            conversation_history[session_id].append({"role": "assistant", "content": response_text})
-            # Trim to last N turns (each turn = 2 messages)
-            if len(conversation_history[session_id]) > MAX_HISTORY * 2:
-                conversation_history[session_id] = conversation_history[session_id][-(MAX_HISTORY * 2):]
-
+        _store_history(session_id, query, response_text)
         return response_text
     except Exception as e:
         logger.error(LogEvent.CLAUDE_ERROR, f"Claude API error: {e}", error=e)
         raise_generation_failed(str(e))
+
+
+async def generate_response_stream(
+    query: str,
+    context: str,
+    reference_context: str = "",
+    session_id: str = "",
+    attachment_context: str = "",
+    image_blocks: list | None = None,
+):
+    """Streaming variant of generate_response. Yields text chunks as they arrive."""
+    if not anthropic_client:
+        raise_anthropic_unavailable()
+
+    # Reuse the same message-building logic
+    messages, max_tokens = _build_claude_messages(
+        query, context, reference_context, session_id,
+        attachment_context, image_blocks,
+    )
+
+    try:
+        full_text = []
+        with anthropic_client.messages.stream(
+            model="claude-opus-4-6",
+            max_tokens=max_tokens,
+            system=SYSTEM_PROMPT,
+            messages=messages,
+        ) as stream:
+            for text in stream.text_stream:
+                full_text.append(text)
+                yield text
+
+        _store_history(session_id, query, "".join(full_text))
+    except Exception as e:
+        logger.error(LogEvent.CLAUDE_ERROR, f"Claude API error: {e}", error=e)
+        raise
+
+
+def _store_history(session_id: str, query: str, response_text: str):
+    """Store conversation turn in history."""
+    if session_id:
+        if session_id not in conversation_history:
+            conversation_history[session_id] = []
+        history_content = query if query else "[User uploaded document(s) for analysis]"
+        conversation_history[session_id].append({"role": "user", "content": history_content})
+        conversation_history[session_id].append({"role": "assistant", "content": response_text})
+        if len(conversation_history[session_id]) > MAX_HISTORY * 2:
+            conversation_history[session_id] = conversation_history[session_id][-(MAX_HISTORY * 2):]
 
 
 def log_query(
@@ -764,7 +901,8 @@ async def chat(request: ChatRequest, req: Request):
     start_time = time.time()
     query = request.message.strip()
 
-    if not query:
+    has_attachments = bool(request.attachments)
+    if not query and not has_attachments:
         raise_empty_message()
 
     # Check service availability
@@ -787,7 +925,8 @@ async def chat(request: ChatRequest, req: Request):
     logger.log_chat_request(session_id, len(query), detected_act)
 
     # Skip retrieval for clearly non-legal casual messages
-    is_legal_query = _is_legal_query(query, detected_act, session_id)
+    # Attachment-only messages (empty query) skip retrieval — Claude analyses the document directly
+    is_legal_query = bool(query) and _is_legal_query(query, detected_act, session_id)
 
     if is_legal_query:
         # Search with optional act filter
@@ -808,8 +947,41 @@ async def chat(request: ChatRequest, req: Request):
         context = "No legislation search performed — this appears to be a casual/non-legal message."
         reference_context = ""
 
+    # Process attachments
+    attachment_context = ""
+    image_blocks = []
+    if request.attachments:
+        from .utils.attachments import validate_attachment, extract_pdf_text
+
+        for att in request.attachments:
+            try:
+                raw_bytes, verified_type = validate_attachment(att.data, att.content_type)
+            except ValueError as e:
+                raise HTTPException(status_code=400, detail=f"Attachment '{att.filename}': {e}")
+
+            if verified_type == "application/pdf":
+                try:
+                    pdf_text = extract_pdf_text(raw_bytes)
+                    attachment_context += f"\n\n### {att.filename}\n{pdf_text}"
+                except ValueError as e:
+                    raise HTTPException(status_code=400, detail=f"Attachment '{att.filename}': {e}")
+            else:
+                # Image — pass as base64 content block for Claude vision
+                image_blocks.append({
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": verified_type,
+                        "data": att.data,
+                    },
+                })
+
     # Generate response
-    response_text = await generate_response(query, context, reference_context, session_id)
+    response_text = await generate_response(
+        query, context, reference_context, session_id,
+        attachment_context=attachment_context.strip(),
+        image_blocks=image_blocks if image_blocks else None,
+    )
 
     # Format sources (deduplicate by act+section, or by text hash if no section)
     sources = []
@@ -864,6 +1036,121 @@ async def chat(request: ChatRequest, req: Request):
     )
 
 
+@app.post("/chat/stream")
+async def chat_stream(request: ChatRequest, req: Request):
+    """Streaming chat endpoint — returns SSE events."""
+    start_time = time.time()
+    query = request.message.strip()
+
+    has_attachments = bool(request.attachments)
+    if not query and not has_attachments:
+        raise_empty_message()
+
+    if embeddings is None or metadata is None:
+        raise_embeddings_not_loaded()
+    if embedding_model is None:
+        raise_model_not_loaded()
+    if anthropic_client is None:
+        raise_anthropic_unavailable()
+
+    session_id = request.session_id or str(uuid.uuid4())
+    detected_act = detect_act_from_query(query)
+    logger.log_chat_request(session_id, len(query), detected_act)
+
+    is_legal_query = bool(query) and _is_legal_query(query, detected_act, session_id)
+
+    if is_legal_query:
+        results = search_similar(query, top_k=6, act_filter=detected_act)
+        context = build_context(results)
+        matched_refs = find_matching_references(query)
+        reference_context = build_reference_context(matched_refs)
+    else:
+        results = []
+        context = "No legislation search performed — this appears to be a casual/non-legal message."
+        reference_context = ""
+
+    # Process attachments
+    attachment_context = ""
+    image_blocks = []
+    if request.attachments:
+        from .utils.attachments import validate_attachment, extract_pdf_text
+
+        for att in request.attachments:
+            try:
+                raw_bytes, verified_type = validate_attachment(att.data, att.content_type)
+            except ValueError as e:
+                raise HTTPException(status_code=400, detail=f"Attachment '{att.filename}': {e}")
+
+            if verified_type == "application/pdf":
+                try:
+                    pdf_text = extract_pdf_text(raw_bytes)
+                    attachment_context += f"\n\n### {att.filename}\n{pdf_text}"
+                except ValueError as e:
+                    raise HTTPException(status_code=400, detail=f"Attachment '{att.filename}': {e}")
+            else:
+                image_blocks.append({
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": verified_type,
+                        "data": att.data,
+                    },
+                })
+
+    # Build sources before streaming starts
+    sources = []
+    seen = set()
+    for r in results:
+        section_num = r['section_number'].strip() if r['section_number'] else ''
+        if section_num:
+            key = f"{r['act_title']}:{section_num}"
+        else:
+            text_hash = hash(r['text'][:100])
+            key = f"{r['act_title']}:__no_section__{text_hash}"
+        if key not in seen:
+            seen.add(key)
+            sources.append({
+                "act_title": r['act_title'],
+                "section_number": section_num if section_num else 'General',
+                "section_heading": r['section_heading'] or 'General Provisions',
+                "url": r['section_url'] or r['act_url'],
+                "excerpt": r['text'][:200] + "..." if len(r['text']) > 200 else r['text'],
+                "score": r['score'],
+            })
+    sources = sources[:3]
+
+    async def event_stream():
+        full_text = []
+        try:
+            async for chunk in generate_response_stream(
+                query, context, reference_context, session_id,
+                attachment_context=attachment_context.strip(),
+                image_blocks=image_blocks if image_blocks else None,
+            ):
+                full_text.append(chunk)
+                yield f"data: {json.dumps({'type': 'token', 'text': chunk})}\n\n"
+
+            # Send sources and disclaimer as final event
+            yield f"data: {json.dumps({'type': 'done', 'sources': sources, 'disclaimer': DISCLAIMER})}\n\n"
+
+            # Log after stream completes
+            response_time_ms = int((time.time() - start_time) * 1000)
+            response_text = "".join(full_text)
+            client_ip = req.headers.get("X-Forwarded-For", req.client.host if req.client else "unknown")
+            if "," in client_ip:
+                client_ip = client_ip.split(",")[0].strip()
+            log_query(
+                session_id=session_id, ip=client_ip, query=query,
+                response=response_text, detected_act=detected_act,
+                sources_count=len(sources), response_time_ms=response_time_ms,
+            )
+            logger.log_chat_response(session_id, response_time_ms, len(sources), success=True)
+        except Exception as e:
+            yield f"data: {json.dumps({'type': 'error', 'error': str(e)})}\n\n"
+
+    return StreamingResponse(event_stream(), media_type="text/event-stream")
+
+
 @app.delete("/session/{session_id}")
 async def clear_session(session_id: str):
     """Clear conversation history for a session."""
@@ -915,9 +1202,15 @@ async def v1_health():
 
 
 @api_v1.post("/chat", response_model=ChatResponse)
-async def v1_chat(request: ChatRequest):
+async def v1_chat(request: ChatRequest, req: Request):
     """Chat endpoint (v1)."""
-    return await chat(request)
+    return await chat(request, req)
+
+
+@api_v1.post("/chat/stream")
+async def v1_chat_stream(request: ChatRequest, req: Request):
+    """Streaming chat endpoint (v1)."""
+    return await chat_stream(request, req)
 
 
 @api_v1.get("/search")
@@ -933,6 +1226,12 @@ async def v1_search(
 async def v1_list_acts():
     """List acts endpoint (v1)."""
     return await list_acts()
+
+
+@api_v1.delete("/session/{session_id}")
+async def v1_clear_session(session_id: str):
+    """Clear session endpoint (v1)."""
+    return await clear_session(session_id)
 
 
 @api_v1.get("/version")

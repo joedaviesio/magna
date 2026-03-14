@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useCallback, useMemo, useEffect } from 'react';
-import { Message } from '@/types';
-import { sendMessage, clearSession as clearSessionApi, BowenApiError } from '@/lib/api';
+import { Message, FileAttachment } from '@/types';
+import { sendMessageStream, clearSession as clearSessionApi } from '@/lib/api';
 
 const SESSION_STORAGE_KEY = 'bowen-session-id';
 const MESSAGES_STORAGE_KEY = 'bowen-chat-messages';
@@ -75,34 +75,74 @@ export function useChat() {
     }
   }, [messages, isInitialized]);
 
-  const send = useCallback(async (content: string) => {
-    if (!content.trim() || isLoading) return;
+  const send = useCallback(async (content: string, attachments?: FileAttachment[]) => {
+    const hasAttachments = attachments && attachments.length > 0;
+    if ((!content.trim() && !hasAttachments) || isLoading) return;
 
     setError(null);
-    const userMessage: Message = { role: 'user', content };
+
+    // Store attachment metadata (without base64 data) for display in message history
+    const attachmentMeta = attachments?.map(({ filename, content_type, size }) => ({
+      filename, content_type, size,
+    }));
+
+    const userMessage: Message = {
+      role: 'user',
+      content,
+      attachments: attachmentMeta,
+    };
     setMessages(prev => [...prev, userMessage]);
     setIsLoading(true);
 
+    // Add an empty assistant message that we'll stream into
+    const assistantMessage: Message = { role: 'assistant', content: '' };
+    setMessages(prev => [...prev, assistantMessage]);
+
+    let streamFailed = false;
+
     try {
-      const response = await sendMessage(content, sessionId);
-      const assistantMessage: Message = {
-        role: 'assistant',
-        content: response.response,
-        sources: response.sources,
-      };
-      setMessages(prev => [...prev, assistantMessage]);
-    } catch (err) {
-      // Handle structured API errors
-      if (err instanceof BowenApiError) {
-        setError(err.userMessage);
-      } else {
-        setError('Failed to get a response. Please check if the backend is running and try again.');
-      }
-      // Remove the user message if the request failed
-      setMessages(prev => prev.slice(0, -1));
-    } finally {
-      setIsLoading(false);
+      await sendMessageStream(
+        content,
+        {
+          onToken: (text) => {
+            setMessages(prev => {
+              const updated = [...prev];
+              const last = updated[updated.length - 1];
+              if (last.role === 'assistant') {
+                updated[updated.length - 1] = { ...last, content: last.content + text };
+              }
+              return updated;
+            });
+          },
+          onDone: (sources, _disclaimer) => {
+            setMessages(prev => {
+              const updated = [...prev];
+              const last = updated[updated.length - 1];
+              if (last.role === 'assistant') {
+                updated[updated.length - 1] = { ...last, sources };
+              }
+              return updated;
+            });
+          },
+          onError: (errorMsg) => {
+            streamFailed = true;
+            setError(errorMsg);
+          },
+        },
+        sessionId,
+        attachments,
+      );
+    } catch {
+      streamFailed = true;
+      setError('Failed to get a response. Please check if the backend is running and try again.');
     }
+
+    if (streamFailed) {
+      // Remove user message and empty assistant message
+      setMessages(prev => prev.slice(0, -2));
+    }
+
+    setIsLoading(false);
   }, [isLoading, sessionId]);
 
   const clearMessages = useCallback(() => {

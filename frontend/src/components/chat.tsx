@@ -271,7 +271,7 @@ export function Chat() {
                 </div>
               );
             })}
-            {isLoading && <TypingIndicator />}
+            {isLoading && !(messages.length > 0 && messages[messages.length - 1].role === 'assistant' && messages[messages.length - 1].content) && <TypingIndicator />}
             {error && (
               <div className="flex items-center gap-2 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
                 <AlertCircle className="w-5 h-5 flex-shrink-0" />
