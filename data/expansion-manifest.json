@@ -1,7 +1,7 @@
 {
   "description": "Expansion manifest: 89 → 200 acts. Batches of 10, most recent first.",
   "target": 200,
-  "current": 119,
+  "current": 139,
   "batches": [
     {
       "batch": 1,
@@ -651,7 +651,7 @@
     {
       "batch": 4,
       "name": "Commerce & Financial Regulation",
-      "status": "pending",
+      "status": "complete",
       "acts": [
         {
           "code": "COMA",
@@ -670,7 +670,10 @@
             "competition",
             "commerce"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 2250,
+          "chunks": 2339,
+          "completed_at": "2026-03-24T08:01:30.617207"
         },
         {
           "code": "OIA2005",
@@ -687,7 +690,10 @@
             "investment",
             "foreign ownership"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1443,
+          "chunks": 1540,
+          "completed_at": "2026-03-24T08:01:34.119641"
         },
         {
           "code": "FSPA",
@@ -704,7 +710,10 @@
             "financial services",
             "regulation"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 528,
+          "chunks": 573,
+          "completed_at": "2026-03-24T08:01:37.084633"
         },
         {
           "code": "GSTA",
@@ -721,7 +730,10 @@
             "tax",
             "gst"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1649,
+          "chunks": 1911,
+          "completed_at": "2026-03-24T08:01:41.013594"
         },
         {
           "code": "TAA",
@@ -739,7 +751,10 @@
             "tax",
             "administration"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 5089,
+          "chunks": 5475,
+          "completed_at": "2026-03-24T08:01:49.900489"
         },
         {
           "code": "CEA",
@@ -758,7 +773,10 @@
             "customs",
             "trade"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 3523,
+          "chunks": 3687,
+          "completed_at": "2026-03-24T08:01:55.137254"
         },
         {
           "code": "TELA",
@@ -776,7 +794,10 @@
             "telecommunications",
             "regulation"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 2802,
+          "chunks": 2905,
+          "completed_at": "2026-03-24T08:01:59.632900"
         },
         {
           "code": "ARBA",
@@ -793,7 +814,10 @@
             "arbitration",
             "dispute resolution"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 400,
+          "chunks": 413,
+          "completed_at": "2026-03-24T08:02:02.161827"
         },
         {
           "code": "DTA",
@@ -810,7 +834,10 @@
             "disputes",
             "tribunal"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 441,
+          "chunks": 465,
+          "completed_at": "2026-03-24T08:02:05.830893"
         },
         {
           "code": "WHRS",
@@ -827,14 +854,17 @@
             "housing",
             "construction"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 997,
+          "chunks": 1034,
+          "completed_at": "2026-03-24T08:02:08.751088"
         }
       ]
     },
     {
       "batch": 5,
       "name": "Health, Welfare & Social",
-      "status": "pending",
+      "status": "complete",
       "acts": [
         {
           "code": "MHCA",
@@ -851,7 +881,10 @@
             "mental health",
             "health"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1115,
+          "chunks": 1169,
+          "completed_at": "2026-03-24T08:25:56.408692"
         },
         {
           "code": "HDCA1994",
@@ -869,7 +902,10 @@
             "health",
             "disability"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 385,
+          "chunks": 412,
+          "completed_at": "2026-03-24T08:25:59.038669"
         },
         {
           "code": "SSA2018",
@@ -888,7 +924,10 @@
             "welfare",
             "benefits"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 3320,
+          "chunks": 3536,
+          "completed_at": "2026-03-24T08:26:04.821486"
         },
         {
           "code": "SWRA",
@@ -905,7 +944,10 @@
             "social work",
             "registration"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1104,
+          "chunks": 1133,
+          "completed_at": "2026-03-24T08:26:07.914514"
         },
         {
           "code": "NZPHDA",
@@ -923,7 +965,10 @@
             "public health",
             "disability"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1359,
+          "chunks": 1386,
+          "completed_at": "2026-03-24T08:26:11.340559"
         },
         {
           "code": "AWA",
@@ -939,7 +984,10 @@
           "topics": [
             "animal welfare"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1233,
+          "chunks": 1293,
+          "completed_at": "2026-03-24T08:26:14.510930"
         },
         {
           "code": "DCA1996",
@@ -957,7 +1005,10 @@
             "dog control",
             "animals"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 660,
+          "chunks": 707,
+          "completed_at": "2026-03-24T08:26:18.083248"
         },
         {
           "code": "BURIALS",
@@ -975,7 +1026,10 @@
             "burial",
             "cremation"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 370,
+          "chunks": 389,
+          "completed_at": "2026-03-24T08:26:21.075865"
         },
         {
           "code": "CEA2004",
@@ -992,7 +1046,10 @@
             "governance",
             "public sector"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1113,
+          "chunks": 1133,
+          "completed_at": "2026-03-24T08:26:24.369466"
         },
         {
           "code": "LEGA",
@@ -1010,7 +1067,10 @@
             "legislation",
             "interpretation"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 766,
+          "chunks": 806,
+          "completed_at": "2026-03-24T08:26:27.243365"
         }
       ]
     },

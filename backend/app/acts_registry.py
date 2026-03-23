@@ -946,6 +946,166 @@ ACTS_REGISTRY: Dict[str, Dict] = {
         "topics": ["ombudsman", "accountability"],
         "url": "https://www.legislation.govt.nz/act/public/1975/0009/latest/DLM1.html"
     },
+    "COMA": {
+        "title": "Commerce Act 1986",
+        "short_name": "COMA",
+        "year": 1986,
+        "keywords": ["commerce", "competition", "merger", "anti-competitive", "market"],
+        "topics": ["competition", "commerce"],
+        "url": "https://www.legislation.govt.nz/act/public/1986/0005/latest/DLM1.html"
+    },
+    "OIA2005": {
+        "title": "Overseas Investment Act 2005",
+        "short_name": "OIA2005",
+        "year": 2005,
+        "keywords": ["overseas investment", "foreign investment", "sensitive land"],
+        "topics": ["investment", "foreign ownership"],
+        "url": "https://www.legislation.govt.nz/act/public/2005/0082/latest/DLM1.html"
+    },
+    "FSPA": {
+        "title": "Financial Service Providers (Registration and Dispute Resolution) Act 2008",
+        "short_name": "FSPA",
+        "year": 2008,
+        "keywords": ["financial service provider", "fsp", "dispute resolution"],
+        "topics": ["financial services", "regulation"],
+        "url": "https://www.legislation.govt.nz/act/public/2008/0097/latest/DLM1.html"
+    },
+    "GSTA": {
+        "title": "Goods and Services Tax Act 1985",
+        "short_name": "GSTA",
+        "year": 1985,
+        "keywords": ["gst", "goods and services tax", "tax"],
+        "topics": ["tax", "gst"],
+        "url": "https://www.legislation.govt.nz/act/public/1985/0141/latest/DLM1.html"
+    },
+    "TAA": {
+        "title": "Tax Administration Act 1994",
+        "short_name": "TAA",
+        "year": 1994,
+        "keywords": ["tax administration", "ird", "tax return", "tax compliance"],
+        "topics": ["tax", "administration"],
+        "url": "https://www.legislation.govt.nz/act/public/1994/0166/latest/DLM1.html"
+    },
+    "CEA": {
+        "title": "Customs and Excise Act 2018",
+        "short_name": "CEA",
+        "year": 2018,
+        "keywords": ["customs", "excise", "import", "export", "border"],
+        "topics": ["customs", "trade"],
+        "url": "https://www.legislation.govt.nz/act/public/2018/0004/latest/DLM1.html"
+    },
+    "TELA": {
+        "title": "Telecommunications Act 2001",
+        "short_name": "TELA",
+        "year": 2001,
+        "keywords": ["telecommunications", "broadband", "internet", "network"],
+        "topics": ["telecommunications", "regulation"],
+        "url": "https://www.legislation.govt.nz/act/public/2001/0103/latest/DLM1.html"
+    },
+    "ARBA": {
+        "title": "Arbitration Act 1996",
+        "short_name": "ARBA",
+        "year": 1996,
+        "keywords": ["arbitration", "dispute", "arbitral tribunal"],
+        "topics": ["arbitration", "dispute resolution"],
+        "url": "https://www.legislation.govt.nz/act/public/1996/0099/latest/DLM1.html"
+    },
+    "DTA": {
+        "title": "Disputes Tribunals Act 1988",
+        "short_name": "DTA",
+        "year": 1988,
+        "keywords": ["disputes tribunal", "small claims", "dispute"],
+        "topics": ["disputes", "tribunal"],
+        "url": "https://www.legislation.govt.nz/act/public/1988/0110/latest/DLM1.html"
+    },
+    "WHRS": {
+        "title": "Weathertight Homes Resolution Services Act 2006",
+        "short_name": "WHRS",
+        "year": 2006,
+        "keywords": ["weathertight", "leaky homes", "leaky building"],
+        "topics": ["housing", "construction"],
+        "url": "https://www.legislation.govt.nz/act/public/2006/0084/latest/DLM1.html"
+    },
+    "MHCA": {
+        "title": "Mental Health (Compulsory Assessment and Treatment) Act 1992",
+        "short_name": "MHCA",
+        "year": 1992,
+        "keywords": ["mental health", "compulsory treatment", "psychiatric"],
+        "topics": ["mental health", "health"],
+        "url": "https://www.legislation.govt.nz/act/public/1992/0046/latest/DLM1.html"
+    },
+    "HDCA1994": {
+        "title": "Health and Disability Commissioner Act 1994",
+        "short_name": "HDCA1994",
+        "year": 1994,
+        "keywords": ["health commissioner", "disability commissioner", "patient rights", "hdc"],
+        "topics": ["health", "disability"],
+        "url": "https://www.legislation.govt.nz/act/public/1994/0088/latest/DLM1.html"
+    },
+    "SSA2018": {
+        "title": "Social Security Act 2018",
+        "short_name": "SSA2018",
+        "year": 2018,
+        "keywords": ["social security", "benefit", "welfare", "jobseeker", "sole parent"],
+        "topics": ["welfare", "benefits"],
+        "url": "https://www.legislation.govt.nz/act/public/2018/0032/latest/DLM1.html"
+    },
+    "SWRA": {
+        "title": "Social Workers Registration Act 2003",
+        "short_name": "SWRA",
+        "year": 2003,
+        "keywords": ["social worker", "registration", "social work"],
+        "topics": ["social work", "registration"],
+        "url": "https://www.legislation.govt.nz/act/public/2003/0017/latest/DLM1.html"
+    },
+    "NZPHDA": {
+        "title": "New Zealand Public Health and Disability Act 2000",
+        "short_name": "NZPHDA",
+        "year": 2000,
+        "keywords": ["public health", "disability", "dhb", "health board"],
+        "topics": ["public health", "disability"],
+        "url": "https://www.legislation.govt.nz/act/public/2000/0091/latest/DLM1.html"
+    },
+    "AWA": {
+        "title": "Animal Welfare Act 1999",
+        "short_name": "AWA",
+        "year": 1999,
+        "keywords": ["animal welfare", "animal cruelty", "animal"],
+        "topics": ["animal welfare"],
+        "url": "https://www.legislation.govt.nz/act/public/1999/0142/latest/DLM1.html"
+    },
+    "DCA1996": {
+        "title": "Dog Control Act 1996",
+        "short_name": "DCA1996",
+        "year": 1996,
+        "keywords": ["dog control", "dog", "dangerous dog", "menacing dog"],
+        "topics": ["dog control", "animals"],
+        "url": "https://www.legislation.govt.nz/act/public/1996/0013/latest/DLM1.html"
+    },
+    "BURIALS": {
+        "title": "Burial and Cremation Act 1964",
+        "short_name": "BURIALS",
+        "year": 1964,
+        "keywords": ["burial", "cremation", "funeral", "cemetery"],
+        "topics": ["burial", "cremation"],
+        "url": "https://www.legislation.govt.nz/act/public/1964/0075/latest/DLM1.html"
+    },
+    "CEA2004": {
+        "title": "Crown Entities Act 2004",
+        "short_name": "CEA2004",
+        "year": 2004,
+        "keywords": ["crown entity", "statutory entity", "crown agent"],
+        "topics": ["governance", "public sector"],
+        "url": "https://www.legislation.govt.nz/act/public/2004/0115/latest/DLM1.html"
+    },
+    "LEGA": {
+        "title": "Legislation Act 2019",
+        "short_name": "LEGA",
+        "year": 2019,
+        "keywords": ["legislation", "interpretation", "statutory interpretation", "enactment"],
+        "topics": ["legislation", "interpretation"],
+        "url": "https://www.legislation.govt.nz/act/public/2019/0058/latest/DLM1.html"
+    },
 }
 
 
