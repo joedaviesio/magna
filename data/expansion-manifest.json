@@ -1,0 +1,2104 @@
+{
+  "description": "Expansion manifest: 89 → 200 acts. Batches of 10, most recent first.",
+  "target": 200,
+  "current": 119,
+  "batches": [
+    {
+      "batch": 1,
+      "name": "2020s Legislation (newest)",
+      "status": "complete",
+      "acts": [
+        {
+          "code": "WSA",
+          "title": "Water Services Act 2021",
+          "year": 2021,
+          "number": 36,
+          "slug": "water-services-2021",
+          "keywords": [
+            "water services",
+            "drinking water",
+            "water supply",
+            "water infrastructure"
+          ],
+          "topics": [
+            "water",
+            "infrastructure"
+          ],
+          "status": "complete",
+          "sections": 1260,
+          "chunks": 1282,
+          "completed_at": "2026-03-23T18:14:19.676497"
+        },
+        {
+          "code": "WSER",
+          "title": "Water Services Entities Act 2022",
+          "year": 2022,
+          "number": 44,
+          "slug": "water-services-entities-2022",
+          "keywords": [
+            "water entities",
+            "water services entities",
+            "three waters"
+          ],
+          "topics": [
+            "water",
+            "local government"
+          ],
+          "status": "complete",
+          "sections": 261,
+          "chunks": 272,
+          "completed_at": "2026-03-23T18:14:22.214361"
+        },
+        {
+          "code": "ETrA",
+          "title": "Education and Training Act 2020",
+          "year": 2020,
+          "number": 38,
+          "slug": "education-training-2020",
+          "keywords": [
+            "education",
+            "training",
+            "school",
+            "teacher",
+            "university",
+            "tertiary"
+          ],
+          "topics": [
+            "education",
+            "training"
+          ],
+          "status": "complete",
+          "sections": 6996,
+          "chunks": 7234,
+          "completed_at": "2026-03-23T18:14:29.949423"
+        },
+        {
+          "code": "CPHRA",
+          "title": "COVID-19 Public Health Response Act 2020",
+          "year": 2020,
+          "number": 12,
+          "slug": "covid-19-public-health-response-2020",
+          "keywords": [
+            "covid",
+            "pandemic",
+            "public health",
+            "lockdown",
+            "vaccination order"
+          ],
+          "topics": [
+            "public health",
+            "emergency"
+          ],
+          "status": "complete",
+          "sections": 284,
+          "chunks": 296,
+          "completed_at": "2026-03-23T18:14:37.775940"
+        },
+        {
+          "code": "URBA",
+          "title": "Urban Development Act 2020",
+          "year": 2020,
+          "number": 42,
+          "slug": "urban-development-2020",
+          "keywords": [
+            "urban development",
+            "kainga ora",
+            "housing",
+            "urban"
+          ],
+          "topics": [
+            "urban development",
+            "housing"
+          ],
+          "status": "complete",
+          "sections": 1716,
+          "chunks": 1775,
+          "completed_at": "2026-03-23T18:14:42.596518"
+        },
+        {
+          "code": "INFRA",
+          "title": "Infrastructure Funding and Financing Act 2020",
+          "year": 2020,
+          "number": 47,
+          "slug": "infrastructure-funding-financing-2020",
+          "keywords": [
+            "infrastructure",
+            "funding",
+            "financing",
+            "levy"
+          ],
+          "topics": [
+            "infrastructure",
+            "finance"
+          ],
+          "status": "complete",
+          "sections": 774,
+          "chunks": 795,
+          "completed_at": "2026-03-23T18:14:45.482198"
+        },
+        {
+          "code": "CPA2018",
+          "title": "Child Poverty Reduction Act 2018",
+          "year": 2018,
+          "number": 57,
+          "slug": "child-poverty-reduction-2018",
+          "keywords": [
+            "child poverty",
+            "poverty reduction",
+            "children"
+          ],
+          "topics": [
+            "poverty",
+            "children"
+          ],
+          "status": "complete",
+          "sections": 242,
+          "chunks": 248,
+          "completed_at": "2026-03-23T18:14:50.196584"
+        },
+        {
+          "code": "SATA",
+          "title": "Substance Addiction (Compulsory Assessment and Treatment) Act 2017",
+          "year": 2017,
+          "number": 4,
+          "slug": "substance-addiction-2017",
+          "keywords": [
+            "substance addiction",
+            "compulsory treatment",
+            "addiction",
+            "drugs"
+          ],
+          "topics": [
+            "health",
+            "addiction"
+          ],
+          "status": "complete",
+          "sections": 586,
+          "chunks": 595,
+          "completed_at": "2026-03-23T18:14:53.158999"
+        },
+        {
+          "code": "ISA",
+          "title": "Intelligence and Security Act 2017",
+          "year": 2017,
+          "number": 10,
+          "slug": "intelligence-security-2017",
+          "keywords": [
+            "intelligence",
+            "security",
+            "gcsb",
+            "nzsis",
+            "surveillance"
+          ],
+          "topics": [
+            "intelligence",
+            "security"
+          ],
+          "status": "complete",
+          "sections": 1655,
+          "chunks": 1725,
+          "completed_at": "2026-03-23T18:14:56.629076"
+        },
+        {
+          "code": "SCA",
+          "title": "Senior Courts Act 2016",
+          "year": 2016,
+          "number": 48,
+          "slug": "senior-courts-2016",
+          "keywords": [
+            "senior courts",
+            "high court",
+            "court of appeal",
+            "supreme court"
+          ],
+          "topics": [
+            "courts",
+            "judiciary"
+          ],
+          "status": "complete",
+          "sections": 1059,
+          "chunks": 1071,
+          "completed_at": "2026-03-23T18:14:59.981564"
+        }
+      ]
+    },
+    {
+      "batch": 2,
+      "name": "2010s Major Reforms",
+      "status": "complete",
+      "acts": [
+        {
+          "code": "DCA2016",
+          "title": "District Court Act 2016",
+          "year": 2016,
+          "number": 49,
+          "slug": "district-court-2016",
+          "keywords": [
+            "district court",
+            "court"
+          ],
+          "topics": [
+            "courts",
+            "judiciary"
+          ],
+          "status": "complete",
+          "sections": 1361,
+          "chunks": 1392,
+          "completed_at": "2026-03-23T18:57:34.293691"
+        },
+        {
+          "code": "JRPA",
+          "title": "Judicial Review Procedure Act 2016",
+          "year": 2016,
+          "number": 50,
+          "slug": "judicial-review-procedure-2016",
+          "keywords": [
+            "judicial review",
+            "review procedure"
+          ],
+          "topics": [
+            "courts",
+            "judicial review"
+          ],
+          "status": "complete",
+          "sections": 106,
+          "chunks": 106,
+          "completed_at": "2026-03-23T18:57:36.583956"
+        },
+        {
+          "code": "FDA",
+          "title": "Food Act 2014",
+          "year": 2014,
+          "number": 32,
+          "slug": "food-2014",
+          "keywords": [
+            "food",
+            "food safety",
+            "food standards"
+          ],
+          "topics": [
+            "food safety",
+            "health"
+          ],
+          "status": "complete",
+          "sections": 2626,
+          "chunks": 2708,
+          "completed_at": "2026-03-23T18:57:41.099377"
+        },
+        {
+          "code": "VSA",
+          "title": "Veterans' Support Act 2014",
+          "year": 2014,
+          "number": 56,
+          "slug": "veterans-support-2014",
+          "keywords": [
+            "veterans",
+            "veteran support",
+            "military"
+          ],
+          "topics": [
+            "veterans",
+            "welfare"
+          ],
+          "status": "complete",
+          "sections": 1859,
+          "chunks": 1908,
+          "completed_at": "2026-03-23T18:57:44.533324"
+        },
+        {
+          "code": "RESA",
+          "title": "Real Estate Agents Act 2008",
+          "year": 2008,
+          "number": 66,
+          "slug": "real-estate-agents-2008",
+          "keywords": [
+            "real estate",
+            "real estate agent",
+            "property sale"
+          ],
+          "topics": [
+            "real estate",
+            "property"
+          ],
+          "status": "complete",
+          "sections": 878,
+          "chunks": 891,
+          "completed_at": "2026-03-23T18:57:47.688034"
+        },
+        {
+          "code": "PA2008",
+          "title": "Policing Act 2008",
+          "year": 2008,
+          "number": 72,
+          "slug": "policing-2008",
+          "keywords": [
+            "policing",
+            "police",
+            "law enforcement"
+          ],
+          "topics": [
+            "police",
+            "law enforcement"
+          ],
+          "status": "complete",
+          "sections": 764,
+          "chunks": 775,
+          "completed_at": "2026-03-23T18:57:50.356347"
+        },
+        {
+          "code": "MVSA",
+          "title": "Motor Vehicle Sales Act 2003",
+          "year": 2003,
+          "number": 12,
+          "slug": "motor-vehicle-sales-2003",
+          "keywords": [
+            "motor vehicle",
+            "car sales",
+            "vehicle dealer"
+          ],
+          "topics": [
+            "consumer",
+            "vehicles"
+          ],
+          "status": "complete",
+          "sections": 770,
+          "chunks": 787,
+          "completed_at": "2026-03-23T18:57:53.114594"
+        },
+        {
+          "code": "GA",
+          "title": "Gambling Act 2003",
+          "year": 2003,
+          "number": 51,
+          "slug": "gambling-2003",
+          "keywords": [
+            "gambling",
+            "casino",
+            "pokie",
+            "betting",
+            "lottery"
+          ],
+          "topics": [
+            "gambling",
+            "regulation"
+          ],
+          "status": "complete",
+          "sections": 2220,
+          "chunks": 2281,
+          "completed_at": "2026-03-23T18:57:56.837387"
+        },
+        {
+          "code": "RVA2003",
+          "title": "Retirement Villages Act 2003",
+          "year": 2003,
+          "number": 11,
+          "slug": "retirement-villages-2003",
+          "keywords": [
+            "retirement village",
+            "retirement",
+            "elderly",
+            "aged care"
+          ],
+          "topics": [
+            "retirement",
+            "housing"
+          ],
+          "status": "complete",
+          "sections": 56,
+          "chunks": 57,
+          "completed_at": "2026-03-23T18:57:59.155378"
+        },
+        {
+          "code": "CORA2004",
+          "title": "Corrections Act 2004",
+          "year": 2004,
+          "number": 50,
+          "slug": "corrections-2004",
+          "keywords": [
+            "corrections",
+            "prison",
+            "prisoner",
+            "parole",
+            "sentence"
+          ],
+          "topics": [
+            "corrections",
+            "criminal justice"
+          ],
+          "status": "complete",
+          "sections": 1654,
+          "chunks": 1735,
+          "completed_at": "2026-03-23T18:58:02.619131"
+        }
+      ]
+    },
+    {
+      "batch": 3,
+      "name": "Criminal Justice & Procedure",
+      "status": "complete",
+      "acts": [
+        {
+          "code": "PAROLE",
+          "title": "Parole Act 2002",
+          "year": 2002,
+          "number": 10,
+          "slug": "parole-2002",
+          "keywords": [
+            "parole",
+            "release",
+            "parole board"
+          ],
+          "topics": [
+            "parole",
+            "criminal justice"
+          ],
+          "status": "complete",
+          "sections": 1132,
+          "chunks": 1183,
+          "completed_at": "2026-03-23T19:16:02.818999"
+        },
+        {
+          "code": "VRA",
+          "title": "Victims' Rights Act 2002",
+          "year": 2002,
+          "number": 39,
+          "slug": "victims-rights-2002",
+          "keywords": [
+            "victims rights",
+            "victim",
+            "victim impact"
+          ],
+          "topics": [
+            "victims",
+            "criminal justice"
+          ],
+          "status": "complete",
+          "sections": 353,
+          "chunks": 372,
+          "completed_at": "2026-03-23T19:16:05.690704"
+        },
+        {
+          "code": "CSLA",
+          "title": "Criminal Records (Clean Slate) Act 2004",
+          "year": 2004,
+          "number": 36,
+          "slug": "criminal-records-clean-slate-2004",
+          "keywords": [
+            "clean slate",
+            "criminal record",
+            "conviction"
+          ],
+          "topics": [
+            "criminal records",
+            "rehabilitation"
+          ],
+          "status": "complete",
+          "sections": 112,
+          "chunks": 126,
+          "completed_at": "2026-03-23T19:16:08.095461"
+        },
+        {
+          "code": "MDA",
+          "title": "Misuse of Drugs Act 1975",
+          "year": 1975,
+          "number": 116,
+          "slug": "misuse-of-drugs-1975",
+          "keywords": [
+            "drugs",
+            "misuse of drugs",
+            "controlled substance",
+            "cannabis",
+            "methamphetamine"
+          ],
+          "topics": [
+            "drugs",
+            "criminal law"
+          ],
+          "status": "complete",
+          "sections": 895,
+          "chunks": 994,
+          "completed_at": "2026-03-23T19:16:11.174189"
+        },
+        {
+          "code": "SOA",
+          "title": "Summary Offences Act 1981",
+          "year": 1981,
+          "number": 113,
+          "slug": "summary-offences-1981",
+          "keywords": [
+            "summary offences",
+            "minor offences",
+            "disorderly conduct",
+            "trespass"
+          ],
+          "topics": [
+            "offences",
+            "criminal law"
+          ],
+          "status": "complete",
+          "sections": 292,
+          "chunks": 298,
+          "completed_at": "2026-03-23T19:16:13.565076"
+        },
+        {
+          "code": "ARMSA",
+          "title": "Arms Act 1983",
+          "year": 1983,
+          "number": 44,
+          "slug": "arms-1983",
+          "keywords": [
+            "arms",
+            "firearms",
+            "gun",
+            "weapon",
+            "licence"
+          ],
+          "topics": [
+            "firearms",
+            "public safety"
+          ],
+          "status": "complete",
+          "sections": 1355,
+          "chunks": 1405,
+          "completed_at": "2026-03-23T19:16:16.817334"
+        },
+        {
+          "code": "IPCAA",
+          "title": "Independent Police Conduct Authority Act 1988",
+          "year": 1988,
+          "number": 2,
+          "slug": "independent-police-conduct-authority-1988",
+          "keywords": [
+            "police conduct",
+            "ipca",
+            "police complaints"
+          ],
+          "topics": [
+            "police oversight",
+            "accountability"
+          ],
+          "status": "complete",
+          "sections": 221,
+          "chunks": 223,
+          "completed_at": "2026-03-23T19:16:19.367837"
+        },
+        {
+          "code": "NZBORA",
+          "title": "New Zealand Bill of Rights Act 1990",
+          "year": 1990,
+          "number": 109,
+          "slug": "new-zealand-bill-of-rights-1990",
+          "keywords": [
+            "bill of rights",
+            "human rights",
+            "civil liberties",
+            "freedom of expression",
+            "right to life"
+          ],
+          "topics": [
+            "rights",
+            "civil liberties"
+          ],
+          "status": "complete",
+          "sections": 107,
+          "chunks": 107,
+          "completed_at": "2026-03-23T19:16:21.977702"
+        },
+        {
+          "code": "DEFA",
+          "title": "Defence Act 1990",
+          "year": 1990,
+          "number": 28,
+          "slug": "defence-1990",
+          "keywords": [
+            "defence",
+            "military",
+            "armed forces",
+            "nzdf"
+          ],
+          "topics": [
+            "defence",
+            "military"
+          ],
+          "status": "complete",
+          "sections": 564,
+          "chunks": 613,
+          "completed_at": "2026-03-23T19:16:24.678961"
+        },
+        {
+          "code": "OMBA",
+          "title": "Ombudsmen Act 1975",
+          "year": 1975,
+          "number": 9,
+          "slug": "ombudsmen-1975",
+          "keywords": [
+            "ombudsman",
+            "ombudsmen",
+            "complaint",
+            "investigation"
+          ],
+          "topics": [
+            "ombudsman",
+            "accountability"
+          ],
+          "status": "complete",
+          "sections": 249,
+          "chunks": 265,
+          "completed_at": "2026-03-23T19:16:27.206414"
+        }
+      ]
+    },
+    {
+      "batch": 4,
+      "name": "Commerce & Financial Regulation",
+      "status": "pending",
+      "acts": [
+        {
+          "code": "COMA",
+          "title": "Commerce Act 1986",
+          "year": 1986,
+          "number": 5,
+          "slug": "commerce-1986",
+          "keywords": [
+            "commerce",
+            "competition",
+            "merger",
+            "anti-competitive",
+            "market"
+          ],
+          "topics": [
+            "competition",
+            "commerce"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "OIA2005",
+          "title": "Overseas Investment Act 2005",
+          "year": 2005,
+          "number": 82,
+          "slug": "overseas-investment-2005",
+          "keywords": [
+            "overseas investment",
+            "foreign investment",
+            "sensitive land"
+          ],
+          "topics": [
+            "investment",
+            "foreign ownership"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "FSPA",
+          "title": "Financial Service Providers (Registration and Dispute Resolution) Act 2008",
+          "year": 2008,
+          "number": 97,
+          "slug": "financial-service-providers-2008",
+          "keywords": [
+            "financial service provider",
+            "fsp",
+            "dispute resolution"
+          ],
+          "topics": [
+            "financial services",
+            "regulation"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "GSTA",
+          "title": "Goods and Services Tax Act 1985",
+          "year": 1985,
+          "number": 141,
+          "slug": "goods-services-tax-1985",
+          "keywords": [
+            "gst",
+            "goods and services tax",
+            "tax"
+          ],
+          "topics": [
+            "tax",
+            "gst"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "TAA",
+          "title": "Tax Administration Act 1994",
+          "year": 1994,
+          "number": 166,
+          "slug": "tax-administration-1994",
+          "keywords": [
+            "tax administration",
+            "ird",
+            "tax return",
+            "tax compliance"
+          ],
+          "topics": [
+            "tax",
+            "administration"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "CEA",
+          "title": "Customs and Excise Act 2018",
+          "year": 2018,
+          "number": 4,
+          "slug": "customs-excise-2018",
+          "keywords": [
+            "customs",
+            "excise",
+            "import",
+            "export",
+            "border"
+          ],
+          "topics": [
+            "customs",
+            "trade"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "TELA",
+          "title": "Telecommunications Act 2001",
+          "year": 2001,
+          "number": 103,
+          "slug": "telecommunications-2001",
+          "keywords": [
+            "telecommunications",
+            "broadband",
+            "internet",
+            "network"
+          ],
+          "topics": [
+            "telecommunications",
+            "regulation"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "ARBA",
+          "title": "Arbitration Act 1996",
+          "year": 1996,
+          "number": 99,
+          "slug": "arbitration-1996",
+          "keywords": [
+            "arbitration",
+            "dispute",
+            "arbitral tribunal"
+          ],
+          "topics": [
+            "arbitration",
+            "dispute resolution"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "DTA",
+          "title": "Disputes Tribunals Act 1988",
+          "year": 1988,
+          "number": 110,
+          "slug": "disputes-tribunals-1988",
+          "keywords": [
+            "disputes tribunal",
+            "small claims",
+            "dispute"
+          ],
+          "topics": [
+            "disputes",
+            "tribunal"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "WHRS",
+          "title": "Weathertight Homes Resolution Services Act 2006",
+          "year": 2006,
+          "number": 84,
+          "slug": "weathertight-homes-2006",
+          "keywords": [
+            "weathertight",
+            "leaky homes",
+            "leaky building"
+          ],
+          "topics": [
+            "housing",
+            "construction"
+          ],
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "batch": 5,
+      "name": "Health, Welfare & Social",
+      "status": "pending",
+      "acts": [
+        {
+          "code": "MHCA",
+          "title": "Mental Health (Compulsory Assessment and Treatment) Act 1992",
+          "year": 1992,
+          "number": 46,
+          "slug": "mental-health-1992",
+          "keywords": [
+            "mental health",
+            "compulsory treatment",
+            "psychiatric"
+          ],
+          "topics": [
+            "mental health",
+            "health"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "HDCA1994",
+          "title": "Health and Disability Commissioner Act 1994",
+          "year": 1994,
+          "number": 88,
+          "slug": "health-disability-commissioner-1994",
+          "keywords": [
+            "health commissioner",
+            "disability commissioner",
+            "patient rights",
+            "hdc"
+          ],
+          "topics": [
+            "health",
+            "disability"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "SSA2018",
+          "title": "Social Security Act 2018",
+          "year": 2018,
+          "number": 32,
+          "slug": "social-security-2018",
+          "keywords": [
+            "social security",
+            "benefit",
+            "welfare",
+            "jobseeker",
+            "sole parent"
+          ],
+          "topics": [
+            "welfare",
+            "benefits"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "SWRA",
+          "title": "Social Workers Registration Act 2003",
+          "year": 2003,
+          "number": 17,
+          "slug": "social-workers-registration-2003",
+          "keywords": [
+            "social worker",
+            "registration",
+            "social work"
+          ],
+          "topics": [
+            "social work",
+            "registration"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "NZPHDA",
+          "title": "New Zealand Public Health and Disability Act 2000",
+          "year": 2000,
+          "number": 91,
+          "slug": "nz-public-health-disability-2000",
+          "keywords": [
+            "public health",
+            "disability",
+            "dhb",
+            "health board"
+          ],
+          "topics": [
+            "public health",
+            "disability"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "AWA",
+          "title": "Animal Welfare Act 1999",
+          "year": 1999,
+          "number": 142,
+          "slug": "animal-welfare-1999",
+          "keywords": [
+            "animal welfare",
+            "animal cruelty",
+            "animal"
+          ],
+          "topics": [
+            "animal welfare"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "DCA1996",
+          "title": "Dog Control Act 1996",
+          "year": 1996,
+          "number": 13,
+          "slug": "dog-control-1996",
+          "keywords": [
+            "dog control",
+            "dog",
+            "dangerous dog",
+            "menacing dog"
+          ],
+          "topics": [
+            "dog control",
+            "animals"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "BURIALS",
+          "title": "Burial and Cremation Act 1964",
+          "year": 1964,
+          "number": 75,
+          "slug": "burial-cremation-1964",
+          "keywords": [
+            "burial",
+            "cremation",
+            "funeral",
+            "cemetery"
+          ],
+          "topics": [
+            "burial",
+            "cremation"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "CEA2004",
+          "title": "Crown Entities Act 2004",
+          "year": 2004,
+          "number": 115,
+          "slug": "crown-entities-2004",
+          "keywords": [
+            "crown entity",
+            "statutory entity",
+            "crown agent"
+          ],
+          "topics": [
+            "governance",
+            "public sector"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "LEGA",
+          "title": "Legislation Act 2019",
+          "year": 2019,
+          "number": 58,
+          "slug": "legislation-2019",
+          "keywords": [
+            "legislation",
+            "interpretation",
+            "statutory interpretation",
+            "enactment"
+          ],
+          "topics": [
+            "legislation",
+            "interpretation"
+          ],
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "batch": 6,
+      "name": "Transport & Infrastructure",
+      "status": "pending",
+      "acts": [
+        {
+          "code": "MTA",
+          "title": "Maritime Transport Act 1994",
+          "year": 1994,
+          "number": 104,
+          "slug": "maritime-transport-1994",
+          "keywords": [
+            "maritime",
+            "shipping",
+            "vessel",
+            "port",
+            "sea"
+          ],
+          "topics": [
+            "maritime",
+            "transport"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "CAA",
+          "title": "Civil Aviation Act 1990",
+          "year": 1990,
+          "number": 98,
+          "slug": "civil-aviation-1990",
+          "keywords": [
+            "civil aviation",
+            "aircraft",
+            "aviation",
+            "airline",
+            "pilot"
+          ],
+          "topics": [
+            "aviation",
+            "transport"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "RA2005",
+          "title": "Railways Act 2005",
+          "year": 2005,
+          "number": 37,
+          "slug": "railways-2005",
+          "keywords": [
+            "railways",
+            "rail",
+            "train",
+            "rail network"
+          ],
+          "topics": [
+            "railways",
+            "transport"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "GOVA",
+          "title": "Government Roading Powers Act 1989",
+          "year": 1989,
+          "number": 75,
+          "slug": "government-roading-powers-1989",
+          "keywords": [
+            "roading",
+            "road",
+            "highway",
+            "motorway"
+          ],
+          "topics": [
+            "roading",
+            "transport"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "CMA",
+          "title": "Crown Minerals Act 1991",
+          "year": 1991,
+          "number": 70,
+          "slug": "crown-minerals-1991",
+          "keywords": [
+            "crown minerals",
+            "mining",
+            "petroleum",
+            "minerals"
+          ],
+          "topics": [
+            "minerals",
+            "mining"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "EPA",
+          "title": "Environmental Protection Authority Act 2011",
+          "year": 2011,
+          "number": 14,
+          "slug": "environmental-protection-authority-2011",
+          "keywords": [
+            "epa",
+            "environmental protection",
+            "environment"
+          ],
+          "topics": [
+            "environment",
+            "regulation"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "FRRA",
+          "title": "Forestry Rights Registration Act 1983",
+          "year": 1983,
+          "number": 42,
+          "slug": "forestry-rights-registration-1983",
+          "keywords": [
+            "forestry",
+            "forestry rights",
+            "timber"
+          ],
+          "topics": [
+            "forestry",
+            "land"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "ELECA",
+          "title": "Electricity Act 1992",
+          "year": 1992,
+          "number": 122,
+          "slug": "electricity-1992",
+          "keywords": [
+            "electricity",
+            "power",
+            "energy",
+            "electrical"
+          ],
+          "topics": [
+            "electricity",
+            "energy"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "GASA",
+          "title": "Gas Act 1992",
+          "year": 1992,
+          "number": 124,
+          "slug": "gas-1992",
+          "keywords": [
+            "gas",
+            "natural gas",
+            "gas supply"
+          ],
+          "topics": [
+            "gas",
+            "energy"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "TSSA",
+          "title": "Telecommunications (Interception Capability and Security) Act 2013",
+          "year": 2013,
+          "number": 91,
+          "slug": "telecommunications-interception-2013",
+          "keywords": [
+            "interception",
+            "surveillance",
+            "telecommunications security"
+          ],
+          "topics": [
+            "telecommunications",
+            "security"
+          ],
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "batch": 7,
+      "name": "Local Government & Elections",
+      "status": "pending",
+      "acts": [
+        {
+          "code": "BOPRC",
+          "title": "Bay of Plenty Regional Council (Maori Constituency Empowering) Act 2001",
+          "year": 2001,
+          "number": 43,
+          "slug": "bay-of-plenty-regional-council-2001",
+          "keywords": [
+            "bay of plenty",
+            "maori constituency",
+            "regional council"
+          ],
+          "topics": [
+            "local government",
+            "Maori representation"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "WRA",
+          "title": "Waikato-Tainui Raupatu Claims (Waikato River) Settlement Act 2010",
+          "year": 2010,
+          "number": 24,
+          "slug": "waikato-river-settlement-2010",
+          "keywords": [
+            "waikato river",
+            "waikato-tainui",
+            "river settlement"
+          ],
+          "topics": [
+            "treaty settlements",
+            "waterways"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "LATA",
+          "title": "Local Authorities (Members' Interests) Act 1968",
+          "year": 1968,
+          "number": 147,
+          "slug": "local-authorities-members-interests-1968",
+          "keywords": [
+            "members interests",
+            "local authority",
+            "conflict of interest"
+          ],
+          "topics": [
+            "local government",
+            "integrity"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "RDA",
+          "title": "Referendums (Postal Voting) Act 2000",
+          "year": 2000,
+          "number": 48,
+          "slug": "referendums-postal-voting-2000",
+          "keywords": [
+            "referendum",
+            "postal voting",
+            "vote"
+          ],
+          "topics": [
+            "elections",
+            "referendums"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "CIR",
+          "title": "Citizens Initiated Referenda Act 1993",
+          "year": 1993,
+          "number": 101,
+          "slug": "citizens-initiated-referenda-1993",
+          "keywords": [
+            "citizens referendum",
+            "initiated referendum",
+            "petition"
+          ],
+          "topics": [
+            "democracy",
+            "referendums"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "IGISA",
+          "title": "Inspector-General of Intelligence and Security Act 1996",
+          "year": 1996,
+          "number": 47,
+          "slug": "inspector-general-intelligence-security-1996",
+          "keywords": [
+            "inspector general",
+            "intelligence oversight"
+          ],
+          "topics": [
+            "intelligence",
+            "oversight"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "FVPCA",
+          "title": "Films, Videos, and Publications Classification Act 1993",
+          "year": 1993,
+          "number": 94,
+          "slug": "films-videos-publications-classification-1993",
+          "keywords": [
+            "classification",
+            "censorship",
+            "films",
+            "publications",
+            "objectionable"
+          ],
+          "topics": [
+            "classification",
+            "censorship"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "RBNZA",
+          "title": "Reserve Bank of New Zealand Act 2021",
+          "year": 2021,
+          "number": 31,
+          "slug": "reserve-bank-2021",
+          "keywords": [
+            "reserve bank",
+            "monetary policy",
+            "financial stability",
+            "rbnz"
+          ],
+          "topics": [
+            "banking",
+            "monetary policy"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "PPSA",
+          "title": "Personal Property Securities Act 1999",
+          "year": 1999,
+          "number": 126,
+          "slug": "personal-property-securities-1999",
+          "keywords": [
+            "personal property",
+            "security interest",
+            "ppsr",
+            "financing statement"
+          ],
+          "topics": [
+            "property",
+            "security"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "CCEA",
+          "title": "Construction Contracts Act 2002",
+          "year": 2002,
+          "number": 46,
+          "slug": "construction-contracts-2002",
+          "keywords": [
+            "construction contract",
+            "payment claim",
+            "adjudication"
+          ],
+          "topics": [
+            "construction",
+            "contracts"
+          ],
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "batch": 8,
+      "name": "Property, Land & Housing",
+      "status": "pending",
+      "acts": [
+        {
+          "code": "LTA2017",
+          "title": "Land Transfer Act 2017",
+          "year": 2017,
+          "number": 30,
+          "slug": "land-transfer-2017",
+          "keywords": [
+            "land transfer",
+            "title",
+            "registration",
+            "torrens"
+          ],
+          "topics": [
+            "land",
+            "property"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "CSA",
+          "title": "Cadastral Survey Act 2002",
+          "year": 2002,
+          "number": 12,
+          "slug": "cadastral-survey-2002",
+          "keywords": [
+            "cadastral",
+            "survey",
+            "land survey",
+            "boundary"
+          ],
+          "topics": [
+            "survey",
+            "land"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "PWA",
+          "title": "Public Works Act 1981",
+          "year": 1981,
+          "number": 35,
+          "slug": "public-works-1981",
+          "keywords": [
+            "public works",
+            "compulsory acquisition",
+            "land taking"
+          ],
+          "topics": [
+            "land acquisition",
+            "public works"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "FFA",
+          "title": "Fencing Act 1978",
+          "year": 1978,
+          "number": 50,
+          "slug": "fencing-1978",
+          "keywords": [
+            "fencing",
+            "fence",
+            "boundary fence",
+            "neighbour"
+          ],
+          "topics": [
+            "fencing",
+            "property"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "AUPA",
+          "title": "Auctioneers Act 2013",
+          "year": 2013,
+          "number": 148,
+          "slug": "auctioneers-2013",
+          "keywords": [
+            "auctioneer",
+            "auction"
+          ],
+          "topics": [
+            "auctions",
+            "regulation"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "HNA",
+          "title": "Housing Restructuring and Tenancy Matters Act 1992",
+          "year": 1992,
+          "number": 76,
+          "slug": "housing-restructuring-1992",
+          "keywords": [
+            "housing restructuring",
+            "state housing",
+            "housing nz"
+          ],
+          "topics": [
+            "housing",
+            "tenancy"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "SULA",
+          "title": "Subdivision Act — Resource Management (Simplifying and Streamlining) Amendment 2009",
+          "year": 2009,
+          "number": 31,
+          "slug": "resource-management-simplifying-2009",
+          "keywords": [
+            "subdivision",
+            "resource consent",
+            "simplifying"
+          ],
+          "topics": [
+            "subdivision",
+            "planning"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "BCA",
+          "title": "Building (Accreditation of Building Consent Authorities) Regulations 2006",
+          "year": 2006,
+          "number": 399,
+          "slug": "building-accreditation-2006",
+          "keywords": [
+            "building consent authority",
+            "accreditation",
+            "bca"
+          ],
+          "topics": [
+            "building",
+            "accreditation"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "UAPA",
+          "title": "Unit Titles (Strengthening Body Corporate Governance) Amendment Act 2022",
+          "year": 2022,
+          "number": 33,
+          "slug": "unit-titles-amendment-2022",
+          "keywords": [
+            "unit title",
+            "body corporate",
+            "governance"
+          ],
+          "topics": [
+            "unit titles",
+            "property"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "HTMA",
+          "title": "Residential Tenancies (Healthy Homes Standards) Regulations 2019",
+          "year": 2019,
+          "number": 88,
+          "slug": "healthy-homes-standards-2019",
+          "keywords": [
+            "healthy homes",
+            "insulation",
+            "heating",
+            "ventilation",
+            "rental standards"
+          ],
+          "topics": [
+            "tenancy",
+            "housing standards"
+          ],
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "batch": 9,
+      "name": "Treaty Settlements & Maori Affairs (Extended)",
+      "status": "pending",
+      "acts": [
+        {
+          "code": "TNSA",
+          "title": "Tamaki Makaurau Settlement Process Act 2008",
+          "year": 2008,
+          "number": 58,
+          "slug": "tamaki-makaurau-settlement-2008",
+          "keywords": [
+            "tamaki makaurau",
+            "auckland settlement"
+          ],
+          "topics": [
+            "treaty settlements"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "PHCSA",
+          "title": "Pare Hauraki Collective Redress Act 2018",
+          "year": 2018,
+          "number": 7,
+          "slug": "pare-hauraki-collective-2018",
+          "keywords": [
+            "pare hauraki",
+            "hauraki",
+            "collective redress"
+          ],
+          "topics": [
+            "treaty settlements"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "RAPA",
+          "title": "Raukawa Claims Settlement Act 2014",
+          "year": 2014,
+          "number": 7,
+          "slug": "raukawa-claims-settlement-2014",
+          "keywords": [
+            "raukawa",
+            "claims settlement"
+          ],
+          "topics": [
+            "treaty settlements"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "TAPA",
+          "title": "Tapuika Claims Settlement Act 2014",
+          "year": 2014,
+          "number": 15,
+          "slug": "tapuika-claims-settlement-2014",
+          "keywords": [
+            "tapuika",
+            "claims settlement"
+          ],
+          "topics": [
+            "treaty settlements"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "NTTSA",
+          "title": "Ngati Tuwharetoa Claims Settlement Act 2018",
+          "year": 2018,
+          "number": 55,
+          "slug": "ngati-tuwharetoa-claims-2018",
+          "keywords": [
+            "ngati tuwharetoa",
+            "claims settlement",
+            "tuwharetoa"
+          ],
+          "topics": [
+            "treaty settlements"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "MTTA",
+          "title": "Moriori Claims Settlement Act 2021",
+          "year": 2021,
+          "number": 47,
+          "slug": "moriori-claims-settlement-2021",
+          "keywords": [
+            "moriori",
+            "claims settlement",
+            "chatham islands"
+          ],
+          "topics": [
+            "treaty settlements"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "NRSA",
+          "title": "Ngati Rangitihi Claims Settlement Act 2022",
+          "year": 2022,
+          "number": 40,
+          "slug": "ngati-rangitihi-claims-2022",
+          "keywords": [
+            "ngati rangitihi",
+            "claims settlement"
+          ],
+          "topics": [
+            "treaty settlements"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "TWMA",
+          "title": "Te Ture Whenua Maori (Succession, Dispute Resolution, and Related Matters) Amendment Act 2020",
+          "year": 2020,
+          "number": 51,
+          "slug": "te-ture-whenua-maori-amendment-2020",
+          "keywords": [
+            "maori land",
+            "te ture whenua",
+            "succession"
+          ],
+          "topics": [
+            "Maori land",
+            "succession"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "MLRA",
+          "title": "Maori Language Act 2016",
+          "year": 2016,
+          "number": 17,
+          "slug": "maori-language-2016",
+          "keywords": [
+            "maori language",
+            "te reo",
+            "language commission"
+          ],
+          "topics": [
+            "Maori language"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "WHRF",
+          "title": "Waikato-Tainui Raupatu Claims Settlement (Waikato River — Loss of Claim) Act 2021",
+          "year": 2021,
+          "number": 52,
+          "slug": "waikato-tainui-river-2021",
+          "keywords": [
+            "waikato-tainui",
+            "waikato river",
+            "raupatu"
+          ],
+          "topics": [
+            "treaty settlements",
+            "waterways"
+          ],
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "batch": 10,
+      "name": "Immigration, Citizenship & International",
+      "status": "pending",
+      "acts": [
+        {
+          "code": "EXTR",
+          "title": "Extradition Act 1999",
+          "year": 1999,
+          "number": 55,
+          "slug": "extradition-1999",
+          "keywords": [
+            "extradition",
+            "surrender",
+            "fugitive"
+          ],
+          "topics": [
+            "extradition",
+            "international"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "MLAT",
+          "title": "Mutual Assistance in Criminal Matters Act 1992",
+          "year": 1992,
+          "number": 86,
+          "slug": "mutual-assistance-criminal-1992",
+          "keywords": [
+            "mutual assistance",
+            "criminal matters",
+            "international cooperation"
+          ],
+          "topics": [
+            "international",
+            "criminal law"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "DIPA",
+          "title": "Diplomatic Privileges and Immunities Act 1968",
+          "year": 1968,
+          "number": 36,
+          "slug": "diplomatic-privileges-immunities-1968",
+          "keywords": [
+            "diplomatic",
+            "immunity",
+            "privileges"
+          ],
+          "topics": [
+            "diplomacy",
+            "international"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "ICCA",
+          "title": "International Crimes and International Criminal Court Act 2000",
+          "year": 2000,
+          "number": 26,
+          "slug": "international-crimes-icc-2000",
+          "keywords": [
+            "international crimes",
+            "icc",
+            "war crimes",
+            "genocide"
+          ],
+          "topics": [
+            "international law",
+            "criminal law"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "CHMA",
+          "title": "Chemical Weapons (Prohibition) Act 1996",
+          "year": 1996,
+          "number": 37,
+          "slug": "chemical-weapons-prohibition-1996",
+          "keywords": [
+            "chemical weapons",
+            "prohibition",
+            "arms control"
+          ],
+          "topics": [
+            "arms control",
+            "international"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "NWFA",
+          "title": "Nuclear Free Zone, Disarmament, and Arms Control Act 1987",
+          "year": 1987,
+          "number": 86,
+          "slug": "nuclear-free-zone-1987",
+          "keywords": [
+            "nuclear free",
+            "disarmament",
+            "arms control",
+            "nuclear"
+          ],
+          "topics": [
+            "nuclear",
+            "disarmament"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "SANA",
+          "title": "Sanctions Act 2017",
+          "year": 2017,
+          "number": 44,
+          "slug": "sanctions-2017",
+          "keywords": [
+            "sanctions",
+            "sanctions regime",
+            "designated person"
+          ],
+          "topics": [
+            "sanctions",
+            "international"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "GENA",
+          "title": "Geneva Conventions Act 1958",
+          "year": 1958,
+          "number": 19,
+          "slug": "geneva-conventions-1958",
+          "keywords": [
+            "geneva conventions",
+            "war",
+            "humanitarian law"
+          ],
+          "topics": [
+            "international humanitarian law"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "AEA",
+          "title": "Anti-Money Laundering and Countering Financing of Terrorism Amendment Act 2017",
+          "year": 2017,
+          "number": 35,
+          "slug": "aml-cft-amendment-2017",
+          "keywords": [
+            "aml",
+            "cft",
+            "money laundering",
+            "terrorism financing"
+          ],
+          "topics": [
+            "money laundering",
+            "regulation"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "PROCA",
+          "title": "Proceeds of Crime Act (Criminal Proceeds (Recovery) Act 2009)",
+          "year": 2009,
+          "number": 8,
+          "slug": "criminal-proceeds-recovery-2009",
+          "keywords": [
+            "criminal proceeds",
+            "asset forfeiture",
+            "proceeds of crime"
+          ],
+          "topics": [
+            "criminal proceeds",
+            "law enforcement"
+          ],
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "batch": 11,
+      "name": "Environment, Conservation & Wildlife (final 11)",
+      "status": "pending",
+      "acts": [
+        {
+          "code": "WINA",
+          "title": "Wine Act 2003",
+          "year": 2003,
+          "number": 114,
+          "slug": "wine-2003",
+          "keywords": [
+            "wine",
+            "winemaking",
+            "viticulture"
+          ],
+          "topics": [
+            "wine",
+            "food safety"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "APA",
+          "title": "Animal Products Act 1999",
+          "year": 1999,
+          "number": 93,
+          "slug": "animal-products-1999",
+          "keywords": [
+            "animal products",
+            "meat",
+            "dairy",
+            "food safety"
+          ],
+          "topics": [
+            "food safety",
+            "animal products"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "MARA",
+          "title": "Marine Reserves Act 1971",
+          "year": 1971,
+          "number": 15,
+          "slug": "marine-reserves-1971",
+          "keywords": [
+            "marine reserve",
+            "marine protection",
+            "ocean"
+          ],
+          "topics": [
+            "conservation",
+            "marine"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "NPHA",
+          "title": "National Parks Act 1980",
+          "year": 1980,
+          "number": 66,
+          "slug": "national-parks-1980",
+          "keywords": [
+            "national park",
+            "park",
+            "conservation"
+          ],
+          "topics": [
+            "conservation",
+            "national parks"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "WCA",
+          "title": "Wildlife Act 1953",
+          "year": 1953,
+          "number": 31,
+          "slug": "wildlife-1953",
+          "keywords": [
+            "wildlife",
+            "protected species",
+            "hunting"
+          ],
+          "topics": [
+            "wildlife",
+            "conservation"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "WATERA",
+          "title": "Water Services Legislation Act 2023",
+          "year": 2023,
+          "number": 52,
+          "slug": "water-services-legislation-2023",
+          "keywords": [
+            "water services",
+            "water reform"
+          ],
+          "topics": [
+            "water",
+            "reform"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "EEZA",
+          "title": "Exclusive Economic Zone and Continental Shelf (Environmental Effects) Act 2012",
+          "year": 2012,
+          "number": 72,
+          "slug": "exclusive-economic-zone-2012",
+          "keywords": [
+            "eez",
+            "continental shelf",
+            "marine environment"
+          ],
+          "topics": [
+            "marine",
+            "environment"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "WRMA",
+          "title": "Waste Minimisation Act 2008",
+          "year": 2008,
+          "number": 89,
+          "slug": "waste-minimisation-2008",
+          "keywords": [
+            "waste",
+            "recycling",
+            "waste minimisation",
+            "landfill"
+          ],
+          "topics": [
+            "waste",
+            "environment"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "OZLA",
+          "title": "Ozone Layer Protection Act 1996",
+          "year": 1996,
+          "number": 40,
+          "slug": "ozone-layer-protection-1996",
+          "keywords": [
+            "ozone",
+            "ozone layer",
+            "atmosphere"
+          ],
+          "topics": [
+            "environment",
+            "atmosphere"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "FORA",
+          "title": "Forests Act 1949",
+          "year": 1949,
+          "number": 19,
+          "slug": "forests-1949",
+          "keywords": [
+            "forests",
+            "forestry",
+            "timber",
+            "logging"
+          ],
+          "topics": [
+            "forestry",
+            "conservation"
+          ],
+          "status": "pending"
+        },
+        {
+          "code": "AQUA",
+          "title": "Aquaculture Reform (Repeals and Transitional Provisions) Act 2004",
+          "year": 2004,
+          "number": 109,
+          "slug": "aquaculture-reform-2004",
+          "keywords": [
+            "aquaculture",
+            "marine farming",
+            "fish farming"
+          ],
+          "topics": [
+            "aquaculture",
+            "marine"
+          ],
+          "status": "pending"
+        }
+      ]
+    }
+  ]
+}

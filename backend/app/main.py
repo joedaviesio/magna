@@ -115,7 +115,7 @@ api_v1 = APIRouter(prefix="/api/v1", tags=["v1"])
 
 # CORS - Configure allowed origins from environment
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "").split(",") if os.getenv("ALLOWED_ORIGINS") else []
-DEFAULT_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
+DEFAULT_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:3005", "http://127.0.0.1:3005"]
 CORS_ORIGINS = ALLOWED_ORIGINS if ALLOWED_ORIGINS else DEFAULT_ORIGINS
 
 app.add_middleware(
@@ -609,7 +609,7 @@ Remember: Provide information, not legal advice. Cite specific sections where po
 
     # Increase max_tokens when attachments are present
     has_attachments = bool(attachment_context or image_blocks)
-    max_tokens = 1500 if has_attachments else 1000
+    max_tokens = 2500 if has_attachments else 1750
 
     # Build messages array with conversation history
     # When attachments are present, use fewer history turns to stay within token limits

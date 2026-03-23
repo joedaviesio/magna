@@ -106,8 +106,8 @@ const FALLBACK_LEGISLATION = [
 
 // Database stats - acts count derived from FALLBACK_LEGISLATION above
 const DATABASE_STATS = {
-  sections: 145538,
-  chunks: 155447,
+  sections: 178729,
+  chunks: 698533,
 };
 
 // Placeholder supporters - replace with actual donors
@@ -254,7 +254,7 @@ export function Chat() {
             </div>
 
             {/* Supporters Section */}
-            <div className="w-full max-w-2xl mt-12 mb-24">
+            <div className="w-full max-w-2xl mt-12 mb-36">
               <div className="flex items-center justify-center gap-2 text-sm text-slate-500 mb-4">
                
                 <span>If you would like to help Bowen Public expand its data bank and reach more people <br></br><br></br>joe@bowenpublic.com </span>

@@ -706,6 +706,246 @@ ACTS_REGISTRY: Dict[str, Dict] = {
         "topics": ["enduring powers of attorney", "welfare guardians", "capacity"],
         "url": "https://www.legislation.govt.nz/act/public/1988/0004/latest/DLM126528.html"
     },
+    "WSA": {
+        "title": "Water Services Act 2021",
+        "short_name": "WSA",
+        "year": 2021,
+        "keywords": ["water services", "drinking water", "water supply", "water infrastructure"],
+        "topics": ["water", "infrastructure"],
+        "url": "https://www.legislation.govt.nz/act/public/2021/0036/latest/DLM1.html"
+    },
+    "WSER": {
+        "title": "Water Services Entities Act 2022",
+        "short_name": "WSER",
+        "year": 2022,
+        "keywords": ["water entities", "water services entities", "three waters"],
+        "topics": ["water", "local government"],
+        "url": "https://www.legislation.govt.nz/act/public/2022/0044/latest/DLM1.html"
+    },
+    "ETrA": {
+        "title": "Education and Training Act 2020",
+        "short_name": "ETrA",
+        "year": 2020,
+        "keywords": ["education", "training", "school", "teacher", "university", "tertiary"],
+        "topics": ["education", "training"],
+        "url": "https://www.legislation.govt.nz/act/public/2020/0038/latest/DLM1.html"
+    },
+    "CPHRA": {
+        "title": "COVID-19 Public Health Response Act 2020",
+        "short_name": "CPHRA",
+        "year": 2020,
+        "keywords": ["covid", "pandemic", "public health", "lockdown", "vaccination order"],
+        "topics": ["public health", "emergency"],
+        "url": "https://www.legislation.govt.nz/act/public/2020/0012/latest/DLM1.html"
+    },
+    "URBA": {
+        "title": "Urban Development Act 2020",
+        "short_name": "URBA",
+        "year": 2020,
+        "keywords": ["urban development", "kainga ora", "housing", "urban"],
+        "topics": ["urban development", "housing"],
+        "url": "https://www.legislation.govt.nz/act/public/2020/0042/latest/DLM1.html"
+    },
+    "INFRA": {
+        "title": "Infrastructure Funding and Financing Act 2020",
+        "short_name": "INFRA",
+        "year": 2020,
+        "keywords": ["infrastructure", "funding", "financing", "levy"],
+        "topics": ["infrastructure", "finance"],
+        "url": "https://www.legislation.govt.nz/act/public/2020/0047/latest/DLM1.html"
+    },
+    "CPA2018": {
+        "title": "Child Poverty Reduction Act 2018",
+        "short_name": "CPA2018",
+        "year": 2018,
+        "keywords": ["child poverty", "poverty reduction", "children"],
+        "topics": ["poverty", "children"],
+        "url": "https://www.legislation.govt.nz/act/public/2018/0057/latest/DLM1.html"
+    },
+    "SATA": {
+        "title": "Substance Addiction (Compulsory Assessment and Treatment) Act 2017",
+        "short_name": "SATA",
+        "year": 2017,
+        "keywords": ["substance addiction", "compulsory treatment", "addiction", "drugs"],
+        "topics": ["health", "addiction"],
+        "url": "https://www.legislation.govt.nz/act/public/2017/0004/latest/DLM1.html"
+    },
+    "ISA": {
+        "title": "Intelligence and Security Act 2017",
+        "short_name": "ISA",
+        "year": 2017,
+        "keywords": ["intelligence", "security", "gcsb", "nzsis", "surveillance"],
+        "topics": ["intelligence", "security"],
+        "url": "https://www.legislation.govt.nz/act/public/2017/0010/latest/DLM1.html"
+    },
+    "SCA": {
+        "title": "Senior Courts Act 2016",
+        "short_name": "SCA",
+        "year": 2016,
+        "keywords": ["senior courts", "high court", "court of appeal", "supreme court"],
+        "topics": ["courts", "judiciary"],
+        "url": "https://www.legislation.govt.nz/act/public/2016/0048/latest/DLM1.html"
+    },
+    "DCA2016": {
+        "title": "District Court Act 2016",
+        "short_name": "DCA2016",
+        "year": 2016,
+        "keywords": ["district court", "court"],
+        "topics": ["courts", "judiciary"],
+        "url": "https://www.legislation.govt.nz/act/public/2016/0049/latest/DLM1.html"
+    },
+    "JRPA": {
+        "title": "Judicial Review Procedure Act 2016",
+        "short_name": "JRPA",
+        "year": 2016,
+        "keywords": ["judicial review", "review procedure"],
+        "topics": ["courts", "judicial review"],
+        "url": "https://www.legislation.govt.nz/act/public/2016/0050/latest/DLM1.html"
+    },
+    "FDA": {
+        "title": "Food Act 2014",
+        "short_name": "FDA",
+        "year": 2014,
+        "keywords": ["food", "food safety", "food standards"],
+        "topics": ["food safety", "health"],
+        "url": "https://www.legislation.govt.nz/act/public/2014/0032/latest/DLM1.html"
+    },
+    "VSA": {
+        "title": "Veterans' Support Act 2014",
+        "short_name": "VSA",
+        "year": 2014,
+        "keywords": ["veterans", "veteran support", "military"],
+        "topics": ["veterans", "welfare"],
+        "url": "https://www.legislation.govt.nz/act/public/2014/0056/latest/DLM1.html"
+    },
+    "RESA": {
+        "title": "Real Estate Agents Act 2008",
+        "short_name": "RESA",
+        "year": 2008,
+        "keywords": ["real estate", "real estate agent", "property sale"],
+        "topics": ["real estate", "property"],
+        "url": "https://www.legislation.govt.nz/act/public/2008/0066/latest/DLM1.html"
+    },
+    "PA2008": {
+        "title": "Policing Act 2008",
+        "short_name": "PA2008",
+        "year": 2008,
+        "keywords": ["policing", "police", "law enforcement"],
+        "topics": ["police", "law enforcement"],
+        "url": "https://www.legislation.govt.nz/act/public/2008/0072/latest/DLM1.html"
+    },
+    "MVSA": {
+        "title": "Motor Vehicle Sales Act 2003",
+        "short_name": "MVSA",
+        "year": 2003,
+        "keywords": ["motor vehicle", "car sales", "vehicle dealer"],
+        "topics": ["consumer", "vehicles"],
+        "url": "https://www.legislation.govt.nz/act/public/2003/0012/latest/DLM1.html"
+    },
+    "GA": {
+        "title": "Gambling Act 2003",
+        "short_name": "GA",
+        "year": 2003,
+        "keywords": ["gambling", "casino", "pokie", "betting", "lottery"],
+        "topics": ["gambling", "regulation"],
+        "url": "https://www.legislation.govt.nz/act/public/2003/0051/latest/DLM1.html"
+    },
+    "RVA2003": {
+        "title": "Retirement Villages Act 2003",
+        "short_name": "RVA2003",
+        "year": 2003,
+        "keywords": ["retirement village", "retirement", "elderly", "aged care"],
+        "topics": ["retirement", "housing"],
+        "url": "https://www.legislation.govt.nz/act/public/2003/0011/latest/DLM1.html"
+    },
+    "CORA2004": {
+        "title": "Corrections Act 2004",
+        "short_name": "CORA2004",
+        "year": 2004,
+        "keywords": ["corrections", "prison", "prisoner", "parole", "sentence"],
+        "topics": ["corrections", "criminal justice"],
+        "url": "https://www.legislation.govt.nz/act/public/2004/0050/latest/DLM1.html"
+    },
+    "PAROLE": {
+        "title": "Parole Act 2002",
+        "short_name": "PAROLE",
+        "year": 2002,
+        "keywords": ["parole", "release", "parole board"],
+        "topics": ["parole", "criminal justice"],
+        "url": "https://www.legislation.govt.nz/act/public/2002/0010/latest/DLM1.html"
+    },
+    "VRA": {
+        "title": "Victims' Rights Act 2002",
+        "short_name": "VRA",
+        "year": 2002,
+        "keywords": ["victims rights", "victim", "victim impact"],
+        "topics": ["victims", "criminal justice"],
+        "url": "https://www.legislation.govt.nz/act/public/2002/0039/latest/DLM1.html"
+    },
+    "CSLA": {
+        "title": "Criminal Records (Clean Slate) Act 2004",
+        "short_name": "CSLA",
+        "year": 2004,
+        "keywords": ["clean slate", "criminal record", "conviction"],
+        "topics": ["criminal records", "rehabilitation"],
+        "url": "https://www.legislation.govt.nz/act/public/2004/0036/latest/DLM1.html"
+    },
+    "MDA": {
+        "title": "Misuse of Drugs Act 1975",
+        "short_name": "MDA",
+        "year": 1975,
+        "keywords": ["drugs", "misuse of drugs", "controlled substance", "cannabis", "methamphetamine"],
+        "topics": ["drugs", "criminal law"],
+        "url": "https://www.legislation.govt.nz/act/public/1975/0116/latest/DLM1.html"
+    },
+    "SOA": {
+        "title": "Summary Offences Act 1981",
+        "short_name": "SOA",
+        "year": 1981,
+        "keywords": ["summary offences", "minor offences", "disorderly conduct", "trespass"],
+        "topics": ["offences", "criminal law"],
+        "url": "https://www.legislation.govt.nz/act/public/1981/0113/latest/DLM1.html"
+    },
+    "ARMSA": {
+        "title": "Arms Act 1983",
+        "short_name": "ARMSA",
+        "year": 1983,
+        "keywords": ["arms", "firearms", "gun", "weapon", "licence"],
+        "topics": ["firearms", "public safety"],
+        "url": "https://www.legislation.govt.nz/act/public/1983/0044/latest/DLM1.html"
+    },
+    "IPCAA": {
+        "title": "Independent Police Conduct Authority Act 1988",
+        "short_name": "IPCAA",
+        "year": 1988,
+        "keywords": ["police conduct", "ipca", "police complaints"],
+        "topics": ["police oversight", "accountability"],
+        "url": "https://www.legislation.govt.nz/act/public/1988/0002/latest/DLM1.html"
+    },
+    "NZBORA": {
+        "title": "New Zealand Bill of Rights Act 1990",
+        "short_name": "NZBORA",
+        "year": 1990,
+        "keywords": ["bill of rights", "human rights", "civil liberties", "freedom of expression", "right to life"],
+        "topics": ["rights", "civil liberties"],
+        "url": "https://www.legislation.govt.nz/act/public/1990/0109/latest/DLM1.html"
+    },
+    "DEFA": {
+        "title": "Defence Act 1990",
+        "short_name": "DEFA",
+        "year": 1990,
+        "keywords": ["defence", "military", "armed forces", "nzdf"],
+        "topics": ["defence", "military"],
+        "url": "https://www.legislation.govt.nz/act/public/1990/0028/latest/DLM1.html"
+    },
+    "OMBA": {
+        "title": "Ombudsmen Act 1975",
+        "short_name": "OMBA",
+        "year": 1975,
+        "keywords": ["ombudsman", "ombudsmen", "complaint", "investigation"],
+        "topics": ["ombudsman", "accountability"],
+        "url": "https://www.legislation.govt.nz/act/public/1975/0009/latest/DLM1.html"
+    },
 }
 
 

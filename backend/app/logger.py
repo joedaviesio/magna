@@ -31,7 +31,6 @@ class LogEvent(Enum):
     SEARCH = "search"
     ANALYTICS_SUCCESS = "analytics_success"
     ANALYTICS_FAILURE = "analytics_failure"
-    SUPABASE_ERROR = "supabase_error"
     CLAUDE_ERROR = "claude_error"
     EMBEDDING_ERROR = "embedding_error"
 

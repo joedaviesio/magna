@@ -25,9 +25,17 @@ data/processed/chunks/all_chunks.json
 .vscode/
 .idea/
 
+# Images (logos, portraits)
+*.png
+*.jpg
+*.jpeg
+
 # OS
 .DS_Store
 Thumbs.db
+
+# Style guide (portable, not project code)
+STYLE_GUIDE.md
 
 # Local logs
 logsweek1
