@@ -16,6 +16,7 @@ RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTr
 COPY backend/ ./backend/
 
 # Create embeddings directory and download from GitHub Release
+ARG DATA_VERSION=v0.3.1
 RUN mkdir -p data/embeddings
 RUN curl -L -o data/embeddings/embeddings.npy https://github.com/joedaviesio/magna/releases/download/v1.0-data/embeddings.npy
 RUN curl -L -o data/embeddings/metadata.json https://github.com/joedaviesio/magna/releases/download/v1.0-data/metadata.json
