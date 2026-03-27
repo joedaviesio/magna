@@ -302,26 +302,24 @@ async def startup():
     metadata_path = EMBEDDINGS_DIR / "metadata.json"
     
     if embeddings_path.exists() and metadata_path.exists():
+        import gc
+
         print(f"\nLoading embeddings from {embeddings_path}...")
         embeddings = np.load(embeddings_path, mmap_mode='r')
         print(f"✓ Memory-mapped embeddings: {embeddings.shape} ({embeddings.dtype})")
 
+        print(f"Loading metadata from {metadata_path}...")
         with open(metadata_path, 'r') as f:
             metadata = json.load(f)
+        gc.collect()  # Free JSON parse buffers before loading model
 
         print(f"✓ Loaded {len(metadata):,} chunks")
     else:
         print(f"✗ Embeddings not found at {EMBEDDINGS_DIR}")
         print("  Run generate_embeddings.py first")
-    
-    # Load embedding model
-    try:
-        from sentence_transformers import SentenceTransformer
-        print(f"\nLoading embedding model: {EMBEDDING_MODEL}...")
-        embedding_model = SentenceTransformer(EMBEDDING_MODEL)
-        print("✓ Embedding model loaded")
-    except Exception as e:
-        print(f"✗ Could not load embedding model: {e}")
+
+    # Lazy-load embedding model on first query to reduce startup memory
+    print(f"\n✓ Embedding model ({EMBEDDING_MODEL}) will load on first query")
     
     # Initialize Anthropic client
     if ANTHROPIC_API_KEY:
@@ -364,8 +362,21 @@ def search_similar(query: str, top_k: int = TOP_K, act_filter: str = None) -> Li
     - Keyword boosting for overview questions
     - KEY SECTION boosting for common topics
     """
-    if embeddings is None or embedding_model is None:
+    global embedding_model
+
+    if embeddings is None:
         return []
+
+    # Lazy-load embedding model on first query
+    if embedding_model is None:
+        try:
+            from sentence_transformers import SentenceTransformer
+            print(f"Loading embedding model: {EMBEDDING_MODEL}...")
+            embedding_model = SentenceTransformer(EMBEDDING_MODEL)
+            print("✓ Embedding model loaded")
+        except Exception as e:
+            print(f"✗ Could not load embedding model: {e}")
+            return []
 
     # Encode query
     query_embedding = embedding_model.encode(query, convert_to_numpy=True)
