@@ -284,6 +284,20 @@ from .errors import (
 )
 
 
+async def _load_embedding_model():
+    """Load embedding model in background after startup."""
+    global embedding_model
+    import asyncio
+    await asyncio.sleep(0)  # Yield to let startup finish
+    try:
+        from sentence_transformers import SentenceTransformer
+        print(f"[BG] Loading embedding model: {EMBEDDING_MODEL}...", flush=True)
+        embedding_model = SentenceTransformer(EMBEDDING_MODEL)
+        print("[BG] ✓ Embedding model loaded", flush=True)
+    except Exception as e:
+        print(f"[BG] ✗ Could not load embedding model: {e}", flush=True)
+
+
 @app.on_event("startup")
 async def startup():
     """Load models and data on startup."""
@@ -328,8 +342,9 @@ async def startup():
         print(f"✗ Embeddings not found at {EMBEDDINGS_DIR}")
         print("  Run generate_embeddings.py first")
 
-    # Lazy-load embedding model on first query to reduce startup memory
-    print(f"\n✓ Embedding model ({EMBEDDING_MODEL}) will load on first query")
+    # Load embedding model in background so healthcheck passes immediately
+    import asyncio
+    asyncio.get_event_loop().create_task(_load_embedding_model())
     
     # Initialize Anthropic client
     if ANTHROPIC_API_KEY:
@@ -372,21 +387,8 @@ def search_similar(query: str, top_k: int = TOP_K, act_filter: str = None) -> Li
     - Keyword boosting for overview questions
     - KEY SECTION boosting for common topics
     """
-    global embedding_model
-
-    if embeddings is None:
+    if embeddings is None or embedding_model is None:
         return []
-
-    # Lazy-load embedding model on first query
-    if embedding_model is None:
-        try:
-            from sentence_transformers import SentenceTransformer
-            print(f"Loading embedding model: {EMBEDDING_MODEL}...")
-            embedding_model = SentenceTransformer(EMBEDDING_MODEL)
-            print("✓ Embedding model loaded")
-        except Exception as e:
-            print(f"✗ Could not load embedding model: {e}")
-            return []
 
     # Encode query
     query_embedding = embedding_model.encode(query, convert_to_numpy=True)
