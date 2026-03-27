@@ -10,16 +10,22 @@ Run from magna root:
     uvicorn backend.app.main:app --reload --port 8000
 """
 
+import sys
 import os
 import json
 import uuid
 import time
+
+print("[BOOT] Starting module imports...", flush=True)
+
 import numpy as np
 
 from .key_sections import get_key_sections_for_query, should_boost_section
 from pathlib import Path
 from typing import List, Optional
 from datetime import datetime
+
+print("[BOOT] Core imports OK", flush=True)
 
 from fastapi import FastAPI, HTTPException, APIRouter, Request, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -28,6 +34,8 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
 from pydantic import BaseModel, Field, field_validator
 from dotenv import load_dotenv
+
+print("[BOOT] FastAPI imports OK", flush=True)
 
 
 # Load environment variables
@@ -149,7 +157,9 @@ anthropic_client = None
 references = []  # Curated scholarly references
 
 # Import act detection from registry (single source of truth)
+print("[BOOT] Importing acts_registry...", flush=True)
 from .acts_registry import detect_act_from_query, get_all_acts, ACTS_REGISTRY
+print(f"[BOOT] Acts registry OK ({len(ACTS_REGISTRY)} acts)", flush=True)
 
 # System prompt
 SYSTEM_PROMPT = f"""You are Bowen, a chatbot legal information assistant for New Zealand legislation.
@@ -279,9 +289,9 @@ async def startup():
     """Load models and data on startup."""
     global embeddings, metadata, embedding_model, anthropic_client, references
 
-    print("\n" + "=" * 50)
-    print("Starting Bowen Backend...")
-    print("=" * 50)
+    print("\n" + "=" * 50, flush=True)
+    print("Starting Bowen Backend...", flush=True)
+    print("=" * 50, flush=True)
 
     # Validate required environment variables
     missing_vars = []
@@ -306,14 +316,14 @@ async def startup():
 
         print(f"\nLoading embeddings from {embeddings_path}...")
         embeddings = np.load(embeddings_path, mmap_mode='r')
-        print(f"✓ Memory-mapped embeddings: {embeddings.shape} ({embeddings.dtype})")
+        print(f"✓ Memory-mapped embeddings: {embeddings.shape} ({embeddings.dtype})", flush=True)
 
-        print(f"Loading metadata from {metadata_path}...")
+        print(f"Loading metadata from {metadata_path}...", flush=True)
         with open(metadata_path, 'r') as f:
             metadata = json.load(f)
         gc.collect()  # Free JSON parse buffers before loading model
 
-        print(f"✓ Loaded {len(metadata):,} chunks")
+        print(f"✓ Loaded {len(metadata):,} chunks", flush=True)
     else:
         print(f"✗ Embeddings not found at {EMBEDDINGS_DIR}")
         print("  Run generate_embeddings.py first")
@@ -326,15 +336,15 @@ async def startup():
         try:
             import anthropic
             anthropic_client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
-            print("✓ Anthropic client initialized")
+            print("✓ Anthropic client initialized", flush=True)
         except Exception as e:
-            print(f"✗ Could not initialize Anthropic: {e}")
+            print(f"✗ Could not initialize Anthropic: {e}", flush=True)
     else:
-        print("✗ ANTHROPIC_API_KEY not set in .env")
+        print("✗ ANTHROPIC_API_KEY not set in .env", flush=True)
 
     # Initialize logs directory
     LOGS_DIR.mkdir(exist_ok=True)
-    print("✓ Logs directory ready")
+    print("✓ Logs directory ready", flush=True)
 
     # Load curated references
     if REFERENCES_DIR.exists():
@@ -1271,9 +1281,15 @@ app.include_router(api_v1)
 # Stripe Donation Endpoints
 # =============================================================================
 
-import stripe
+print("[BOOT] Importing stripe...", flush=True)
+try:
+    import stripe
+    print("[BOOT] Stripe import OK", flush=True)
+except Exception as e:
+    print(f"[BOOT] Stripe import FAILED: {e}", flush=True)
+    stripe = None
 
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY") if stripe else None
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 STRIPE_PRICE_ID = os.getenv("STRIPE_PRICE_ID", "")
 
