@@ -913,6 +913,86 @@ ACT_METADATA = {
         "short_name": "LEGA",
         "topics": ["legislation", "interpretation", "statutory interpretation", "enactment"]
     },
+    "maritime-transport-1994.html": {
+        "title": "Maritime Transport Act 1994",
+        "year": 1994,
+        "number": 104,
+        "url": "https://www.legislation.govt.nz/act/public/1994/0104/latest/whole.html",
+        "short_name": "MTA",
+        "topics": ["maritime", "shipping", "vessel", "port", "sea"]
+    },
+    "civil-aviation-1990.html": {
+        "title": "Civil Aviation Act 1990",
+        "year": 1990,
+        "number": 98,
+        "url": "https://www.legislation.govt.nz/act/public/1990/0098/latest/whole.html",
+        "short_name": "CAA",
+        "topics": ["civil aviation", "aircraft", "aviation", "airline", "pilot"]
+    },
+    "railways-2005.html": {
+        "title": "Railways Act 2005",
+        "year": 2005,
+        "number": 37,
+        "url": "https://www.legislation.govt.nz/act/public/2005/0037/latest/whole.html",
+        "short_name": "RA2005",
+        "topics": ["railways", "rail", "train", "rail network"]
+    },
+    "government-roading-powers-1989.html": {
+        "title": "Government Roading Powers Act 1989",
+        "year": 1989,
+        "number": 75,
+        "url": "https://www.legislation.govt.nz/act/public/1989/0075/latest/whole.html",
+        "short_name": "GOVA",
+        "topics": ["roading", "road", "highway", "motorway"]
+    },
+    "crown-minerals-1991.html": {
+        "title": "Crown Minerals Act 1991",
+        "year": 1991,
+        "number": 70,
+        "url": "https://www.legislation.govt.nz/act/public/1991/0070/latest/whole.html",
+        "short_name": "CMA",
+        "topics": ["crown minerals", "mining", "petroleum", "minerals"]
+    },
+    "environmental-protection-authority-2011.html": {
+        "title": "Environmental Protection Authority Act 2011",
+        "year": 2011,
+        "number": 14,
+        "url": "https://www.legislation.govt.nz/act/public/2011/0014/latest/whole.html",
+        "short_name": "EPA",
+        "topics": ["epa", "environmental protection", "environment"]
+    },
+    "forestry-rights-registration-1983.html": {
+        "title": "Forestry Rights Registration Act 1983",
+        "year": 1983,
+        "number": 42,
+        "url": "https://www.legislation.govt.nz/act/public/1983/0042/latest/whole.html",
+        "short_name": "FRRA",
+        "topics": ["forestry", "forestry rights", "timber"]
+    },
+    "electricity-1992.html": {
+        "title": "Electricity Act 1992",
+        "year": 1992,
+        "number": 122,
+        "url": "https://www.legislation.govt.nz/act/public/1992/0122/latest/whole.html",
+        "short_name": "ELECA",
+        "topics": ["electricity", "power", "energy", "electrical"]
+    },
+    "gas-1992.html": {
+        "title": "Gas Act 1992",
+        "year": 1992,
+        "number": 124,
+        "url": "https://www.legislation.govt.nz/act/public/1992/0124/latest/whole.html",
+        "short_name": "GASA",
+        "topics": ["gas", "natural gas", "gas supply"]
+    },
+    "telecommunications-interception-2013.html": {
+        "title": "Telecommunications (Interception Capability and Security) Act 2013",
+        "year": 2013,
+        "number": 91,
+        "url": "https://www.legislation.govt.nz/act/public/2013/0091/latest/whole.html",
+        "short_name": "TSSA",
+        "topics": ["interception", "surveillance", "telecommunications security"]
+    },
 }
 
 

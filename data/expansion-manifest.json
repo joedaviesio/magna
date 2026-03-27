@@ -1,7 +1,7 @@
 {
   "description": "Expansion manifest: 89 → 200 acts. Batches of 10, most recent first.",
   "target": 200,
-  "current": 139,
+  "current": 149,
   "batches": [
     {
       "batch": 1,
@@ -1077,7 +1077,7 @@
     {
       "batch": 6,
       "name": "Transport & Infrastructure",
-      "status": "pending",
+      "status": "complete",
       "acts": [
         {
           "code": "MTA",
@@ -1096,7 +1096,10 @@
             "maritime",
             "transport"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 2694,
+          "chunks": 2847,
+          "completed_at": "2026-03-28T08:14:14.115484"
         },
         {
           "code": "CAA",
@@ -1115,7 +1118,10 @@
             "aviation",
             "transport"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 2262,
+          "chunks": 2363,
+          "completed_at": "2026-03-28T08:14:18.206538"
         },
         {
           "code": "RA2005",
@@ -1133,7 +1139,10 @@
             "railways",
             "transport"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 605,
+          "chunks": 638,
+          "completed_at": "2026-03-28T08:14:21.763602"
         },
         {
           "code": "GOVA",
@@ -1151,7 +1160,10 @@
             "roading",
             "transport"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 475,
+          "chunks": 529,
+          "completed_at": "2026-03-28T08:14:24.454855"
         },
         {
           "code": "CMA",
@@ -1169,7 +1181,10 @@
             "minerals",
             "mining"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1827,
+          "chunks": 1938,
+          "completed_at": "2026-03-28T08:14:28.123691"
         },
         {
           "code": "EPA",
@@ -1186,7 +1201,10 @@
             "environment",
             "regulation"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 277,
+          "chunks": 281,
+          "completed_at": "2026-03-28T08:14:30.558955"
         },
         {
           "code": "FRRA",
@@ -1203,7 +1221,10 @@
             "forestry",
             "land"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 45,
+          "chunks": 45,
+          "completed_at": "2026-03-28T08:14:33.268262"
         },
         {
           "code": "ELECA",
@@ -1221,7 +1242,10 @@
             "electricity",
             "energy"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1436,
+          "chunks": 1472,
+          "completed_at": "2026-03-28T08:14:38.120714"
         },
         {
           "code": "GASA",
@@ -1238,7 +1262,10 @@
             "gas",
             "energy"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 801,
+          "chunks": 838,
+          "completed_at": "2026-03-28T08:14:41.027733"
         },
         {
           "code": "TSSA",
@@ -1255,7 +1282,10 @@
             "telecommunications",
             "security"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 620,
+          "chunks": 635,
+          "completed_at": "2026-03-28T08:14:43.791028"
         }
       ]
     },

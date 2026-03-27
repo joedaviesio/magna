@@ -1240,7 +1240,7 @@ async def v1_version():
     """Get API version information."""
     return {
         "api_version": API_VERSION,
-        "app_version": "0.2.0",
+        "app_version": "0.3.0",
         "endpoints": [
             "/api/v1/health",
             "/api/v1/chat",
@@ -1253,6 +1253,64 @@ async def v1_version():
 
 # Mount the v1 router
 app.include_router(api_v1)
+
+
+# =============================================================================
+# Stripe Donation Endpoints
+# =============================================================================
+
+import stripe
+
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
+STRIPE_PRICE_ID = os.getenv("STRIPE_PRICE_ID", "")
+
+class DonateRequest(BaseModel):
+    amount: int = Field(..., ge=1, le=10000, description="Donation amount in NZD")
+
+@app.post("/api/donate/checkout")
+async def create_checkout_session(req: DonateRequest, request: Request):
+    """Create a Stripe Checkout Session for a one-time donation."""
+    origin = request.headers.get("origin", "http://localhost:3005")
+    try:
+        session = stripe.checkout.Session.create(
+            mode="payment",
+            currency="nzd",
+            line_items=[{
+                "price_data": {
+                    "currency": "nzd",
+                    "unit_amount": req.amount * 100,
+                    "product_data": {
+                        "name": f"Bowen Public Donation — ${req.amount} NZD",
+                    },
+                },
+                "quantity": 1,
+            }],
+            success_url=f"{origin}/donate?success=true",
+            cancel_url=f"{origin}/donate",
+        )
+        return {"url": session.url}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/stripe/webhook")
+async def stripe_webhook(request: Request):
+    """Handle Stripe webhook events."""
+    payload = await request.body()
+    sig_header = request.headers.get("stripe-signature", "")
+    try:
+        event = stripe.Webhook.construct_event(payload, sig_header, STRIPE_WEBHOOK_SECRET)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid payload")
+    except stripe.error.SignatureVerificationError:
+        raise HTTPException(status_code=400, detail="Invalid signature")
+
+    if event["type"] == "checkout.session.completed":
+        session = event["data"]["object"]
+        amount = session.get("amount_total", 0) / 100
+        print(f"[DONATION] ${amount:.2f} NZD received — session {session['id']}")
+
+    return {"status": "ok"}
 
 
 # =============================================================================

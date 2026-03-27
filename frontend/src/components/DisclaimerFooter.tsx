@@ -23,14 +23,12 @@ export function DisclaimerFooter() {
         >
           Bowen's approach to The Treaty / Te Tiriti
         </Link>
-        <a
-          href="https://joedavies.io"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/about"
           className="text-slate-400 hover:text-slate-600 underline underline-offset-2"
         >
-          Founder
-        </a>
+          About
+        </Link>
       </div>
     </div>
   );

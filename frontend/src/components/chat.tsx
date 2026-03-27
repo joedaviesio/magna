@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { AlertCircle, BookOpen, Heart } from 'lucide-react';
+import { AlertCircle, BookOpen } from 'lucide-react';
 import { ManatIcon } from './ManatIcon';
 import { KiwiIcon } from './KiwiIcon';
 import { useChat } from '@/hooks/useChat';
@@ -106,8 +106,8 @@ const FALLBACK_LEGISLATION = [
 
 // Database stats - acts count derived from FALLBACK_LEGISLATION above
 const DATABASE_STATS = {
-  sections: 210000,
-  chunks: 1129113,
+  sections: 36956,
+  chunks: 1361971,
 };
 
 // Placeholder supporters - replace with actual donors
@@ -124,7 +124,8 @@ const SUPPORTERS = [
 
 export function Chat() {
   const { messages, isLoading, error, send, clearMessages } = useChat();
-  const [acts, setActs] = useState<Array<{ title: string; short_name: string; topics: string[] }>>(FALLBACK_LEGISLATION);
+  const [acts, setActs] = useState<Array<{ title: string; short_name: string; topics: string[] }> | null>(null);
+  const [showLegislation, setShowLegislation] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const lastAssistantRef = useRef<HTMLDivElement>(null);
   const wasLoadingRef = useRef(false);
@@ -139,10 +140,13 @@ export function Chat() {
             short_name: act.short_name,
             topics: act.topics
           })));
+        } else {
+          setActs(FALLBACK_LEGISLATION);
         }
       })
       .catch((err) => {
         console.warn('Failed to fetch acts from API, using fallback:', err);
+        setActs(FALLBACK_LEGISLATION);
       });
   }, []);
 
@@ -221,7 +225,11 @@ export function Chat() {
             <div className="w-full max-w-2xl mb-6">
               <div className="grid grid-cols-3 gap-3">
                 <div className="bg-slate-50 rounded-lg border border-slate-200 p-3 text-center">
-                  <p className="text-2xl font-semibold text-slate-800">{acts.length}</p>
+                  {acts ? (
+                    <p className="text-2xl font-semibold text-slate-800">{acts.length}</p>
+                  ) : (
+                    <div className="h-8 w-12 mx-auto bg-slate-200 rounded animate-pulse" />
+                  )}
                   <p className="text-[10px] text-slate-500 uppercase tracking-wide">Acts</p>
                 </div>
                 <div className="bg-slate-50 rounded-lg border border-slate-200 p-3 text-center">
@@ -237,29 +245,47 @@ export function Chat() {
 
             {/* Legislation Coverage */}
             <div className="w-full max-w-2xl">
-              <div className="flex items-center justify-center gap-2 text-sm text-slate-500 mb-3">
-                <BookOpen className="w-4 h-4" />
-                <span>Legislation Coverage</span>
-              </div>
-              <div className="bg-slate-50 rounded-xl border border-slate-200 p-3">
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-                  {acts.map((act) => (
-                    <div key={act.short_name} className="text-left p-2 bg-white rounded-lg border border-slate-100">
-                      <p className="text-xs font-medium text-slate-700 leading-tight">{act.title}</p>
-                      <p className="text-[10px] text-slate-400 mt-0.5 truncate">{act.topics.join(', ')}</p>
-                    </div>
-                  ))}
+              <button
+                onClick={() => setShowLegislation(!showLegislation)}
+                className="mx-auto flex items-center gap-2 px-4 py-2 text-white/90 text-sm font-medium rounded-lg animate-gradient-shift"
+                style={{ backgroundImage: 'linear-gradient(270deg, #3b82f6, #ec4899, #8b5cf6, #3b82f6)', backgroundSize: '300% 100%' }}
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .963L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" fill="currentColor"/>
+                  <path d="M20 3v4M22 5h-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+                Legislation Coverage
+                <svg className={`w-3 h-3 transition-transform ${showLegislation ? 'rotate-180' : ''}`} viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              {showLegislation && (
+                <div className="mt-3 bg-slate-50 rounded-xl border border-slate-200 p-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                    {(acts ?? []).map((act) => (
+                      <div key={act.short_name} className="text-left p-2 bg-white rounded-lg border border-slate-100">
+                        <p className="text-xs font-medium text-slate-700 leading-tight">{act.title}</p>
+                        <p className="text-[10px] text-slate-400 mt-0.5 truncate">{act.topics.join(', ')}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
+            </div>
+
+            {/* Donate Button */}
+            <div className="w-full max-w-2xl mt-4 flex justify-center">
+              <Link
+                href="/donate"
+                className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-600 text-sm font-medium rounded-lg transition-colors"
+              >
+                <BookOpen className="w-4 h-4 text-pink-500" />
+                Support Bowen Public
+              </Link>
             </div>
 
             {/* Supporters Section */}
-            <div className="w-full max-w-2xl mt-12 mb-36">
-              <div className="flex items-center justify-center gap-2 text-sm text-slate-500 mb-4">
-               
-                <span>If you would like to help Bowen Public expand its data bank and reach more people <br></br><br></br>joe@bowenpublic.com </span>
-              </div>
-            </div>
+         
           </div>
         ) : (
           <div className="space-y-6 pb-32">

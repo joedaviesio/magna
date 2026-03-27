@@ -1106,6 +1106,86 @@ ACTS_REGISTRY: Dict[str, Dict] = {
         "topics": ["legislation", "interpretation"],
         "url": "https://www.legislation.govt.nz/act/public/2019/0058/latest/DLM1.html"
     },
+    "MTA": {
+        "title": "Maritime Transport Act 1994",
+        "short_name": "MTA",
+        "year": 1994,
+        "keywords": ["maritime", "shipping", "vessel", "port", "sea"],
+        "topics": ["maritime", "transport"],
+        "url": "https://www.legislation.govt.nz/act/public/1994/0104/latest/DLM1.html"
+    },
+    "CAA": {
+        "title": "Civil Aviation Act 1990",
+        "short_name": "CAA",
+        "year": 1990,
+        "keywords": ["civil aviation", "aircraft", "aviation", "airline", "pilot"],
+        "topics": ["aviation", "transport"],
+        "url": "https://www.legislation.govt.nz/act/public/1990/0098/latest/DLM1.html"
+    },
+    "RA2005": {
+        "title": "Railways Act 2005",
+        "short_name": "RA2005",
+        "year": 2005,
+        "keywords": ["railways", "rail", "train", "rail network"],
+        "topics": ["railways", "transport"],
+        "url": "https://www.legislation.govt.nz/act/public/2005/0037/latest/DLM1.html"
+    },
+    "GOVA": {
+        "title": "Government Roading Powers Act 1989",
+        "short_name": "GOVA",
+        "year": 1989,
+        "keywords": ["roading", "road", "highway", "motorway"],
+        "topics": ["roading", "transport"],
+        "url": "https://www.legislation.govt.nz/act/public/1989/0075/latest/DLM1.html"
+    },
+    "CMA": {
+        "title": "Crown Minerals Act 1991",
+        "short_name": "CMA",
+        "year": 1991,
+        "keywords": ["crown minerals", "mining", "petroleum", "minerals"],
+        "topics": ["minerals", "mining"],
+        "url": "https://www.legislation.govt.nz/act/public/1991/0070/latest/DLM1.html"
+    },
+    "EPA": {
+        "title": "Environmental Protection Authority Act 2011",
+        "short_name": "EPA",
+        "year": 2011,
+        "keywords": ["epa", "environmental protection", "environment"],
+        "topics": ["environment", "regulation"],
+        "url": "https://www.legislation.govt.nz/act/public/2011/0014/latest/DLM1.html"
+    },
+    "FRRA": {
+        "title": "Forestry Rights Registration Act 1983",
+        "short_name": "FRRA",
+        "year": 1983,
+        "keywords": ["forestry", "forestry rights", "timber"],
+        "topics": ["forestry", "land"],
+        "url": "https://www.legislation.govt.nz/act/public/1983/0042/latest/DLM1.html"
+    },
+    "ELECA": {
+        "title": "Electricity Act 1992",
+        "short_name": "ELECA",
+        "year": 1992,
+        "keywords": ["electricity", "power", "energy", "electrical"],
+        "topics": ["electricity", "energy"],
+        "url": "https://www.legislation.govt.nz/act/public/1992/0122/latest/DLM1.html"
+    },
+    "GASA": {
+        "title": "Gas Act 1992",
+        "short_name": "GASA",
+        "year": 1992,
+        "keywords": ["gas", "natural gas", "gas supply"],
+        "topics": ["gas", "energy"],
+        "url": "https://www.legislation.govt.nz/act/public/1992/0124/latest/DLM1.html"
+    },
+    "TSSA": {
+        "title": "Telecommunications (Interception Capability and Security) Act 2013",
+        "short_name": "TSSA",
+        "year": 2013,
+        "keywords": ["interception", "surveillance", "telecommunications security"],
+        "topics": ["telecommunications", "security"],
+        "url": "https://www.legislation.govt.nz/act/public/2013/0091/latest/DLM1.html"
+    },
 }
 
 
