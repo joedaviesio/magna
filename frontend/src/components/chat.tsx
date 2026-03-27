@@ -285,7 +285,8 @@ export function Chat() {
             </div>
 
             {/* Supporters Section */}
-         
+
+            {showLegislation && <div className="h-96" />}
           </div>
         ) : (
           <div className="space-y-6 pb-32">

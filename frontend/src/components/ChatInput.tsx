@@ -46,7 +46,7 @@ interface ChatInputProps {
   placeholder?: string;
 }
 
-export function ChatInput({ onSend, isLoading, placeholder = 'Ask about New Zealand legislation...' }: ChatInputProps) {
+export function ChatInput({ onSend, isLoading, placeholder = 'Ask about NZ law...' }: ChatInputProps) {
   const [input, setInput] = useState('');
   const [attachments, setAttachments] = useState<FileAttachment[]>([]);
   const [fileError, setFileError] = useState<string | null>(null);
