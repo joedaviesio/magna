@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, BookOpen, CheckCircle } from 'lucide-react';
 
-export default function DonatePage() {
+function DonateContent() {
   const searchParams = useSearchParams();
   const success = searchParams.get('success') === 'true';
   const [amount, setAmount] = useState('');
@@ -127,5 +127,13 @@ export default function DonatePage() {
 
       </div>
     </div>
+  );
+}
+
+export default function DonatePage() {
+  return (
+    <Suspense>
+      <DonateContent />
+    </Suspense>
   );
 }
