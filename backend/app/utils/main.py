@@ -107,7 +107,7 @@ async def startup():
     
     if embeddings_path.exists() and metadata_path.exists():
         print(f"\nLoading embeddings from {embeddings_path}...")
-        embeddings = np.load(embeddings_path)
+        embeddings = np.load(embeddings_path, mmap_mode='r')
         
         with open(metadata_path, 'r') as f:
             metadata = json.load(f)
