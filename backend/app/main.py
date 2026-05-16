@@ -1291,7 +1291,8 @@ except Exception as e:
     print(f"[BOOT] Stripe import FAILED: {e}", flush=True)
     stripe = None
 
-stripe.api_key = os.getenv("STRIPE_SECRET_KEY") if stripe else None
+if stripe:
+    stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 STRIPE_PRICE_ID = os.getenv("STRIPE_PRICE_ID", "")
 

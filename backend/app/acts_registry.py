@@ -1186,6 +1186,398 @@ ACTS_REGISTRY: Dict[str, Dict] = {
         "topics": ["telecommunications", "security"],
         "url": "https://www.legislation.govt.nz/act/public/2013/0091/latest/DLM1.html"
     },
+    "BOPRC": {
+        "title": "Bay of Plenty Regional Council (Maori Constituency Empowering) Act 2001",
+        "short_name": "BOPRC",
+        "year": 2001,
+        "keywords": ["bay of plenty", "maori constituency", "regional council"],
+        "topics": ["local government", "Maori representation"],
+        "url": "https://www.legislation.govt.nz/act/public/2001/0043/latest/DLM1.html"
+    },
+    "WRA": {
+        "title": "Waikato-Tainui Raupatu Claims (Waikato River) Settlement Act 2010",
+        "short_name": "WRA",
+        "year": 2010,
+        "keywords": ["waikato river", "waikato-tainui", "river settlement"],
+        "topics": ["treaty settlements", "waterways"],
+        "url": "https://www.legislation.govt.nz/act/public/2010/0024/latest/DLM1.html"
+    },
+    "LATA": {
+        "title": "Local Authorities (Members' Interests) Act 1968",
+        "short_name": "LATA",
+        "year": 1968,
+        "keywords": ["members interests", "local authority", "conflict of interest"],
+        "topics": ["local government", "integrity"],
+        "url": "https://www.legislation.govt.nz/act/public/1968/0147/latest/DLM1.html"
+    },
+    "RDA": {
+        "title": "Referendums (Postal Voting) Act 2000",
+        "short_name": "RDA",
+        "year": 2000,
+        "keywords": ["referendum", "postal voting", "vote"],
+        "topics": ["elections", "referendums"],
+        "url": "https://www.legislation.govt.nz/act/public/2000/0048/latest/DLM1.html"
+    },
+    "CIR": {
+        "title": "Citizens Initiated Referenda Act 1993",
+        "short_name": "CIR",
+        "year": 1993,
+        "keywords": ["citizens referendum", "initiated referendum", "petition"],
+        "topics": ["democracy", "referendums"],
+        "url": "https://www.legislation.govt.nz/act/public/1993/0101/latest/DLM1.html"
+    },
+    "IGISA": {
+        "title": "Inspector-General of Intelligence and Security Act 1996",
+        "short_name": "IGISA",
+        "year": 1996,
+        "keywords": ["inspector general", "intelligence oversight"],
+        "topics": ["intelligence", "oversight"],
+        "url": "https://www.legislation.govt.nz/act/public/1996/0047/latest/DLM1.html"
+    },
+    "FVPCA": {
+        "title": "Films, Videos, and Publications Classification Act 1993",
+        "short_name": "FVPCA",
+        "year": 1993,
+        "keywords": ["classification", "censorship", "films", "publications", "objectionable"],
+        "topics": ["classification", "censorship"],
+        "url": "https://www.legislation.govt.nz/act/public/1993/0094/latest/DLM1.html"
+    },
+    "RBNZA": {
+        "title": "Reserve Bank of New Zealand Act 2021",
+        "short_name": "RBNZA",
+        "year": 2021,
+        "keywords": ["reserve bank", "monetary policy", "financial stability", "rbnz"],
+        "topics": ["banking", "monetary policy"],
+        "url": "https://www.legislation.govt.nz/act/public/2021/0031/latest/DLM1.html"
+    },
+    "PPSA": {
+        "title": "Personal Property Securities Act 1999",
+        "short_name": "PPSA",
+        "year": 1999,
+        "keywords": ["personal property", "security interest", "ppsr", "financing statement"],
+        "topics": ["property", "security"],
+        "url": "https://www.legislation.govt.nz/act/public/1999/0126/latest/DLM1.html"
+    },
+    "CCEA": {
+        "title": "Construction Contracts Act 2002",
+        "short_name": "CCEA",
+        "year": 2002,
+        "keywords": ["construction contract", "payment claim", "adjudication"],
+        "topics": ["construction", "contracts"],
+        "url": "https://www.legislation.govt.nz/act/public/2002/0046/latest/DLM1.html"
+    },
+    "LTA2017": {
+        "title": "Land Transfer Act 2017",
+        "short_name": "LTA2017",
+        "year": 2017,
+        "keywords": ["land transfer", "title", "registration", "torrens"],
+        "topics": ["land", "property"],
+        "url": "https://www.legislation.govt.nz/act/public/2017/0030/latest/DLM1.html"
+    },
+    "CSA": {
+        "title": "Cadastral Survey Act 2002",
+        "short_name": "CSA",
+        "year": 2002,
+        "keywords": ["cadastral", "survey", "land survey", "boundary"],
+        "topics": ["survey", "land"],
+        "url": "https://www.legislation.govt.nz/act/public/2002/0012/latest/DLM1.html"
+    },
+    "PWA": {
+        "title": "Public Works Act 1981",
+        "short_name": "PWA",
+        "year": 1981,
+        "keywords": ["public works", "compulsory acquisition", "land taking"],
+        "topics": ["land acquisition", "public works"],
+        "url": "https://www.legislation.govt.nz/act/public/1981/0035/latest/DLM1.html"
+    },
+    "FFA": {
+        "title": "Fencing Act 1978",
+        "short_name": "FFA",
+        "year": 1978,
+        "keywords": ["fencing", "fence", "boundary fence", "neighbour"],
+        "topics": ["fencing", "property"],
+        "url": "https://www.legislation.govt.nz/act/public/1978/0050/latest/DLM1.html"
+    },
+    "AUPA": {
+        "title": "Auctioneers Act 2013",
+        "short_name": "AUPA",
+        "year": 2013,
+        "keywords": ["auctioneer", "auction"],
+        "topics": ["auctions", "regulation"],
+        "url": "https://www.legislation.govt.nz/act/public/2013/0148/latest/DLM1.html"
+    },
+    "HNA": {
+        "title": "Housing Restructuring and Tenancy Matters Act 1992",
+        "short_name": "HNA",
+        "year": 1992,
+        "keywords": ["housing restructuring", "state housing", "housing nz"],
+        "topics": ["housing", "tenancy"],
+        "url": "https://www.legislation.govt.nz/act/public/1992/0076/latest/DLM1.html"
+    },
+    "SULA": {
+        "title": "Subdivision Act — Resource Management (Simplifying and Streamlining) Amendment 2009",
+        "short_name": "SULA",
+        "year": 2009,
+        "keywords": ["subdivision", "resource consent", "simplifying"],
+        "topics": ["subdivision", "planning"],
+        "url": "https://www.legislation.govt.nz/act/public/2009/0031/latest/DLM1.html"
+    },
+    "UAPA": {
+        "title": "Unit Titles (Strengthening Body Corporate Governance) Amendment Act 2022",
+        "short_name": "UAPA",
+        "year": 2022,
+        "keywords": ["unit title", "body corporate", "governance"],
+        "topics": ["unit titles", "property"],
+        "url": "https://www.legislation.govt.nz/act/public/2022/0033/latest/DLM1.html"
+    },
+    "TNSA": {
+        "title": "Tamaki Makaurau Settlement Process Act 2008",
+        "short_name": "TNSA",
+        "year": 2008,
+        "keywords": ["tamaki makaurau", "auckland settlement"],
+        "topics": ["treaty settlements"],
+        "url": "https://www.legislation.govt.nz/act/public/2008/0058/latest/DLM1.html"
+    },
+    "PHCSA": {
+        "title": "Pare Hauraki Collective Redress Act 2018",
+        "short_name": "PHCSA",
+        "year": 2018,
+        "keywords": ["pare hauraki", "hauraki", "collective redress"],
+        "topics": ["treaty settlements"],
+        "url": "https://www.legislation.govt.nz/act/public/2018/0007/latest/DLM1.html"
+    },
+    "RAPA": {
+        "title": "Raukawa Claims Settlement Act 2014",
+        "short_name": "RAPA",
+        "year": 2014,
+        "keywords": ["raukawa", "claims settlement"],
+        "topics": ["treaty settlements"],
+        "url": "https://www.legislation.govt.nz/act/public/2014/0007/latest/DLM1.html"
+    },
+    "TAPA": {
+        "title": "Tapuika Claims Settlement Act 2014",
+        "short_name": "TAPA",
+        "year": 2014,
+        "keywords": ["tapuika", "claims settlement"],
+        "topics": ["treaty settlements"],
+        "url": "https://www.legislation.govt.nz/act/public/2014/0015/latest/DLM1.html"
+    },
+    "NTTSA": {
+        "title": "Ngati Tuwharetoa Claims Settlement Act 2018",
+        "short_name": "NTTSA",
+        "year": 2018,
+        "keywords": ["ngati tuwharetoa", "claims settlement", "tuwharetoa"],
+        "topics": ["treaty settlements"],
+        "url": "https://www.legislation.govt.nz/act/public/2018/0055/latest/DLM1.html"
+    },
+    "MTTA": {
+        "title": "Moriori Claims Settlement Act 2021",
+        "short_name": "MTTA",
+        "year": 2021,
+        "keywords": ["moriori", "claims settlement", "chatham islands"],
+        "topics": ["treaty settlements"],
+        "url": "https://www.legislation.govt.nz/act/public/2021/0047/latest/DLM1.html"
+    },
+    "NRSA": {
+        "title": "Ngati Rangitihi Claims Settlement Act 2022",
+        "short_name": "NRSA",
+        "year": 2022,
+        "keywords": ["ngati rangitihi", "claims settlement"],
+        "topics": ["treaty settlements"],
+        "url": "https://www.legislation.govt.nz/act/public/2022/0040/latest/DLM1.html"
+    },
+    "TWMA": {
+        "title": "Te Ture Whenua Maori (Succession, Dispute Resolution, and Related Matters) Amendment Act 2020",
+        "short_name": "TWMA",
+        "year": 2020,
+        "keywords": ["maori land", "te ture whenua", "succession"],
+        "topics": ["Maori land", "succession"],
+        "url": "https://www.legislation.govt.nz/act/public/2020/0051/latest/DLM1.html"
+    },
+    "MLRA": {
+        "title": "Maori Language Act 2016",
+        "short_name": "MLRA",
+        "year": 2016,
+        "keywords": ["maori language", "te reo", "language commission"],
+        "topics": ["Maori language"],
+        "url": "https://www.legislation.govt.nz/act/public/2016/0017/latest/DLM1.html"
+    },
+    "WHRF": {
+        "title": "Waikato-Tainui Raupatu Claims Settlement (Waikato River — Loss of Claim) Act 2021",
+        "short_name": "WHRF",
+        "year": 2021,
+        "keywords": ["waikato-tainui", "waikato river", "raupatu"],
+        "topics": ["treaty settlements", "waterways"],
+        "url": "https://www.legislation.govt.nz/act/public/2021/0052/latest/DLM1.html"
+    },
+    "EXTR": {
+        "title": "Extradition Act 1999",
+        "short_name": "EXTR",
+        "year": 1999,
+        "keywords": ["extradition", "surrender", "fugitive"],
+        "topics": ["extradition", "international"],
+        "url": "https://www.legislation.govt.nz/act/public/1999/0055/latest/DLM1.html"
+    },
+    "MLAT": {
+        "title": "Mutual Assistance in Criminal Matters Act 1992",
+        "short_name": "MLAT",
+        "year": 1992,
+        "keywords": ["mutual assistance", "criminal matters", "international cooperation"],
+        "topics": ["international", "criminal law"],
+        "url": "https://www.legislation.govt.nz/act/public/1992/0086/latest/DLM1.html"
+    },
+    "DIPA": {
+        "title": "Diplomatic Privileges and Immunities Act 1968",
+        "short_name": "DIPA",
+        "year": 1968,
+        "keywords": ["diplomatic", "immunity", "privileges"],
+        "topics": ["diplomacy", "international"],
+        "url": "https://www.legislation.govt.nz/act/public/1968/0036/latest/DLM1.html"
+    },
+    "ICCA": {
+        "title": "International Crimes and International Criminal Court Act 2000",
+        "short_name": "ICCA",
+        "year": 2000,
+        "keywords": ["international crimes", "icc", "war crimes", "genocide"],
+        "topics": ["international law", "criminal law"],
+        "url": "https://www.legislation.govt.nz/act/public/2000/0026/latest/DLM1.html"
+    },
+    "CHMA": {
+        "title": "Chemical Weapons (Prohibition) Act 1996",
+        "short_name": "CHMA",
+        "year": 1996,
+        "keywords": ["chemical weapons", "prohibition", "arms control"],
+        "topics": ["arms control", "international"],
+        "url": "https://www.legislation.govt.nz/act/public/1996/0037/latest/DLM1.html"
+    },
+    "NWFA": {
+        "title": "Nuclear Free Zone, Disarmament, and Arms Control Act 1987",
+        "short_name": "NWFA",
+        "year": 1987,
+        "keywords": ["nuclear free", "disarmament", "arms control", "nuclear"],
+        "topics": ["nuclear", "disarmament"],
+        "url": "https://www.legislation.govt.nz/act/public/1987/0086/latest/DLM1.html"
+    },
+    "SANA": {
+        "title": "Sanctions Act 2017",
+        "short_name": "SANA",
+        "year": 2017,
+        "keywords": ["sanctions", "sanctions regime", "designated person"],
+        "topics": ["sanctions", "international"],
+        "url": "https://www.legislation.govt.nz/act/public/2017/0044/latest/DLM1.html"
+    },
+    "GENA": {
+        "title": "Geneva Conventions Act 1958",
+        "short_name": "GENA",
+        "year": 1958,
+        "keywords": ["geneva conventions", "war", "humanitarian law"],
+        "topics": ["international humanitarian law"],
+        "url": "https://www.legislation.govt.nz/act/public/1958/0019/latest/DLM1.html"
+    },
+    "AEA": {
+        "title": "Anti-Money Laundering and Countering Financing of Terrorism Amendment Act 2017",
+        "short_name": "AEA",
+        "year": 2017,
+        "keywords": ["aml", "cft", "money laundering", "terrorism financing"],
+        "topics": ["money laundering", "regulation"],
+        "url": "https://www.legislation.govt.nz/act/public/2017/0035/latest/DLM1.html"
+    },
+    "PROCA": {
+        "title": "Proceeds of Crime Act (Criminal Proceeds (Recovery) Act 2009)",
+        "short_name": "PROCA",
+        "year": 2009,
+        "keywords": ["criminal proceeds", "asset forfeiture", "proceeds of crime"],
+        "topics": ["criminal proceeds", "law enforcement"],
+        "url": "https://www.legislation.govt.nz/act/public/2009/0008/latest/DLM1.html"
+    },
+    "WINA": {
+        "title": "Wine Act 2003",
+        "short_name": "WINA",
+        "year": 2003,
+        "keywords": ["wine", "winemaking", "viticulture"],
+        "topics": ["wine", "food safety"],
+        "url": "https://www.legislation.govt.nz/act/public/2003/0114/latest/DLM1.html"
+    },
+    "APA": {
+        "title": "Animal Products Act 1999",
+        "short_name": "APA",
+        "year": 1999,
+        "keywords": ["animal products", "meat", "dairy", "food safety"],
+        "topics": ["food safety", "animal products"],
+        "url": "https://www.legislation.govt.nz/act/public/1999/0093/latest/DLM1.html"
+    },
+    "MARA": {
+        "title": "Marine Reserves Act 1971",
+        "short_name": "MARA",
+        "year": 1971,
+        "keywords": ["marine reserve", "marine protection", "ocean"],
+        "topics": ["conservation", "marine"],
+        "url": "https://www.legislation.govt.nz/act/public/1971/0015/latest/DLM1.html"
+    },
+    "NPHA": {
+        "title": "National Parks Act 1980",
+        "short_name": "NPHA",
+        "year": 1980,
+        "keywords": ["national park", "park", "conservation"],
+        "topics": ["conservation", "national parks"],
+        "url": "https://www.legislation.govt.nz/act/public/1980/0066/latest/DLM1.html"
+    },
+    "WCA": {
+        "title": "Wildlife Act 1953",
+        "short_name": "WCA",
+        "year": 1953,
+        "keywords": ["wildlife", "protected species", "hunting"],
+        "topics": ["wildlife", "conservation"],
+        "url": "https://www.legislation.govt.nz/act/public/1953/0031/latest/DLM1.html"
+    },
+    "WATERA": {
+        "title": "Water Services Legislation Act 2023",
+        "short_name": "WATERA",
+        "year": 2023,
+        "keywords": ["water services", "water reform"],
+        "topics": ["water", "reform"],
+        "url": "https://www.legislation.govt.nz/act/public/2023/0052/latest/DLM1.html"
+    },
+    "EEZA": {
+        "title": "Exclusive Economic Zone and Continental Shelf (Environmental Effects) Act 2012",
+        "short_name": "EEZA",
+        "year": 2012,
+        "keywords": ["eez", "continental shelf", "marine environment"],
+        "topics": ["marine", "environment"],
+        "url": "https://www.legislation.govt.nz/act/public/2012/0072/latest/DLM1.html"
+    },
+    "WRMA": {
+        "title": "Waste Minimisation Act 2008",
+        "short_name": "WRMA",
+        "year": 2008,
+        "keywords": ["waste", "recycling", "waste minimisation", "landfill"],
+        "topics": ["waste", "environment"],
+        "url": "https://www.legislation.govt.nz/act/public/2008/0089/latest/DLM1.html"
+    },
+    "OZLA": {
+        "title": "Ozone Layer Protection Act 1996",
+        "short_name": "OZLA",
+        "year": 1996,
+        "keywords": ["ozone", "ozone layer", "atmosphere"],
+        "topics": ["environment", "atmosphere"],
+        "url": "https://www.legislation.govt.nz/act/public/1996/0040/latest/DLM1.html"
+    },
+    "FORA": {
+        "title": "Forests Act 1949",
+        "short_name": "FORA",
+        "year": 1949,
+        "keywords": ["forests", "forestry", "timber", "logging"],
+        "topics": ["forestry", "conservation"],
+        "url": "https://www.legislation.govt.nz/act/public/1949/0019/latest/DLM1.html"
+    },
+    "AQUA": {
+        "title": "Aquaculture Reform (Repeals and Transitional Provisions) Act 2004",
+        "short_name": "AQUA",
+        "year": 2004,
+        "keywords": ["aquaculture", "marine farming", "fish farming"],
+        "topics": ["aquaculture", "marine"],
+        "url": "https://www.legislation.govt.nz/act/public/2004/0109/latest/DLM1.html"
+    },
 }
 
 

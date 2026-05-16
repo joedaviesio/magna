@@ -20,6 +20,10 @@ data/embeddings/*.pkl
 # data/embeddings/embeddings.npy
 # data/embeddings/metadata.json
 data/processed/chunks/all_chunks.json
+# Release-delivery embeddings build artifacts — uploaded to a GitHub Release,
+# never committed (keeps them out of git/LFS). See Dockerfile + shard_embeddings.py
+data/embeddings/embeddings_f16.npy
+data/embeddings/embeddings_f16.npy.part*
 
 # IDE
 .vscode/

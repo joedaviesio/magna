@@ -15,12 +15,20 @@ RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTr
 # Copy application code
 COPY backend/ ./backend/
 
-# Create embeddings directory and download from GitHub Release
-ARG DATA_VERSION=v0.3.1
-RUN mkdir -p data/embeddings
-RUN curl -L -o data/embeddings/embeddings.npy https://github.com/joedaviesio/magna/releases/download/v1.0-data/embeddings.npy
-RUN curl -L -o data/embeddings/metadata.json https://github.com/joedaviesio/magna/releases/download/v1.0-data/metadata.json
-RUN curl -L -o data/embeddings/config.json https://github.com/joedaviesio/magna/releases/download/v1.0-data/config.json
+# Embeddings data from a GitHub Release.
+# embeddings.npy is float16 (~2 GB) shipped as <2 GiB shards because GitHub
+# caps Release assets at 2 GiB. Shards are byte-concatenated back into the
+# exact float16 .npy here — np.load reads it directly, no backend change.
+# Bump DATA_RELEASE to publish new data (also busts this layer's cache).
+ARG DATA_RELEASE=v0.4-data
+RUN mkdir -p data/embeddings && cd data/embeddings \
+ && BASE=https://github.com/joedaviesio/magna/releases/download/${DATA_RELEASE} \
+ && curl -fL -o p00 "$BASE/embeddings_f16.npy.part00" \
+ && curl -fL -o p01 "$BASE/embeddings_f16.npy.part01" \
+ && cat p00 p01 > embeddings.npy && rm p00 p01 \
+ && curl -fL -o metadata.json "$BASE/metadata.json" \
+ && curl -fL -o config.json   "$BASE/config.json" \
+ && python -c "import numpy as np; a=np.load('embeddings.npy', mmap_mode='r'); assert a.dtype=='float16' and a.ndim==2 and a.shape[1]==384 and a.shape[0]>2000000, a.shape; print('embeddings OK', a.shape, a.dtype)"
 
 # Expose port
 EXPOSE 8000

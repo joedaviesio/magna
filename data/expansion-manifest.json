@@ -1,7 +1,7 @@
 {
   "description": "Expansion manifest: 89 → 200 acts. Batches of 10, most recent first.",
   "target": 200,
-  "current": 149,
+  "current": 198,
   "batches": [
     {
       "batch": 1,
@@ -1292,7 +1292,7 @@
     {
       "batch": 7,
       "name": "Local Government & Elections",
-      "status": "pending",
+      "status": "complete",
       "acts": [
         {
           "code": "BOPRC",
@@ -1309,7 +1309,10 @@
             "local government",
             "Maori representation"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 10,
+          "chunks": 10,
+          "completed_at": "2026-05-16T10:52:46.874734"
         },
         {
           "code": "WRA",
@@ -1326,7 +1329,10 @@
             "treaty settlements",
             "waterways"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 929,
+          "chunks": 990,
+          "completed_at": "2026-05-16T10:52:49.665380"
         },
         {
           "code": "LATA",
@@ -1343,7 +1349,10 @@
             "local government",
             "integrity"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 54,
+          "chunks": 66,
+          "completed_at": "2026-05-16T10:52:52.145173"
         },
         {
           "code": "RDA",
@@ -1360,7 +1369,10 @@
             "elections",
             "referendums"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 455,
+          "chunks": 468,
+          "completed_at": "2026-05-16T10:52:54.771429"
         },
         {
           "code": "CIR",
@@ -1377,7 +1389,10 @@
             "democracy",
             "referendums"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 353,
+          "chunks": 372,
+          "completed_at": "2026-05-16T10:52:57.295062"
         },
         {
           "code": "IGISA",
@@ -1393,7 +1408,10 @@
             "intelligence",
             "oversight"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 181,
+          "chunks": 200,
+          "completed_at": "2026-05-16T10:52:59.708185"
         },
         {
           "code": "FVPCA",
@@ -1412,7 +1430,10 @@
             "classification",
             "censorship"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1176,
+          "chunks": 1232,
+          "completed_at": "2026-05-16T10:53:02.673248"
         },
         {
           "code": "RBNZA",
@@ -1430,7 +1451,10 @@
             "banking",
             "monetary policy"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1735,
+          "chunks": 1755,
+          "completed_at": "2026-05-16T10:53:05.836060"
         },
         {
           "code": "PPSA",
@@ -1448,7 +1472,10 @@
             "property",
             "security"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 796,
+          "chunks": 828,
+          "completed_at": "2026-05-16T10:53:08.809303"
         },
         {
           "code": "CCEA",
@@ -1465,14 +1492,17 @@
             "construction",
             "contracts"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 528,
+          "chunks": 547,
+          "completed_at": "2026-05-16T10:53:11.450655"
         }
       ]
     },
     {
       "batch": 8,
       "name": "Property, Land & Housing",
-      "status": "pending",
+      "status": "partial",
       "acts": [
         {
           "code": "LTA2017",
@@ -1490,7 +1520,10 @@
             "land",
             "property"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1684,
+          "chunks": 1721,
+          "completed_at": "2026-05-16T10:53:47.414615"
         },
         {
           "code": "CSA",
@@ -1508,7 +1541,10 @@
             "survey",
             "land"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 384,
+          "chunks": 391,
+          "completed_at": "2026-05-16T10:53:49.910680"
         },
         {
           "code": "PWA",
@@ -1525,7 +1561,10 @@
             "land acquisition",
             "public works"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1355,
+          "chunks": 1478,
+          "completed_at": "2026-05-16T10:53:53.019810"
         },
         {
           "code": "FFA",
@@ -1543,7 +1582,10 @@
             "fencing",
             "property"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 125,
+          "chunks": 133,
+          "completed_at": "2026-05-16T10:53:55.367275"
         },
         {
           "code": "AUPA",
@@ -1559,7 +1601,10 @@
             "auctions",
             "regulation"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 134,
+          "chunks": 136,
+          "completed_at": "2026-05-16T10:53:57.698998"
         },
         {
           "code": "HNA",
@@ -1576,7 +1621,10 @@
             "housing",
             "tenancy"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 901,
+          "chunks": 935,
+          "completed_at": "2026-05-16T10:54:00.592354"
         },
         {
           "code": "SULA",
@@ -1593,7 +1641,10 @@
             "subdivision",
             "planning"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1596,
+          "chunks": 1675,
+          "completed_at": "2026-05-16T10:54:03.753943"
         },
         {
           "code": "BCA",
@@ -1610,7 +1661,7 @@
             "building",
             "accreditation"
           ],
-          "status": "pending"
+          "status": "download_failed"
         },
         {
           "code": "UAPA",
@@ -1627,7 +1678,10 @@
             "unit titles",
             "property"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 50,
+          "chunks": 54,
+          "completed_at": "2026-05-16T10:54:09.034274"
         },
         {
           "code": "HTMA",
@@ -1646,14 +1700,14 @@
             "tenancy",
             "housing standards"
           ],
-          "status": "pending"
+          "status": "download_failed"
         }
       ]
     },
     {
       "batch": 9,
       "name": "Treaty Settlements & Maori Affairs (Extended)",
-      "status": "pending",
+      "status": "complete",
       "acts": [
         {
           "code": "TNSA",
@@ -1668,7 +1722,10 @@
           "topics": [
             "treaty settlements"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 86,
+          "chunks": 88,
+          "completed_at": "2026-05-16T10:54:52.513681"
         },
         {
           "code": "PHCSA",
@@ -1684,7 +1741,10 @@
           "topics": [
             "treaty settlements"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 115,
+          "chunks": 118,
+          "completed_at": "2026-05-16T10:54:54.946990"
         },
         {
           "code": "RAPA",
@@ -1699,7 +1759,10 @@
           "topics": [
             "treaty settlements"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 755,
+          "chunks": 804,
+          "completed_at": "2026-05-16T10:54:57.681042"
         },
         {
           "code": "TAPA",
@@ -1714,7 +1777,10 @@
           "topics": [
             "treaty settlements"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 974,
+          "chunks": 1006,
+          "completed_at": "2026-05-16T10:55:00.452839"
         },
         {
           "code": "NTTSA",
@@ -1730,7 +1796,10 @@
           "topics": [
             "treaty settlements"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1213,
+          "chunks": 1296,
+          "completed_at": "2026-05-16T10:55:03.458934"
         },
         {
           "code": "MTTA",
@@ -1746,7 +1815,10 @@
           "topics": [
             "treaty settlements"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 56,
+          "chunks": 61,
+          "completed_at": "2026-05-16T10:55:05.805344"
         },
         {
           "code": "NRSA",
@@ -1761,7 +1833,10 @@
           "topics": [
             "treaty settlements"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 125,
+          "chunks": 133,
+          "completed_at": "2026-05-16T10:55:08.143847"
         },
         {
           "code": "TWMA",
@@ -1778,7 +1853,10 @@
             "Maori land",
             "succession"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 673,
+          "chunks": 686,
+          "completed_at": "2026-05-16T10:55:10.728726"
         },
         {
           "code": "MLRA",
@@ -1794,7 +1872,10 @@
           "topics": [
             "Maori language"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 896,
+          "chunks": 1031,
+          "completed_at": "2026-05-16T10:55:13.627949"
         },
         {
           "code": "WHRF",
@@ -1811,14 +1892,17 @@
             "treaty settlements",
             "waterways"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 79,
+          "chunks": 85,
+          "completed_at": "2026-05-16T10:55:15.953611"
         }
       ]
     },
     {
       "batch": 10,
       "name": "Immigration, Citizenship & International",
-      "status": "pending",
+      "status": "complete",
       "acts": [
         {
           "code": "EXTR",
@@ -1835,7 +1919,10 @@
             "extradition",
             "international"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 577,
+          "chunks": 616,
+          "completed_at": "2026-05-16T10:56:02.861555"
         },
         {
           "code": "MLAT",
@@ -1852,7 +1939,10 @@
             "international",
             "criminal law"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 501,
+          "chunks": 537,
+          "completed_at": "2026-05-16T10:56:05.532269"
         },
         {
           "code": "DIPA",
@@ -1869,7 +1959,10 @@
             "diplomacy",
             "international"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 178,
+          "chunks": 187,
+          "completed_at": "2026-05-16T10:56:07.978416"
         },
         {
           "code": "ICCA",
@@ -1887,7 +1980,10 @@
             "international law",
             "criminal law"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 892,
+          "chunks": 909,
+          "completed_at": "2026-05-16T10:56:10.850586"
         },
         {
           "code": "CHMA",
@@ -1904,7 +2000,10 @@
             "arms control",
             "international"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 118,
+          "chunks": 118,
+          "completed_at": "2026-05-16T10:56:13.379990"
         },
         {
           "code": "NWFA",
@@ -1922,7 +2021,10 @@
             "nuclear",
             "disarmament"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 86,
+          "chunks": 86,
+          "completed_at": "2026-05-16T10:56:15.733785"
         },
         {
           "code": "SANA",
@@ -1939,7 +2041,10 @@
             "sanctions",
             "international"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 49,
+          "chunks": 49,
+          "completed_at": "2026-05-16T10:56:18.314981"
         },
         {
           "code": "GENA",
@@ -1955,7 +2060,10 @@
           "topics": [
             "international humanitarian law"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 68,
+          "chunks": 80,
+          "completed_at": "2026-05-16T10:56:21.280232"
         },
         {
           "code": "AEA",
@@ -1973,7 +2081,10 @@
             "money laundering",
             "regulation"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 472,
+          "chunks": 496,
+          "completed_at": "2026-05-16T10:56:23.844563"
         },
         {
           "code": "PROCA",
@@ -1990,14 +2101,17 @@
             "criminal proceeds",
             "law enforcement"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 922,
+          "chunks": 946,
+          "completed_at": "2026-05-16T10:56:26.641265"
         }
       ]
     },
     {
       "batch": 11,
       "name": "Environment, Conservation & Wildlife (final 11)",
-      "status": "pending",
+      "status": "complete",
       "acts": [
         {
           "code": "WINA",
@@ -2014,7 +2128,10 @@
             "wine",
             "food safety"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1063,
+          "chunks": 1114,
+          "completed_at": "2026-05-16T10:57:17.883113"
         },
         {
           "code": "APA",
@@ -2032,7 +2149,10 @@
             "food safety",
             "animal products"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1299,
+          "chunks": 1385,
+          "completed_at": "2026-05-16T10:57:21.106955"
         },
         {
           "code": "MARA",
@@ -2049,7 +2169,10 @@
             "conservation",
             "marine"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 185,
+          "chunks": 207,
+          "completed_at": "2026-05-16T10:57:23.554644"
         },
         {
           "code": "NPHA",
@@ -2066,7 +2189,10 @@
             "conservation",
             "national parks"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 515,
+          "chunks": 540,
+          "completed_at": "2026-05-16T10:57:26.205735"
         },
         {
           "code": "WCA",
@@ -2083,7 +2209,10 @@
             "wildlife",
             "conservation"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 818,
+          "chunks": 921,
+          "completed_at": "2026-05-16T10:57:29.140479"
         },
         {
           "code": "WATERA",
@@ -2099,7 +2228,10 @@
             "water",
             "reform"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 3028,
+          "chunks": 3107,
+          "completed_at": "2026-05-16T10:57:34.117598"
         },
         {
           "code": "EEZA",
@@ -2116,7 +2248,10 @@
             "marine",
             "environment"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 1423,
+          "chunks": 1460,
+          "completed_at": "2026-05-16T10:57:37.230112"
         },
         {
           "code": "WRMA",
@@ -2134,7 +2269,10 @@
             "waste",
             "environment"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 471,
+          "chunks": 486,
+          "completed_at": "2026-05-16T10:57:39.823668"
         },
         {
           "code": "OZLA",
@@ -2151,7 +2289,10 @@
             "environment",
             "atmosphere"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 190,
+          "chunks": 190,
+          "completed_at": "2026-05-16T10:57:42.284976"
         },
         {
           "code": "FORA",
@@ -2169,7 +2310,10 @@
             "forestry",
             "conservation"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 489,
+          "chunks": 513,
+          "completed_at": "2026-05-16T10:57:44.911351"
         },
         {
           "code": "AQUA",
@@ -2186,7 +2330,10 @@
             "aquaculture",
             "marine"
           ],
-          "status": "pending"
+          "status": "complete",
+          "sections": 644,
+          "chunks": 691,
+          "completed_at": "2026-05-16T10:57:47.594251"
         }
       ]
     }
