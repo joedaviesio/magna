@@ -106,7 +106,7 @@ const FALLBACK_LEGISLATION = [
 
 // Database stats - acts count derived from FALLBACK_LEGISLATION above
 const DATABASE_STATS = {
-  sections: 36956,
+  sections: 219534,
   chunks: 1361971,
 };
 
