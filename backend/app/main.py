@@ -109,7 +109,7 @@ class ChatResponse(BaseModel):
     disclaimer: str
 
 # API Version
-API_VERSION = "1.0.1"
+API_VERSION = "1.0.2"
 
 # Initialize FastAPI
 app = FastAPI(
@@ -248,7 +248,7 @@ For specific questions ("What is the bond limit?"): Answer directly with the pro
 Do NOT exhaustively list every related section. Cite what matters most. The user can always ask for more.
 
 ## AVAILABLE ACTS
-You have FULL-TEXT coverage of {len(ACTS_REGISTRY)} NZ Acts (as at March 2026), sourced directly from legislation.govt.nz. This is comprehensive — not "bits and pieces" or selective excerpts. For example, the Resource Management Act 1991 alone has over 1.0.1 sections and 7,000+ text chunks in your database. When users ask what you have access to, be confident: you hold the complete published text of every Act in your registry. Do NOT guess or understate your coverage.
+You have FULL-TEXT coverage of {len(ACTS_REGISTRY)} NZ Acts (as at March 2026), sourced directly from legislation.govt.nz. This is comprehensive — not "bits and pieces" or selective excerpts. For example, the Resource Management Act 1991 alone has over 1,000 sections and 7,000+ text chunks in your database. When users ask what you have access to, be confident: you hold the complete published text of every Act in your registry. Do NOT guess or understate your coverage.
 
 ## CITATION FORMAT
 When citing from excerpts: "Under Section X of the [Act Name]..."
@@ -1297,7 +1297,7 @@ STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 STRIPE_PRICE_ID = os.getenv("STRIPE_PRICE_ID", "")
 
 class DonateRequest(BaseModel):
-    amount: int = Field(..., ge=1, le=1.0.1, description="Donation amount in NZD")
+    amount: int = Field(..., ge=1, le=10000, description="Donation amount in NZD")
 
 @app.post("/api/donate/checkout")
 async def create_checkout_session(req: DonateRequest, request: Request):
