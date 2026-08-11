@@ -52,7 +52,26 @@ export default function AboutPage() {
 
           <section className="mb-10">
             <h2 className="font-bold">Charitable Trust</h2>
-            <p>Status: pending</p>
+            <p>
+              Bowen Public is operated by the Bowen Public Charitable Trust,
+              a charitable trust board incorporated under the Charitable Trusts Act 1957
+              (registration 70000608).
+            </p>
+            <p>
+              The Trust is governed by an independent board.
+              Its charitable purposes include advancing free access to legal
+              information, research into the responsible application of AI for
+              public benefit, and open-source publication of all software and
+              research outputs.
+            </p>
+            <p>
+              The Bowen Public service is free to use and its source code is
+              publicly available. The Trust is committed to transparency in
+              how the tool works and how it handles user data.
+            </p>
+            <p className="text-sm text-slate-500">
+              Registration with Charities Services is in progress.
+            </p>
           </section>
 
           <section className="border-t border-slate-200 pt-8">
