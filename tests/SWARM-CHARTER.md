@@ -1,6 +1,6 @@
 # Bowen Public — Test Swarm Charter v1
 
-_Authored by the project director, 2026-09-02. Swarm digests are judged against this document. Changes to this charter are a director decision, not a swarm or engineer decision._
+_Authored by the project director, 2026-09-02; v1.1 same day after swarm run 3 (added D1, corrected G2 cost). Swarm digests are judged against this document. Changes to this charter are a director decision, not a swarm or engineer decision._
 
 ## 1. Purpose
 
@@ -11,7 +11,7 @@ Cheap local language models (the "swarm") continuously generate probes against t
 | # | Surface | Entry point | Why |
 |---|---|---|---|
 | S1 | Retrieval | `search_similar()` in `backend/app/main.py`, via `GET /search` and `GET /api/v1/search` | The product's core promise: the right act and section for a plain-language question |
-| S2 | Query gate | `_is_legal_query()` and `detect_act_from_query()` | False rejects lose users; false accepts spend Opus tokens |
+| S2 | Query gate | `_is_legal_query()`, `has_registry_signal()` and `detect_act_from_query()` | False rejects skip retrieval entirely (the answer then has no citations); false accepts cost only ~30 ms of search — `/chat` calls the model either way |
 | S3 | API contracts | `/health`, `/acts`, `/search`, `/chat`, `/chat/stream` (SSE framing), `/api/v1/*` mirrors, error shapes from `errors.py`, attachment validation | Frontend and future org pilots depend on these shapes |
 
 Out of scope for v1: answer quality, Stripe endpoints, admin endpoints, the frontend, anything requiring a real Anthropic call.
@@ -26,7 +26,8 @@ Each probe asserts one or more of the following. A digest item must name the inv
 - **R4 Score sanity.** Scores are finite, descending, and every returned score ≥ `MIN_SIMILARITY` (0.25). Boosted scores never exceed `raw × MAX_BOOST` (2.5).
 - **R5 Latency.** `/search` p95 under the local budget recorded in the golden file header (set by the engineer after baseline; prod currently measures ~3–4 s).
 - **G1 Legal-signal recall.** Questions that name an act, a section, or an obviously legal concept are accepted by the gate.
-- **G2 Casual rejection.** Greetings, thanks, dev chatter under 30 words are rejected.
+- **G2 Casual rejection.** Greetings, thanks, dev chatter under 30 words are rejected. (Low severity: a false accept costs a search, not tokens.)
+- **D1 Act selection.** When `detect_act_from_query()` selects an act, that act is the one the question is about; ambiguous single keywords never select an act alone. Gate acceptance (G1) must not depend on act selection.
 - **G3 Follow-up continuity.** With legal history in the session, short follow-ups ("and section 6?") are accepted.
 - **A1 Shape stability.** Every endpoint's success and error JSON matches the recorded schema snapshot; `/chat/stream` emits `token…` then exactly one `done` event carrying `sources` and `disclaimer`, or one `error` event.
 - **A2 Validation.** Oversize messages (>5000 chars), >3 attachments, disallowed content types, and empty messages return 4xx with the documented error code, never 5xx.
@@ -46,7 +47,7 @@ Each probe asserts one or more of the following. A digest item must name the inv
 - **Cadence:** one digest per run; runs at most daily while the harness is new, weekly once stable. Never a live firehose to the engineer.
 - **Location:** `~/.cache/bowen-swarm/runs/<date>/DIGEST.md`; the director copies notable items into hq.
 - **Format:** (1) run header: charter version, data release, backend commit, model, probe counts by surface; (2) at most **10** items ranked by severity, each with: invariant, minimal reproducing request, observed vs expected, first-seen run; (3) a "still open from last run" list; (4) a "noise suppressed" count with one example. Anything that does not fit is an appendix, not a digest item.
-- **Severity:** `demo-visible` (a funder would notice) → `wrong-citation` → `contract-break` → `gate-miss` → `cosmetic`.
+- **Severity:** `demo-visible` (a funder would notice) → `wrong-citation` (D1, R2) → `contract-break` → `gate-miss` (G1) → `cosmetic` (G2).
 
 ## 6. Success and kill criteria
 
