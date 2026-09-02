@@ -4,22 +4,27 @@ import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, BookOpen, CheckCircle } from 'lucide-react';
+import { resolveApiUrl, BowenApiError } from '@/lib/api';
 
 function DonateContent() {
   const searchParams = useSearchParams();
   const success = searchParams.get('success') === 'true';
   const [amount, setAmount] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const donationAmount = amount ? parseInt(amount) : null;
 
   const handleDonate = async () => {
     if (!donationAmount || donationAmount < 1) return;
     setIsLoading(true);
+    setError(null);
 
     try {
+      // resolveApiUrl applies the same production guard as the rest of the
+      // API layer: no silent localhost fallback in a production build.
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8105'}/api/donate/checkout`,
+        resolveApiUrl('/api/donate/checkout'),
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -30,9 +35,16 @@ function DonateContent() {
       const data = await response.json();
       if (data.url) {
         window.location.href = data.url;
+        return;
       }
+      setError('Could not start the payment. Please try again.');
     } catch (err) {
       console.error('Failed to create checkout session:', err);
+      setError(
+        err instanceof BowenApiError
+          ? err.userMessage
+          : 'Could not start the payment. Please try again.'
+      );
     } finally {
       setIsLoading(false);
     }
@@ -120,6 +132,12 @@ function DonateContent() {
         >
           {isLoading ? 'Redirecting...' : donationAmount ? `Donate $${donationAmount}` : 'Enter an amount'}
         </button>
+
+        {error && (
+          <p role="alert" className="text-center text-sm text-red-600 mt-4">
+            {error}
+          </p>
+        )}
 
         <p className="text-center text-xs text-slate-400 mt-4">
           Payments processed securely by Stripe. Bowen Public is a New Zealand project.

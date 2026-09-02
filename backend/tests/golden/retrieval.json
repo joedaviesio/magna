@@ -1,0 +1,351 @@
+{
+  "header": {
+    "version": 1,
+    "charter": "tests/SWARM-CHARTER.md v1",
+    "created": "2026-09-02",
+    "data_release": "expansion-v0.4 working-tree artifacts (data/embeddings, 2,619,279 rows, config generated_at 2026-05-16T12:03:15)",
+    "data_release_note": "The v1.0-data GitHub release cache (~/.cache/bowen-data/v1.0-data, 1,361,971 rows) was still downloading when this set was built, so the fixture was cut from the local expansion artifacts instead. Section numbering is identical; row counts are not.",
+    "fixture": "backend/tests/fixtures/mini (10 acts, deduplicated on (act_title, section_number, text))",
+    "retrieval_path": "detect_act_from_query(q) -> search_similar(q, top_k=6, act_filter=detected_act) — the same path /chat takes",
+    "top_k": 6,
+    "match_rule": "expected (act, section) must appear among the top_k unique results",
+    "latency_budget_ms": {
+      "per_query_p95": 1500,
+      "per_query_max": 3000,
+      "note": "Local budget over the 10-act mini fixture on an M-series laptop. Steady-state cost measured 2026-09-02 is ~28 ms mean / ~57 ms p95 per query (encode ~14 ms, search_similar ~16-20 ms, detect_act_from_query ~0.3 ms). Widened from 900/2000 in C-002 because the machine now co-hosts the swarm backend: one golden run taken while that process was loading its index measured p95 1075 ms / max 1782 ms with no code change. The budget is deliberately ~25x the real cost so it catches algorithmic regressions, not scheduler contention. Production over the full release measures ~3-4 s and is not covered by this budget."
+    },
+    "entry_count": 55
+  },
+  "entries": [
+    {
+      "question": "My landlord kept my bond because they said the flat was dirty. Can they do that?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "40",
+      "notes": "Tenant's responsibilities — cleanliness and tidiness is the hook for bond deductions. Demo question."
+    },
+    {
+      "question": "What is the maximum bond a landlord can require?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "18",
+      "notes": "General bonds — 4 weeks' rent cap. key_sections.py maps 'maximum bond' and 'bond limit' here."
+    },
+    {
+      "question": "How much notice do I have to give to end a periodic tenancy?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "51",
+      "notes": "Termination by notice. Demo question."
+    },
+    {
+      "question": "Can my landlord enter the property without my permission?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "48",
+      "notes": "Landlord's right of entry. key_sections 'landlord entry' / 'entry without permission'."
+    },
+    {
+      "question": "How often is my landlord allowed to put the rent up?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "24",
+      "notes": "Rent increases. key_sections 'rent increase'."
+    },
+    {
+      "question": "What repairs and maintenance is a landlord responsible for?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "45",
+      "notes": "Landlord's responsibilities."
+    },
+    {
+      "question": "Does a tenancy agreement have to be in writing?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "13",
+      "notes": "Tenancy agreement must be in writing and signed."
+    },
+    {
+      "question": "What can a landlord do if the tenant stops paying rent?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "55",
+      "notes": "Termination on non-payment of rent, damage, or assault."
+    },
+    {
+      "question": "What does quiet enjoyment mean for a tenant?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "38",
+      "notes": "Quiet enjoyment."
+    },
+    {
+      "question": "My landlord gave me notice right after I complained to the Tribunal. Is that a retaliatory notice?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "54",
+      "notes": "Tribunal may declare notice retaliatory."
+    },
+    {
+      "question": "What must a landlord do with the bond after they receive it?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "19",
+      "notes": "Duties of landlord on receipt of bond — lodgement with the chief executive."
+    },
+    {
+      "question": "What is an unlawful act under the Residential Tenancies Act?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "109",
+      "notes": "Unlawful acts. Also exercises act detection on an explicit act name."
+    },
+    {
+      "question": "Do I have freedom of expression in New Zealand?",
+      "act": "New Zealand Bill of Rights Act 1990",
+      "section": "14",
+      "notes": "Freedom of expression. Demo question."
+    },
+    {
+      "question": "What protection is there against unreasonable search and seizure?",
+      "act": "New Zealand Bill of Rights Act 1990",
+      "section": "21",
+      "notes": "Unreasonable search and seizure."
+    },
+    {
+      "question": "What are my rights if the police arrest me?",
+      "act": "New Zealand Bill of Rights Act 1990",
+      "section": "23",
+      "notes": "Rights of persons arrested or detained."
+    },
+    {
+      "question": "Is freedom from discrimination protected in New Zealand law?",
+      "act": "New Zealand Bill of Rights Act 1990",
+      "section": "19",
+      "notes": "Freedom from discrimination."
+    },
+    {
+      "question": "Can rights under the Bill of Rights be limited by other laws?",
+      "act": "New Zealand Bill of Rights Act 1990",
+      "section": "5",
+      "notes": "Justified limitations — demonstrably justified in a free and democratic society."
+    },
+    {
+      "question": "What rights does someone charged with a criminal offence have?",
+      "act": "New Zealand Bill of Rights Act 1990",
+      "section": "24",
+      "notes": "Rights of persons charged."
+    },
+    {
+      "question": "What is the purpose of the Privacy Act 2020?",
+      "act": "Privacy Act 2020",
+      "section": "3",
+      "notes": "Purpose of this Act. Demo question."
+    },
+    {
+      "question": "What are the information privacy principles?",
+      "act": "Privacy Act 2020",
+      "section": "22",
+      "notes": "Information privacy principles. key_sections 'privacy principle'."
+    },
+    {
+      "question": "Does my organisation have to tell the Privacy Commissioner about a data breach?",
+      "act": "Privacy Act 2020",
+      "section": "114",
+      "notes": "Agency to notify Commissioner of notifiable privacy breach. key_sections 'data breach'."
+    },
+    {
+      "question": "When do I have to notify the people affected by a privacy breach?",
+      "act": "Privacy Act 2020",
+      "section": "115",
+      "notes": "Agency to notify affected individual or give public notice."
+    },
+    {
+      "question": "What counts as an interference with someone's privacy?",
+      "act": "Privacy Act 2020",
+      "section": "69",
+      "notes": "Interference with privacy of individual."
+    },
+    {
+      "question": "Does the Privacy Act apply to personal information held overseas?",
+      "act": "Privacy Act 2020",
+      "section": "23",
+      "notes": "Application of IPPs in relation to information held overseas."
+    },
+    {
+      "question": "I was dismissed without a good reason. What can I do about unjustified dismissal?",
+      "act": "Employment Relations Act 2000",
+      "section": "103",
+      "notes": "Personal grievance. Demo question; key_sections 'unjustified dismissal' maps to 103/103A."
+    },
+    {
+      "question": "What is the legal test for whether a dismissal was justified?",
+      "act": "Employment Relations Act 2000",
+      "section": "103A",
+      "notes": "Test of justification — the fair and reasonable employer test."
+    },
+    {
+      "question": "Am I an employee or an independent contractor?",
+      "act": "Employment Relations Act 2000",
+      "section": "6",
+      "notes": "Meaning of employee. key_sections 'employee vs contractor'."
+    },
+    {
+      "question": "How does a 90 day trial period work for a new employee?",
+      "act": "Employment Relations Act 2000",
+      "section": "67A",
+      "notes": "Trial period for 90 days or less. key_sections '90 day trial' / 'trial period'."
+    },
+    {
+      "question": "How long do I have to raise a personal grievance with my employer?",
+      "act": "Employment Relations Act 2000",
+      "section": "114",
+      "notes": "Raising personal grievance — the 90 day limit."
+    },
+    {
+      "question": "Does my employer have to deal with me in good faith?",
+      "act": "Employment Relations Act 2000",
+      "section": "4",
+      "notes": "Parties to employment relationship to deal with each other in good faith."
+    },
+    {
+      "question": "Can I ask my employer for written reasons for my dismissal?",
+      "act": "Employment Relations Act 2000",
+      "section": "120",
+      "notes": "Statement of reasons for dismissal."
+    },
+    {
+      "question": "Is misleading advertising illegal in New Zealand?",
+      "act": "Fair Trading Act 1986",
+      "section": "9",
+      "notes": "Misleading and deceptive conduct generally. key_sections 'misleading conduct'."
+    },
+    {
+      "question": "What is the purpose of the Fair Trading Act?",
+      "act": "Fair Trading Act 1986",
+      "section": "1A",
+      "notes": "Purpose. Overview-question boost path (early section + 'purpose')."
+    },
+    {
+      "question": "A shop made false claims about where a product was made.",
+      "act": "Fair Trading Act 1986",
+      "section": "13",
+      "notes": "False or misleading representations."
+    },
+    {
+      "question": "Are unfair contract terms banned in standard form consumer contracts?",
+      "act": "Fair Trading Act 1986",
+      "section": "26A",
+      "notes": "Unfair contract terms in standard form consumer contracts. key_sections 'unfair contract'."
+    },
+    {
+      "question": "A trader took my payment with no intention of ever supplying the goods.",
+      "act": "Fair Trading Act 1986",
+      "section": "21",
+      "notes": "Demanding or accepting payment without intending to supply as ordered."
+    },
+    {
+      "question": "Can a business make a claim about its product that it cannot substantiate?",
+      "act": "Fair Trading Act 1986",
+      "section": "12A",
+      "notes": "Unsubstantiated representations."
+    },
+    {
+      "question": "The product I bought is faulty. What are my rights against the retailer?",
+      "act": "Consumer Guarantees Act 1993",
+      "section": "18",
+      "notes": "Options against suppliers where goods do not comply with guarantees."
+    },
+    {
+      "question": "What does acceptable quality mean for goods I have bought?",
+      "act": "Consumer Guarantees Act 1993",
+      "section": "7",
+      "notes": "Meaning of acceptable quality."
+    },
+    {
+      "question": "Can I insist on a refund or a replacement instead of a repair?",
+      "act": "Consumer Guarantees Act 1993",
+      "section": "23",
+      "notes": "Consumers' options of refund or replacement."
+    },
+    {
+      "question": "Do services have to be carried out with reasonable care and skill?",
+      "act": "Consumer Guarantees Act 1993",
+      "section": "28",
+      "notes": "Guarantee as to reasonable care and skill."
+    },
+    {
+      "question": "What is the primary duty of care of a PCBU?",
+      "act": "Health and Safety at Work Act 2015",
+      "section": "36",
+      "notes": "Primary duty of care. key_sections 'pcbu duties'."
+    },
+    {
+      "question": "Can a worker refuse to carry out work that is unsafe?",
+      "act": "Health and Safety at Work Act 2015",
+      "section": "83",
+      "notes": "Right of worker to cease or refuse to carry out unsafe work. key_sections 'refuse unsafe work'."
+    },
+    {
+      "question": "What health and safety duties do company officers have?",
+      "act": "Health and Safety at Work Act 2015",
+      "section": "44",
+      "notes": "Duty of officers. key_sections 'officer duties'."
+    },
+    {
+      "question": "When does a workplace accident have to be notified to the regulator?",
+      "act": "Health and Safety at Work Act 2015",
+      "section": "56",
+      "notes": "Duty to notify notifiable event. key_sections 'notifiable event'."
+    },
+    {
+      "question": "What are the duties of a worker at a workplace?",
+      "act": "Health and Safety at Work Act 2015",
+      "section": "45",
+      "notes": "Duties of workers. key_sections 'worker duties'."
+    },
+    {
+      "question": "How do I make a request for official information from a government department?",
+      "act": "Official Information Act 1982",
+      "section": "12",
+      "notes": "Requests. key_sections 'access to information' maps oia 12-18."
+    },
+    {
+      "question": "What reasons can an agency give for withholding official information?",
+      "act": "Official Information Act 1982",
+      "section": "9",
+      "notes": "Other reasons for withholding official information."
+    },
+    {
+      "question": "What is the principle of availability of official information?",
+      "act": "Official Information Act 1982",
+      "section": "5",
+      "notes": "Principle of availability."
+    },
+    {
+      "question": "When am I allowed to use force in self defence?",
+      "act": "Crimes Act 1961",
+      "section": "48",
+      "notes": "Self-defence and defence of another. key_sections 'self defence'."
+    },
+    {
+      "question": "What is burglary under New Zealand criminal law?",
+      "act": "Crimes Act 1961",
+      "section": "231",
+      "notes": "Burglary."
+    },
+    {
+      "question": "What is the offence of obtaining by deception?",
+      "act": "Crimes Act 1961",
+      "section": "240",
+      "notes": "Obtaining by deception or causing loss by deception."
+    },
+    {
+      "question": "What is the offence of wounding with intent?",
+      "act": "Crimes Act 1961",
+      "section": "188",
+      "notes": "Wounding with intent. key_sections 'assault' boosts 188-196."
+    },
+    {
+      "question": "Who has the power to make laws in New Zealand?",
+      "act": "Constitution Act 1986",
+      "section": "15",
+      "notes": "Power of Parliament to make laws."
+    },
+    {
+      "question": "How long is the term of Parliament in New Zealand?",
+      "act": "Constitution Act 1986",
+      "section": "17",
+      "notes": "Term of Parliament."
+    }
+  ]
+}

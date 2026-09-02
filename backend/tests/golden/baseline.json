@@ -1,0 +1,268 @@
+{
+  "note": "Baseline re-recorded 2026-09-02 after C-002 (scored act detection) against backend/tests/fixtures/mini with the result-level dedupe in place (CANDIDATE_MULTIPLIER=12, top_k=6). It was 37/55 at C-001; scored detection took it to 44/55. known_misses are entries retrieval does not yet satisfy; they are xfail in test_golden_retrieval.py so an improvement shows up as XPASS rather than a failure. Entries in expected_pass are a regression lock: they must keep passing. Each known_miss records the act the detector chose, so wrong-act misses can be told apart from wrong-section ones.",
+  "recorded": "2026-09-02",
+  "top_k": 6,
+  "total": 55,
+  "passed": 44,
+  "pass_rate": 0.8,
+  "expected_pass": [
+    "What is the maximum bond a landlord can require?",
+    "How much notice do I have to give to end a periodic tenancy?",
+    "Can my landlord enter the property without my permission?",
+    "How often is my landlord allowed to put the rent up?",
+    "What repairs and maintenance is a landlord responsible for?",
+    "Does a tenancy agreement have to be in writing?",
+    "What does quiet enjoyment mean for a tenant?",
+    "My landlord gave me notice right after I complained to the Tribunal. Is that a retaliatory notice?",
+    "What must a landlord do with the bond after they receive it?",
+    "Do I have freedom of expression in New Zealand?",
+    "What protection is there against unreasonable search and seizure?",
+    "What are my rights if the police arrest me?",
+    "Can rights under the Bill of Rights be limited by other laws?",
+    "What is the purpose of the Privacy Act 2020?",
+    "What are the information privacy principles?",
+    "Does my organisation have to tell the Privacy Commissioner about a data breach?",
+    "When do I have to notify the people affected by a privacy breach?",
+    "What counts as an interference with someone's privacy?",
+    "Does the Privacy Act apply to personal information held overseas?",
+    "I was dismissed without a good reason. What can I do about unjustified dismissal?",
+    "What is the legal test for whether a dismissal was justified?",
+    "How does a 90 day trial period work for a new employee?",
+    "How long do I have to raise a personal grievance with my employer?",
+    "Does my employer have to deal with me in good faith?",
+    "Can I ask my employer for written reasons for my dismissal?",
+    "Is misleading advertising illegal in New Zealand?",
+    "What is the purpose of the Fair Trading Act?",
+    "A shop made false claims about where a product was made.",
+    "Are unfair contract terms banned in standard form consumer contracts?",
+    "A trader took my payment with no intention of ever supplying the goods.",
+    "What does acceptable quality mean for goods I have bought?",
+    "Can I insist on a refund or a replacement instead of a repair?",
+    "Do services have to be carried out with reasonable care and skill?",
+    "What is the primary duty of care of a PCBU?",
+    "Can a worker refuse to carry out work that is unsafe?",
+    "What are the duties of a worker at a workplace?",
+    "How do I make a request for official information from a government department?",
+    "What reasons can an agency give for withholding official information?",
+    "What is the principle of availability of official information?",
+    "When am I allowed to use force in self defence?",
+    "What is the offence of obtaining by deception?",
+    "What is the offence of wounding with intent?",
+    "Who has the power to make laws in New Zealand?",
+    "How long is the term of Parliament in New Zealand?"
+  ],
+  "known_misses": [
+    {
+      "question": "My landlord kept my bond because they said the flat was dirty. Can they do that?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "40",
+      "detected_act": "Residential Tenancies",
+      "got": [
+        [
+          "Residential Tenancies Act 1986",
+          "18"
+        ],
+        [
+          "Residential Tenancies Act 1986",
+          "21"
+        ],
+        [
+          "Residential Tenancies Act 1986",
+          "19"
+        ]
+      ]
+    },
+    {
+      "question": "What can a landlord do if the tenant stops paying rent?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "55",
+      "detected_act": "Residential Tenancies",
+      "got": [
+        [
+          "Residential Tenancies Act 1986",
+          "12"
+        ],
+        [
+          "Residential Tenancies Act 1986",
+          "6"
+        ],
+        [
+          "Residential Tenancies Act 1986",
+          "7"
+        ]
+      ]
+    },
+    {
+      "question": "What is an unlawful act under the Residential Tenancies Act?",
+      "act": "Residential Tenancies Act 1986",
+      "section": "109",
+      "detected_act": "Residential Tenancies",
+      "got": [
+        [
+          "Residential Tenancies Act 1986",
+          "10"
+        ],
+        [
+          "Residential Tenancies Act 1986",
+          "4"
+        ],
+        [
+          "Residential Tenancies Act 1986",
+          "21"
+        ]
+      ]
+    },
+    {
+      "question": "Is freedom from discrimination protected in New Zealand law?",
+      "act": "New Zealand Bill of Rights Act 1990",
+      "section": "19",
+      "detected_act": "Human Rights",
+      "got": []
+    },
+    {
+      "question": "What rights does someone charged with a criminal offence have?",
+      "act": "New Zealand Bill of Rights Act 1990",
+      "section": "24",
+      "detected_act": "Crimes",
+      "got": [
+        [
+          "Crimes Act 1961",
+          "53"
+        ],
+        [
+          "Crimes Act 1961",
+          "132"
+        ],
+        [
+          "Crimes Act 1961",
+          "54"
+        ]
+      ]
+    },
+    {
+      "question": "Am I an employee or an independent contractor?",
+      "act": "Employment Relations Act 2000",
+      "section": "6",
+      "detected_act": "Employment Relations",
+      "got": [
+        [
+          "Employment Relations Act 2000",
+          "69I"
+        ],
+        [
+          "Employment Relations Act 2000",
+          ""
+        ],
+        [
+          "Employment Relations Act 2000",
+          "69OC"
+        ]
+      ]
+    },
+    {
+      "question": "Can a business make a claim about its product that it cannot substantiate?",
+      "act": "Fair Trading Act 1986",
+      "section": "12A",
+      "detected_act": null,
+      "got": [
+        [
+          "Fair Trading Act 1986",
+          "22"
+        ],
+        [
+          "Consumer Guarantees Act 1993",
+          "9"
+        ],
+        [
+          "Consumer Guarantees Act 1993",
+          "36"
+        ]
+      ]
+    },
+    {
+      "question": "The product I bought is faulty. What are my rights against the retailer?",
+      "act": "Consumer Guarantees Act 1993",
+      "section": "18",
+      "detected_act": null,
+      "got": [
+        [
+          "Consumer Guarantees Act 1993",
+          "25"
+        ],
+        [
+          "Consumer Guarantees Act 1993",
+          "7"
+        ],
+        [
+          "Consumer Guarantees Act 1993",
+          "26"
+        ]
+      ]
+    },
+    {
+      "question": "What health and safety duties do company officers have?",
+      "act": "Health and Safety at Work Act 2015",
+      "section": "44",
+      "detected_act": "Health and Safety at Work",
+      "got": [
+        [
+          "Health and Safety at Work Act 2015",
+          "20"
+        ],
+        [
+          "Health and Safety at Work Act 2015",
+          "10"
+        ],
+        [
+          "Health and Safety at Work Act 2015",
+          "45"
+        ]
+      ]
+    },
+    {
+      "question": "When does a workplace accident have to be notified to the regulator?",
+      "act": "Health and Safety at Work Act 2015",
+      "section": "56",
+      "detected_act": null,
+      "got": [
+        [
+          "Health and Safety at Work Act 2015",
+          "200"
+        ],
+        [
+          "Health and Safety at Work Act 2015",
+          "119"
+        ],
+        [
+          "Health and Safety at Work Act 2015",
+          "198"
+        ]
+      ]
+    },
+    {
+      "question": "What is burglary under New Zealand criminal law?",
+      "act": "Crimes Act 1961",
+      "section": "231",
+      "detected_act": "Crimes",
+      "got": [
+        [
+          "Crimes Act 1961",
+          "4"
+        ],
+        [
+          "Crimes Act 1961",
+          "243"
+        ],
+        [
+          "Crimes Act 1961",
+          "245"
+        ]
+      ]
+    }
+  ],
+  "previous": {
+    "commission": "C-001",
+    "passed": 37,
+    "total": 55
+  }
+}

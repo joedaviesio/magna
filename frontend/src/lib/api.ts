@@ -36,20 +36,68 @@ export class BowenApiError extends Error {
     if (this.code === 'EMPTY_MESSAGE') {
       return 'Please enter a message.';
     }
+    if (this.code === 'API_URL_NOT_CONFIGURED') {
+      return 'Bowen is not configured correctly and cannot reach its backend. Please contact support.';
+    }
     return this.detail || this.message;
   }
 }
 
-const API_HOST = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8105';
+// The localhost fallback is a development convenience only. In a production
+// build it would silently point the app at a backend that isn't there, so the
+// misconfiguration is surfaced instead of being papered over.
+const DEV_API_FALLBACK = 'http://localhost:8105';
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const CONFIGURED_API_HOST = process.env.NEXT_PUBLIC_API_URL;
+
+export const API_URL_MISCONFIGURED = IS_PRODUCTION && !CONFIGURED_API_HOST;
+
+const MISCONFIGURED_MESSAGE =
+  'NEXT_PUBLIC_API_URL is not set in this production build. ' +
+  'Set it to the backend URL at build time; the http://localhost:8105 fallback is development-only.';
+
+if (API_URL_MISCONFIGURED) {
+  console.error(`[Bowen] ${MISCONFIGURED_MESSAGE}`);
+}
+
+const API_HOST = CONFIGURED_API_HOST || DEV_API_FALLBACK;
 // Use versioned API by default, fall back to legacy if needed
 const API_VERSION = 'v1';
 const API_BASE = `${API_HOST}/api/${API_VERSION}`;
 const LEGACY_API_BASE = API_HOST;
 
+/**
+ * Throws a BowenApiError (which the existing error-banner path renders) when a
+ * production build has no API URL configured, rather than quietly calling
+ * localhost.
+ */
+function assertApiConfigured(): void {
+  if (!API_URL_MISCONFIGURED) return;
+  console.error(`[Bowen] ${MISCONFIGURED_MESSAGE}`);
+  throw new BowenApiError(0, {
+    error: 'Bowen is not configured correctly.',
+    code: 'API_URL_NOT_CONFIGURED',
+    detail: MISCONFIGURED_MESSAGE,
+  });
+}
+
+/**
+ * Absolute URL for a backend path that is not under /api/v1 (e.g. the donate
+ * checkout endpoint), with the same production guard applied. Throws a
+ * BowenApiError with code API_URL_NOT_CONFIGURED rather than silently
+ * returning a localhost URL in a production build.
+ */
+export function resolveApiUrl(path: string): string {
+  assertApiConfigured();
+  return `${API_HOST}${path}`;
+}
+
 async function fetchWithFallback(
   endpoint: string,
   options?: RequestInit
 ): Promise<Response> {
+  assertApiConfigured();
+
   // Try versioned API first
   try {
     const response = await fetch(`${API_BASE}${endpoint}`, options);
@@ -124,6 +172,15 @@ export async function sendMessageStream(
       content_type: a.content_type,
       data: a.data,
     }));
+  }
+
+  try {
+    assertApiConfigured();
+  } catch (e) {
+    callbacks.onError(
+      e instanceof BowenApiError ? e.userMessage : 'Bowen is not configured correctly.'
+    );
+    return;
   }
 
   // Try versioned API first, fall back to legacy

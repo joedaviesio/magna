@@ -1189,26 +1189,167 @@ ACTS_REGISTRY: Dict[str, Dict] = {
 }
 
 
-def detect_act_from_query(query: str) -> Optional[str]:
-    """Detect if user is asking about a specific Act using the registry.
+# =============================================================================
+# Act detection
+# =============================================================================
+#
+# Detection act-filters retrieval, so a wrong answer here is worse than no
+# answer: the response silently cites the wrong statute. The matcher therefore
+# scores every act that matches and only commits when one is clearly ahead.
+#
+# Scoring: each matched keyword is worth (words * _WORD_WEIGHT + characters), so
+# a multi-word keyword always outranks any number of characters of a single-word
+# one. An act's score is the sum over its matched keywords.
 
-    Uses word boundary matching to prevent false positives like 'pla' matching 'explain'.
+_WORD_WEIGHT = 1000
+
+# The winner must beat the runner-up by at least this much. 100 sits above any
+# plausible character-count difference between two single-word keywords and
+# below one whole word, so the rule reads: win on matched words, not on
+# incidental keyword length. Ties are ambiguous and yield None.
+_DETECTION_MARGIN = 100
+
+# Keywords too ambiguous to select an act on their own. They still add to an
+# act's score once something stronger has matched, but an act whose *only*
+# evidence is an ambiguous keyword is never chosen — retrieval decides instead.
+# Two recurring failure shapes are represented here: ordinary English words that
+# happen to be a keyword, and words naming the *actor* in a question rather than
+# its subject-matter. Every entry is a wrong citation observed in C-001 triage
+# or the first swarm run:
+#
+#   "power to make laws"           -> Electricity Act           (power)
+#   "if the police arrest me"      -> Policing Act              (police)
+#   "use force in self defence"    -> Defence Act               (defence)
+#   "duties do company officers"   -> Companies Act             (company)
+#   "consumer contracts"           -> Consumer Guarantees       (consumer)
+#   "never supplying the goods"    -> Sale of Goods Act         (goods)
+#   "unfair contract terms"        -> Contract and Commercial   (contract)
+#   "search and seizure"           -> Search and Surveillance   (seizure)
+#   "business charge extra"        -> Criminal Procedure        (charge)
+#   "request from a government agency" -> Public Service        (government agency)
+#   "a New Zealand citizen"        -> Citizenship Act           (citizen)
+#   "can my employer check my social media" -> Employment Relations (employer)
+#
+# See the C-002 report for the registry keyword changes proposed alongside this.
+_WEAK_KEYWORDS = frozenset({
+    "power",       # Electricity Act — "power to make laws", "powers of entry"
+    "police",      # Policing Act — most police questions are about other acts
+    "defence",     # Defence Act — collides with the defence of self-defence
+    "company",     # Companies Act — any business question mentions a company
+    "consumer",    # Consumer Guarantees — collides with Fair Trading
+    "goods",       # Sale of Goods — collides with Consumer Guarantees / FTA
+    "contract",    # Contract and Commercial Law — every area of law has contracts
+    "contracts",
+    "seizure",     # Search and Surveillance — collides with NZBORA s21
+    "dispute",     # claimed by both Arbitration and Disputes Tribunals
+    "leave",       # Employment Relations — ordinary English verb
+    "charge",      # Criminal Procedure — "charge a fee" vs "charged with"
+    "citizen",     # Citizenship Act — names the person, not the subject
+    "employer",    # Employment Relations — names the actor; the subject is
+                   # often privacy, health and safety, or tax
+    "government agency",  # Public Service — names the actor in any question
+                          # about dealing with government
+})
+
+
+def _keyword_score(keyword: str) -> int:
+    """Word count dominates; characters break ties within the same word count."""
+    return _WORD_WEIGHT * len(keyword.split()) + len(keyword)
+
+
+def _build_keyword_index():
+    """Precompile every keyword pattern once, at import."""
+    index = []
+    for short_name, act_info in ACTS_REGISTRY.items():
+        entries = []
+        for kw in act_info["keywords"]:
+            kw_lower = kw.lower()
+            # Word boundaries stop 'pla' matching 'explain'.
+            pattern = re.compile(r'\b' + re.escape(kw_lower) + r'\b')
+            entries.append((pattern, _keyword_score(kw_lower),
+                            kw_lower in _WEAK_KEYWORDS))
+        index.append((short_name, act_info, entries))
+    return index
+
+
+_KEYWORD_INDEX = _build_keyword_index()
+
+
+def _act_base_name(act_info: Dict) -> str:
+    """The filter string search_similar() matches against act_title."""
+    title = act_info["title"]
+    return title.rsplit(" Act", 1)[0] if " Act" in title else title
+
+
+def score_acts_for_query(query: str) -> List[Dict]:
+    """Every act matching `query`, best first. Exposed for tests and triage."""
+    query_lower = query.lower()
+    scored = []
+
+    for short_name, act_info, entries in _KEYWORD_INDEX:
+        score = 0
+        matched = 0
+        has_strong = False
+        for pattern, kw_score, is_weak in entries:
+            if pattern.search(query_lower):
+                score += kw_score
+                matched += 1
+                if not is_weak:
+                    has_strong = True
+        if matched:
+            scored.append({
+                "short_name": short_name,
+                "base_name": _act_base_name(act_info),
+                "score": score,
+                "matched": matched,
+                "has_strong": has_strong,
+            })
+
+    scored.sort(key=lambda a: (a["score"], a["matched"]), reverse=True)
+    return scored
+
+
+def has_registry_signal(query: str) -> bool:
+    """True if the query mentions ANY registry keyword, strong or ambiguous.
+
+    Deliberately separate from detect_act_from_query(). A question can carry a
+    real legal signal ("can my employer...", "a business charged me...") without
+    there being enough evidence to commit to an act filter. Retrieval and
+    filtering are different decisions: this answers "is this a legal question?",
+    detection answers "which act do we restrict to?".
+
+    Conflating the two is what C-002 broke — the gate treated a detected act as
+    its only registry evidence, so tightening detection silently made the gate
+    reject questions it used to accept.
     """
     query_lower = query.lower()
+    for _short_name, _act_info, entries in _KEYWORD_INDEX:
+        for pattern, _score, _is_weak in entries:
+            if pattern.search(query_lower):
+                return True
+    return False
 
-    for short_name, act_info in ACTS_REGISTRY.items():
-        for kw in act_info["keywords"]:
-            # Use word boundary matching to ensure we match whole words only
-            # This prevents 'pla' from matching 'explain' or 'property' from matching 'patent'
-            pattern = r'\b' + re.escape(kw) + r'\b'
-            if re.search(pattern, query_lower):
-                # Return the base name for filtering (e.g., "Residential Tenancies")
-                title = act_info["title"]
-                # Extract the base name (without year)
-                base_name = title.rsplit(" Act", 1)[0] if " Act" in title else title
-                return base_name
 
-    return None
+def detect_act_from_query(query: str) -> Optional[str]:
+    """Detect which Act a query is about, or None if it is not clear.
+
+    Returns the act's base name (title without " Act <year>"), which
+    search_similar() uses as its act filter. Returns None when nothing matches,
+    when the only evidence is a weak keyword, or when two acts are within
+    _DETECTION_MARGIN of each other — in those cases an unfiltered search is
+    safer than a confidently wrong citation.
+    """
+    candidates = [a for a in score_acts_for_query(query) if a["has_strong"]]
+    if not candidates:
+        return None
+
+    best = candidates[0]
+    if len(candidates) > 1:
+        runner_up = candidates[1]
+        if best["score"] - runner_up["score"] < _DETECTION_MARGIN:
+            return None
+
+    return best["base_name"]
 
 
 def get_all_acts() -> List[Dict]:
