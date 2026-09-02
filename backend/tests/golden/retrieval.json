@@ -10,9 +10,9 @@
     "top_k": 6,
     "match_rule": "expected (act, section) must appear among the top_k unique results",
     "latency_budget_ms": {
-      "per_query_p95": 900,
-      "per_query_max": 2000,
-      "note": "Local budget over the 10-act mini fixture on an M-series laptop, measured 2026-09-02 (observed p95 ~40 ms, budget set with generous headroom for CI). Production over the full release measures ~3-4 s and is not covered by this budget."
+      "per_query_p95": 1500,
+      "per_query_max": 3000,
+      "note": "Local budget over the 10-act mini fixture on an M-series laptop. Steady-state cost measured 2026-09-02 is ~28 ms mean / ~57 ms p95 per query (encode ~14 ms, search_similar ~16-20 ms, detect_act_from_query ~0.3 ms). Widened from 900/2000 in C-002 because the machine now co-hosts the swarm backend: one golden run taken while that process was loading its index measured p95 1075 ms / max 1782 ms with no code change. The budget is deliberately ~25x the real cost so it catches algorithmic regressions, not scheduler contention. Production over the full release measures ~3-4 s and is not covered by this budget."
     },
     "entry_count": 55
   },

@@ -1,10 +1,10 @@
 {
-  "note": "Baseline recorded 2026-09-02 against backend/tests/fixtures/mini with the result-level dedupe in place (CANDIDATE_MULTIPLIER=12, top_k=6). known_misses are entries retrieval does not yet satisfy; they are xfail in test_golden_retrieval.py so an improvement shows up as XPASS rather than a failure. Entries in expected_pass are a regression lock: they must keep passing.",
+  "note": "Baseline re-recorded 2026-09-02 after C-002 (scored act detection) against backend/tests/fixtures/mini with the result-level dedupe in place (CANDIDATE_MULTIPLIER=12, top_k=6). It was 37/55 at C-001; scored detection took it to 44/55. known_misses are entries retrieval does not yet satisfy; they are xfail in test_golden_retrieval.py so an improvement shows up as XPASS rather than a failure. Entries in expected_pass are a regression lock: they must keep passing. Each known_miss records the act the detector chose, so wrong-act misses can be told apart from wrong-section ones.",
   "recorded": "2026-09-02",
   "top_k": 6,
   "total": 55,
-  "passed": 37,
-  "pass_rate": 0.6727,
+  "passed": 44,
+  "pass_rate": 0.8,
   "expected_pass": [
     "What is the maximum bond a landlord can require?",
     "How much notice do I have to give to end a periodic tenancy?",
@@ -16,6 +16,8 @@
     "My landlord gave me notice right after I complained to the Tribunal. Is that a retaliatory notice?",
     "What must a landlord do with the bond after they receive it?",
     "Do I have freedom of expression in New Zealand?",
+    "What protection is there against unreasonable search and seizure?",
+    "What are my rights if the police arrest me?",
     "Can rights under the Bill of Rights be limited by other laws?",
     "What is the purpose of the Privacy Act 2020?",
     "What are the information privacy principles?",
@@ -32,6 +34,9 @@
     "Is misleading advertising illegal in New Zealand?",
     "What is the purpose of the Fair Trading Act?",
     "A shop made false claims about where a product was made.",
+    "Are unfair contract terms banned in standard form consumer contracts?",
+    "A trader took my payment with no intention of ever supplying the goods.",
+    "What does acceptable quality mean for goods I have bought?",
     "Can I insist on a refund or a replacement instead of a repair?",
     "Do services have to be carried out with reasonable care and skill?",
     "What is the primary duty of care of a PCBU?",
@@ -40,8 +45,10 @@
     "How do I make a request for official information from a government department?",
     "What reasons can an agency give for withholding official information?",
     "What is the principle of availability of official information?",
+    "When am I allowed to use force in self defence?",
     "What is the offence of obtaining by deception?",
     "What is the offence of wounding with intent?",
+    "Who has the power to make laws in New Zealand?",
     "How long is the term of Parliament in New Zealand?"
   ],
   "known_misses": [
@@ -106,20 +113,6 @@
       ]
     },
     {
-      "question": "What protection is there against unreasonable search and seizure?",
-      "act": "New Zealand Bill of Rights Act 1990",
-      "section": "21",
-      "detected_act": "Search and Surveillance",
-      "got": []
-    },
-    {
-      "question": "What are my rights if the police arrest me?",
-      "act": "New Zealand Bill of Rights Act 1990",
-      "section": "23",
-      "detected_act": "Policing",
-      "got": []
-    },
-    {
       "question": "Is freedom from discrimination protected in New Zealand law?",
       "act": "New Zealand Bill of Rights Act 1990",
       "section": "19",
@@ -167,33 +160,6 @@
       ]
     },
     {
-      "question": "Are unfair contract terms banned in standard form consumer contracts?",
-      "act": "Fair Trading Act 1986",
-      "section": "26A",
-      "detected_act": "Consumer Guarantees",
-      "got": [
-        [
-          "Consumer Guarantees Act 1993",
-          "43"
-        ],
-        [
-          "Consumer Guarantees Act 1993",
-          "34"
-        ],
-        [
-          "Consumer Guarantees Act 1993",
-          "35"
-        ]
-      ]
-    },
-    {
-      "question": "A trader took my payment with no intention of ever supplying the goods.",
-      "act": "Fair Trading Act 1986",
-      "section": "21",
-      "detected_act": "Sale of Goods",
-      "got": []
-    },
-    {
       "question": "Can a business make a claim about its product that it cannot substantiate?",
       "act": "Fair Trading Act 1986",
       "section": "12A",
@@ -234,18 +200,24 @@
       ]
     },
     {
-      "question": "What does acceptable quality mean for goods I have bought?",
-      "act": "Consumer Guarantees Act 1993",
-      "section": "7",
-      "detected_act": "Sale of Goods",
-      "got": []
-    },
-    {
       "question": "What health and safety duties do company officers have?",
       "act": "Health and Safety at Work Act 2015",
       "section": "44",
-      "detected_act": "Companies",
-      "got": []
+      "detected_act": "Health and Safety at Work",
+      "got": [
+        [
+          "Health and Safety at Work Act 2015",
+          "20"
+        ],
+        [
+          "Health and Safety at Work Act 2015",
+          "10"
+        ],
+        [
+          "Health and Safety at Work Act 2015",
+          "45"
+        ]
+      ]
     },
     {
       "question": "When does a workplace accident have to be notified to the regulator?",
@@ -268,13 +240,6 @@
       ]
     },
     {
-      "question": "When am I allowed to use force in self defence?",
-      "act": "Crimes Act 1961",
-      "section": "48",
-      "detected_act": "Defence",
-      "got": []
-    },
-    {
       "question": "What is burglary under New Zealand criminal law?",
       "act": "Crimes Act 1961",
       "section": "231",
@@ -293,13 +258,11 @@
           "245"
         ]
       ]
-    },
-    {
-      "question": "Who has the power to make laws in New Zealand?",
-      "act": "Constitution Act 1986",
-      "section": "15",
-      "detected_act": "Electricity",
-      "got": []
     }
-  ]
+  ],
+  "previous": {
+    "commission": "C-001",
+    "passed": 37,
+    "total": 55
+  }
 }
