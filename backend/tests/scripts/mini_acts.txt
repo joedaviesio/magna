@@ -1,0 +1,12 @@
+# Acts included in backend/tests/fixtures/mini.
+# Titles must match `act_title` in the source metadata exactly (case-insensitive).
+Residential Tenancies Act 1986
+New Zealand Bill of Rights Act 1990
+Privacy Act 2020
+Employment Relations Act 2000
+Fair Trading Act 1986
+Consumer Guarantees Act 1993
+Official Information Act 1982
+Constitution Act 1986
+Crimes Act 1961
+Health and Safety at Work Act 2015
