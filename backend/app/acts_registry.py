@@ -1309,6 +1309,27 @@ def score_acts_for_query(query: str) -> List[Dict]:
     return scored
 
 
+def has_registry_signal(query: str) -> bool:
+    """True if the query mentions ANY registry keyword, strong or ambiguous.
+
+    Deliberately separate from detect_act_from_query(). A question can carry a
+    real legal signal ("can my employer...", "a business charged me...") without
+    there being enough evidence to commit to an act filter. Retrieval and
+    filtering are different decisions: this answers "is this a legal question?",
+    detection answers "which act do we restrict to?".
+
+    Conflating the two is what C-002 broke — the gate treated a detected act as
+    its only registry evidence, so tightening detection silently made the gate
+    reject questions it used to accept.
+    """
+    query_lower = query.lower()
+    for _short_name, _act_info, entries in _KEYWORD_INDEX:
+        for pattern, _score, _is_weak in entries:
+            if pattern.search(query_lower):
+                return True
+    return False
+
+
 def detect_act_from_query(query: str) -> Optional[str]:
     """Detect which Act a query is about, or None if it is not clear.
 

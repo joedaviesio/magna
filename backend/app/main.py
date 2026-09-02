@@ -175,7 +175,7 @@ references = []  # Curated scholarly references
 
 # Import act detection from registry (single source of truth)
 print("[BOOT] Importing acts_registry...", flush=True)
-from .acts_registry import detect_act_from_query, get_all_acts, ACTS_REGISTRY
+from .acts_registry import detect_act_from_query, get_all_acts, has_registry_signal, ACTS_REGISTRY
 print(f"[BOOT] Acts registry OK ({len(ACTS_REGISTRY)} acts)", flush=True)
 
 # System prompt
@@ -933,7 +933,48 @@ _LEGAL_SIGNALS = re.compile(
     r'\bcontract\b|'              # "contract"
     r'\bcriminal\b|'              # "criminal"
     r'\bfine\b|'                   # "fine"
-    r'\bnotice\b)'                 # "notice"
+    r'\bnotice\b|'                 # "notice"
+
+    # --- C-003 widening ------------------------------------------------------
+    # Swarm run 3 rejected ordinary phrasings of real legal questions. Stems
+    # rather than whole words where the stem is unambiguous, plus the everyday
+    # vocabulary people actually use instead of legal terms.
+    r'\blegal\w*|'                 # "legally" (\blegal\b missed it), "legalities"
+    r'\bemploy\w*|'                # "employer/employee/employment/employed"
+    r'\btenan\w*|'                 # "tenant/tenants/tenancy/tenancies"
+    r'\bcomplain\w*|'              # "complain/complaint/complaining"
+    r'\bbusiness\b|'
+    r'\bgovernment\b|'
+    r'\bparliament\b|'
+    r'\bhouse\s+of\s+representatives\b|'
+    r'\bcouncil\b|'
+    r'\bagreement\b|'
+    r'\brefund\b|'
+    r'\bwarrant(?:y|ies)\b|'
+    r'\bguarantee\w*|'
+    r'\bdispute\w*|'
+    r'\ballowed\b|'
+    r'\brequired\b|'
+    r'\bmust\b|'
+    r'\bentitled\b|'
+    r'\bcan\s+(?:my|a|an|the)\b|'  # "can my employer", "can a business"
+    r'\bwho\s+can\b|'
+    r'\bis\s+it\s+(?:legal|illegal|allowed)\b|'
+
+    # Consumer grievances: people describe the problem, not the statute. These
+    # are the phrasings the gate dropped in the C-002 report's examples.
+    r'\bwhat\s+should\s+i\s+do\b|'
+    r'\bwhat\s+can\s+i\s+do\b|'
+    r'\bmoney\s+back\b|'           # everyday synonym for "refund"
+    r'\b(?:builder|plumber|electrician|mechanic|tradesman|'
+    r'retailer|trader|supplier)\b|'
+
+    # Golden questions the gate would otherwise drop. Each is a term of art,
+    # narrow enough not to fire on casual text.
+    r'\bworkplace\b|'
+    r'\bdut(?:y|ies)\b|'
+    r'\breasonable\s+care\b|'
+    r'\bfalse\s+(?:claim|advertis|represent)\w*)'
 )
 
 
@@ -944,6 +985,14 @@ def _is_legal_query(query: str, detected_act: str | None, session_id: str = "") 
     """
     # If an act was detected, always search
     if detected_act:
+        return True
+
+    # An act filter needs strong, unambiguous evidence; deciding to *retrieve*
+    # does not. Any registry keyword — including the ambiguous ones that can no
+    # longer select an act on their own ("employer", "business", "charge") — is
+    # enough of a legal signal to search. Without this the gate silently
+    # tightens whenever detection does.
+    if has_registry_signal(query):
         return True
 
     # If there's conversation history, check if any recent message was legal

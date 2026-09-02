@@ -290,3 +290,128 @@ def test_detection_is_cheap(app_module):
             acts_registry.detect_act_from_query(q)
     per_call_ms = (time.perf_counter() - started) * 1000 / (10 * len(queries))
     assert per_call_ms < 5.0, f"detection cost {per_call_ms:.2f} ms/query"
+
+
+# --- C-003: gate robustness ---------------------------------------------------
+#
+# C-002 tightened detect_act_from_query(), and the gate's first line was
+# "if detected_act: return True". Weak keywords ("employer", "business",
+# "charge") had been selecting an act — for the wrong reason, with the wrong
+# filter — and that accident was the only thing accepting these questions. When
+# detection stopped selecting on them, the gate silently started rejecting real
+# legal questions. The fix separates "a registry keyword is present" from
+# "an act was selected"; these cases lock that apart.
+
+GATE_REGRESSION_ACCEPTS = [
+    # Rejected by swarm run 3, after C-002:
+    ("constitutional", "Who can dissolve the House of Representatives?"),
+    ("employment", "Can my employer change my working hours without my agreement?"),
+    # '\blegal\b' did not match "legally" — the stem does.
+    ("consumer", "Can a business legally charge me for a service that was promised for free?"),
+    ("privacy at work", "Can my employer look at my personal email and messages on my work computer?"),
+    # The consumer-grievance class reported at the end of C-002: a real question
+    # asked in plain English, with no legal vocabulary at all.
+    ("cga services", "What should I do if a service doesn't meet the promised quality?"),
+    ("cga goods", "What should I do if a product I bought stops working after a week?"),
+    ("building work", "The builder did a bad job on my deck, what now?"),
+    ("refund", "My flight was cancelled and they won't give me my money back"),
+]
+
+
+@pytest.mark.parametrize("label,query", GATE_REGRESSION_ACCEPTS,
+                         ids=[c[0] for c in GATE_REGRESSION_ACCEPTS])
+def test_c003_gate_accepts_ordinary_phrasing(app_module, label, query):
+    detected = app_module.detect_act_from_query(query)
+    assert app_module._is_legal_query(query, detected), f"false reject: {query!r}"
+
+
+# Widening the gate must not start accepting small talk. These are the G2 cases
+# from the swarm digests plus the obvious neighbours.
+CASUAL_REJECTS_C003 = [
+    "Hey there, how is the weather today?",
+    "good morning",
+    "lol",
+    "that's awesome, cheers",
+    "how are you doing today",
+    "thanks a million",
+    "no worries, bye",
+    "what's up",
+    "you're very helpful :)",
+    "I am just having a look around",
+    "testing testing 123",
+    "see you later",
+]
+
+
+@pytest.mark.parametrize("query", CASUAL_REJECTS_C003)
+def test_c003_casual_still_rejected(app_module, query):
+    detected = app_module.detect_act_from_query(query)
+    assert not app_module._is_legal_query(query, detected), f"false accept: {query!r}"
+
+
+def test_c003_casual_reject_case_count():
+    assert len(CASUAL_REJECTS_C003) >= 10, "C-003 asks for at least 10 casual reject cases"
+
+
+def test_every_golden_question_passes_the_gate(app_module, golden_entries):
+    """A question in the golden set is by definition a legal question. If the
+    gate drops one, retrieval never runs and the golden entry is unreachable in
+    production no matter how good the index is."""
+    rejected = [
+        e["question"] for e in golden_entries
+        if not app_module._is_legal_query(
+            e["question"], app_module.detect_act_from_query(e["question"]))
+    ]
+    assert not rejected, f"{len(rejected)} golden questions rejected by the gate: {rejected}"
+
+
+def test_registry_signal_is_independent_of_act_selection(app_module):
+    """The C-002 regression in one assertion: a query can carry a registry
+    keyword without any act being selected, and the gate must accept it."""
+    from backend.app import acts_registry
+
+    query = "Can my employer change my working hours without my agreement?"
+    assert acts_registry.has_registry_signal(query) is True
+    assert acts_registry.detect_act_from_query(query) is None
+    assert app_module._is_legal_query(query, None) is True
+
+
+@pytest.mark.parametrize("keyword", ["employer", "charge", "company", "citizen",
+                                     "goods", "consumer", "police", "power"])
+def test_ambiguous_keywords_still_signal_the_gate(app_module, keyword):
+    """Ambiguous registry keywords no longer select an act (C-002) but must
+    still count as a legal signal (C-003)."""
+    from backend.app import acts_registry
+
+    query = f"a question about my {keyword}"
+    assert acts_registry.has_registry_signal(query) is True
+    assert acts_registry.detect_act_from_query(query) is None
+    assert app_module._is_legal_query(query, None) is True
+
+
+@pytest.mark.parametrize("word", ["business", "government", "parliament", "council",
+                                  "agreement", "warranty", "entitled", "allowed"])
+def test_c003_added_words_match_the_signal_regex(app_module, word):
+    """The vocabulary added to _LEGAL_SIGNALS in C-003. Some of these are also
+    registry keywords; the regex must carry them regardless, so the gate does
+    not depend on the registry alone."""
+    query = f"is a {word} involved here"
+    assert app_module._LEGAL_SIGNALS.search(query), f"{word!r} not matched by _LEGAL_SIGNALS"
+
+
+def test_registry_signal_absent_for_small_talk(app_module):
+    from backend.app import acts_registry
+
+    for query in ["hey", "thanks!", "how is the weather today", "my name is Joe"]:
+        assert acts_registry.has_registry_signal(query) is False, query
+
+
+def test_legal_signal_stems(app_module):
+    """The stems added in C-003 must match the inflections that broke, without
+    matching unrelated words."""
+    assert app_module._LEGAL_SIGNALS.search("is that legally binding")      # legal\w*
+    assert app_module._LEGAL_SIGNALS.search("my employer said no")          # employ\w*
+    assert app_module._LEGAL_SIGNALS.search("the tenancies were ended")     # tenan\w*
+    assert app_module._LEGAL_SIGNALS.search("I want to complain about it")  # complain\w*
+    assert not app_module._LEGAL_SIGNALS.search("hey there")
+    assert not app_module._LEGAL_SIGNALS.search("nice weather today")
