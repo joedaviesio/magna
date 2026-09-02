@@ -81,6 +81,17 @@ function assertApiConfigured(): void {
   });
 }
 
+/**
+ * Absolute URL for a backend path that is not under /api/v1 (e.g. the donate
+ * checkout endpoint), with the same production guard applied. Throws a
+ * BowenApiError with code API_URL_NOT_CONFIGURED rather than silently
+ * returning a localhost URL in a production build.
+ */
+export function resolveApiUrl(path: string): string {
+  assertApiConfigured();
+  return `${API_HOST}${path}`;
+}
+
 async function fetchWithFallback(
   endpoint: string,
   options?: RequestInit
