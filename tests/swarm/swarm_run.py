@@ -120,7 +120,7 @@ def main():
                 items.append({"inv": "G2", "q": c, "act": act, "msg": "gate accepted a casual message"})
 
     if a.golden and os.path.exists(a.golden):
-        for g in json.load(open(a.golden)).get("cases", []):
+        for g in json.load(open(a.golden)).get("entries", []):
             n_probe += 1
             f, dt, results = check_search(a.backend, g["question"], expect_act=g["act"])
             hit = any(r["act_title"] == g["act"] and str(r["section_number"]).strip() == str(g["section"]).strip() for r in results)
