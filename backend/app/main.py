@@ -45,13 +45,18 @@ load_dotenv()
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")  # For accessing logs
 LOGS_DIR = Path(os.getenv("LOGS_DIR", "logs"))  # Use env var for Railway volume
-EMBEDDINGS_DIR = Path("data/embeddings")
+EMBEDDINGS_DIR = Path(os.getenv("EMBEDDINGS_DIR", "data/embeddings"))
 REFERENCES_DIR = Path("data/references")
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 TOP_K = 5
 MIN_SIMILARITY = 0.25  # Floor: discard results below this cosine similarity
 MAX_BOOST = 2.5        # Cap: prevent multiplicative boost inflation
 MAX_HISTORY = 10       # Max conversation turns (user+assistant pairs) to keep
+CANDIDATE_MULTIPLIER = 12  # Over-fetch factor before result-level dedupe
+
+# Offline test/swarm switch: when set, no Anthropic call is ever made.
+STUB_LLM = os.getenv("BOWEN_STUB_LLM", "").strip().lower() in ("1", "true", "yes", "on")
+STUB_RESPONSE = "[stub] This is a stubbed Bowen response generated without calling the Anthropic API."
 
 # In-memory conversation history keyed by session_id
 conversation_history: dict[str, list[dict]] = {}
@@ -148,6 +153,18 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
 
 
 app.add_middleware(SecurityHeadersMiddleware)
+
+class _StubAnthropicClient:
+    """Sentinel stand-in for the Anthropic client when BOWEN_STUB_LLM is set.
+
+    It has no network methods at all, so any accidental attempt to make a real
+    completion raises AttributeError rather than reaching api.anthropic.com.
+    """
+    def __repr__(self):
+        return "<StubAnthropicClient>"
+
+
+STUB_CLIENT = _StubAnthropicClient()
 
 # Global state
 embeddings = None
@@ -309,7 +326,7 @@ async def startup():
 
     # Validate required environment variables
     missing_vars = []
-    if not ANTHROPIC_API_KEY:
+    if not ANTHROPIC_API_KEY and not STUB_LLM:
         missing_vars.append("ANTHROPIC_API_KEY")
 
     if missing_vars:
@@ -347,7 +364,10 @@ async def startup():
     asyncio.get_event_loop().create_task(_load_embedding_model())
     
     # Initialize Anthropic client
-    if ANTHROPIC_API_KEY:
+    if STUB_LLM:
+        anthropic_client = STUB_CLIENT
+        print("✓ BOWEN_STUB_LLM=1 — using stub LLM, no Anthropic calls will be made", flush=True)
+    elif ANTHROPIC_API_KEY:
         try:
             import anthropic
             anthropic_client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
@@ -459,11 +479,34 @@ def search_similar(query: str, top_k: int = TOP_K, act_filter: str = None) -> Li
             if act_filter_lower not in act_title and act_filter_lower not in act_short:
                 similarities[i] = -1  # Exclude non-matching acts
 
-    # Get top-k indices
-    top_indices = np.argsort(similarities)[-top_k:][::-1]
+    # Over-fetch candidates so that duplicate rows in the corpus (the same
+    # (act, section, text) embedded many times) cannot crowd out distinct
+    # sections. See backend/tests/NOTES-duplication.md.
+    n_candidates = min(len(similarities), max(top_k * CANDIDATE_MULTIPLIER, top_k))
+
+    if n_candidates >= len(similarities):
+        candidate_indices = np.argsort(similarities)[::-1]
+    else:
+        part = np.argpartition(similarities, -n_candidates)[-n_candidates:]
+        candidate_indices = part[np.argsort(similarities[part])[::-1]]
 
     # Filter out low-relevance and excluded results
-    top_indices = [i for i in top_indices if similarities[i] >= MIN_SIMILARITY]
+    candidate_indices = [i for i in candidate_indices if similarities[i] >= MIN_SIMILARITY]
+
+    # Result-level dedupe: keep the highest-scoring row for each distinct
+    # (act_title, section_number, text). Ordering is preserved (descending
+    # score), and the act filter has already excluded non-matching rows.
+    top_indices = []
+    seen_keys = set()
+    for idx in candidate_indices:
+        meta = metadata[idx]
+        key = (meta.get("act_title", ""), meta.get("section_number", ""), meta.get("text", ""))
+        if key in seen_keys:
+            continue
+        seen_keys.add(key)
+        top_indices.append(idx)
+        if len(top_indices) >= top_k:
+            break
 
     results = []
     for idx in top_indices:
@@ -674,6 +717,10 @@ async def generate_response(
         attachment_context, image_blocks,
     )
 
+    if STUB_LLM:
+        _store_history(session_id, query, STUB_RESPONSE)
+        return STUB_RESPONSE
+
     try:
         message = anthropic_client.messages.create(
             model="claude-opus-4-6",
@@ -707,6 +754,12 @@ async def generate_response_stream(
         query, context, reference_context, session_id,
         attachment_context, image_blocks,
     )
+
+    if STUB_LLM:
+        for piece in STUB_RESPONSE.split(" "):
+            yield piece + " "
+        _store_history(session_id, query, STUB_RESPONSE)
+        return
 
     try:
         full_text = []
